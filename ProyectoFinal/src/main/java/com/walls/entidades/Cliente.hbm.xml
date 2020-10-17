@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Generated 15-may-2020 17:52:10 by Hibernate Tools 5.4.14.Final --><!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping auto-import="true" default-access="property" default-cascade="none" default-lazy="true">
+    <class dynamic-insert="false" dynamic-update="false" mutable="true" name="com.walls.entidades.Cliente" optimistic-lock="version" polymorphism="implicit" schema="public" select-before-update="false" table="cliente">
+        <composite-id class="com.walls.entidades.ClienteId" mapped="false" name="id" unsaved-value="undefined">
+            <key-property name="codCliente" type="java.lang.Integer">
+                <column name="cod_cliente"/>
+            </key-property>
+            <key-property name="dni" type="string">
+                <column name="dni"/>
+            </key-property>
+            <key-property name="nombre" type="string">
+                <column name="nombre"/>
+            </key-property>
+            <key-property name="apellido" type="string">
+                <column name="apellido"/>
+            </key-property>
+            <key-property name="fechaAlta" type="date">
+                <column length="13" name="fecha_alta"/>
+            </key-property>
+            <key-property name="codClinica" type="java.lang.Integer">
+                <column name="cod_clinica"/>
+            </key-property>
+        </composite-id>
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Generated 15-may-2020 17:52:10 by Hibernate Tools 5.4.14.Final --><!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping auto-import="true" default-access="property" default-cascade="none" default-lazy="true">
+    <class dynamic-insert="false" dynamic-update="false" mutable="true" name="com.walls.entidades.Clinica" optimistic-lock="version" polymorphism="implicit" schema="public" select-before-update="false" table="clinica">
+        <composite-id class="com.walls.entidades.ClinicaId" mapped="false" name="id" unsaved-value="undefined">
+            <key-property name="codClinica" type="java.lang.Integer">
+                <column name="cod_clinica"/>
+            </key-property>
+            <key-property name="nombre" type="string">
+                <column name="nombre"/>
+            </key-property>
+            <key-property name="direccion" type="string">
+                <column name="direccion"/>
+            </key-property>
+            <key-property name="mail" type="string">
+                <column name="mail"/>
+            </key-property>
+            <key-property name="telefono" type="java.lang.Integer">
+                <column name="telefono"/>
+            </key-property>
+        </composite-id>
+    </class>
+</hibernate-mapping>
