@@ -11,7 +11,7 @@ public class HibernateUtils {
         try {
             sessionFactory = new Configuration().configure("hibernate.cfg.xml").buildSessionFactory();
         } catch (Throwable ex) {
-            System.out.println("Fallo al configurar sessionFactory " + ex);
+            System.out.println("ERROR! La base de datos no está conectada " + ex);
             throw new ExceptionInInitializerError(ex);
         }
     }

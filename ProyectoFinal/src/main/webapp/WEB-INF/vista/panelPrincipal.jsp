@@ -2,26 +2,26 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
-<%@page import="com.walls.repository.Sentencias" %>
-<%@page import="java.util.List" %>
-<%@page import="com.walls.entidades.Clinica" %>
+<%@page import="com.walls.repository.Sentencias"%>
+<%@page import="java.util.List"%>
+<%@page import="com.walls.entidades.Clinica"%>
 <!DOCTYPE html>
 <html>
 
 <head>
 
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<meta name="description" content="">
-	
-	<title>Veterinarias</title>
-	
-	<!--     Bootstrap core CSS  -->
-	<link rel="stylesheet" type="text/css"
-		href="${pageContext.request.contextPath}/static/css/bootstrap.min.css" />
-	<link rel="stylesheet" type="text/css"
-		href="${pageContext.request.contextPath}/static/css/simple-sidebar.css" />
-	
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="">
+
+<title>Veterinarias</title>
+
+<!--     Bootstrap core CSS  -->
+<link rel="stylesheet" type="text/css"
+	href="${pageContext.request.contextPath}/static/css/bootstrap.min.css" />
+<link rel="stylesheet" type="text/css"
+	href="${pageContext.request.contextPath}/static/css/simple-sidebar.css" />
+
 
 </head>
 
@@ -29,58 +29,110 @@
 
 	<div class="d-flex" id="wrapper">
 
-		<!-- Sidebar -->
-		<div class="bg-light border-right" id="sidebar-wrapper">
-			<div class="sidebar-heading">Veterinaria</div>
-			<div class="list-group list-group-flush">
-				<a href="#" class="list-group-item list-group-item-action bg-light">Dashboard</a>
-				<a href="#" class="list-group-item list-group-item-action bg-light">Shortcuts</a>
-				<a href="#" class="list-group-item list-group-item-action bg-light">Overview</a>
-				<a href="#" class="list-group-item list-group-item-action bg-light">Events</a>
-				<a href="#" class="list-group-item list-group-item-action bg-light">Profile</a>
-				<a href="#" class="list-group-item list-group-item-action bg-light">Status</a>
-			</div>
-		</div>
-		<!-- /#sidebar-wrapper -->
+		<jsp:include page="cabeceraLogin.jsp" flush="false"></jsp:include>
 
 		<!-- Page Content -->
 		<div id="page-content-wrapper">
 
-			<nav
-				class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
-				<button class="btn btn-primary" id="menu-toggle">MENU</button>
-
-				<button class="navbar-toggler" type="button" data-toggle="collapse"
-					data-target="#navbarSupportedContent"
-					aria-controls="navbarSupportedContent" aria-expanded="false"
-					aria-label="Toggle navigation">
-					<span class="navbar-toggler-icon"></span>
-				</button>
-
-				<div class="collapse navbar-collapse" id="navbarSupportedContent">
-					<ul class="navbar-nav ml-auto mt-2 mt-lg-0">
-						<li class="nav-item active"><a class="nav-link" href="#">Home
-								<span class="sr-only">(current)</span>
-						</a></li>
-						<li class="nav-item"><a class="nav-link" href="#">Link</a></li>
-						<li class="nav-item dropdown"><a
-							class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
-							role="button" data-toggle="dropdown" aria-haspopup="true"
-							aria-expanded="false"> Cuenta </a>
-							<div class="dropdown-menu dropdown-menu-right"
-								aria-labelledby="navbarDropdown">
-								<a class="dropdown-item" href="#">Login</a> <a
-									class="dropdown-item" href="#">Another action</a>
-								<div class="dropdown-divider"></div>
-								<a class="dropdown-item" href="#">Something else here</a>
-							</div></li>
-					</ul>
-				</div>
-			</nav>
+			<jsp:include page="cabeceraMenu.jsp" flush="false"></jsp:include>
 
 			<div class="container-fluid">
-				<h1 class="mt-4">TOOODO</h1>
+				<section class="container">
+					<section class="main row">
+						<article class="content col-xs-12 col-sm-12 col-md-8">
+							<h3>LOGEADO</h3>
+							<p>
+								
+							</p>
+						</article>
+						<!-- puedo ocultar el aside para pantallas pequeñas  -->
+						<aside
+							class="d-none d-xs-block d-md-block col-xs-12 col-sm-4 col-md-3">
+							<h4>Front-end</h4>
+							<p>Frontend es la parte de un programa o dispositivo a la que
+								un usuario puede acceder directamente. Son todas las tecnologías
+								de diseño y desarrollo web que corren en el navegador y que se
+								encargan de la interactividad con los usuarios.</p>
+							<h4>Back-end</h4>
+							<p>Backend es la capa de acceso a datos de un software o
+								cualquier dispositivo, que no es directamente accesible por los
+								usuarios, además contiene la lógica de la aplicación que maneja
+								dichos datos. El Backend también accede al servidor, que es una
+								aplicación especializada que entiende la forma de como el
+								navegador solicita datos.</p>
+						</aside>
+					</section>
+
+					<section id="framework" class="row">
+
+						<div class="color1 col-xs-12 col-sm-6 col-md-3">
+							<h4>Bootstrap</h4>
+							<p>
+								<img class="img_frame" src="img/boot.png" alt="">
+								Bootstrap es una biblioteca o conjunto de herramientas de código
+								abierto para diseño de sitios y aplicaciones web. Contiene
+								plantillas de diseño con tipografía, formularios, botones,
+								cuadros, menús de navegación y otros elementos de diseño basado
+								en HTML y CSS.
+							</p>
+						</div>
+						<div class="color2 col-xs-12 col-sm-6 col-md-3">
+							<h4>Jquery</h4>
+							<p>
+								<img class="img_frame" src="img/jquery.png" alt=""> jQuery
+								es una biblioteca de manipulación de Modelo de Objetos del
+								Documento (DOM). El DOM es una representación en estructura de
+								árbol de todos los elementos de una página web. JQuery
+								simplifica la sintaxis para buscar, seleccionar y manipular
+								estos elementos DOM.
+							</p>
+						</div>
+						<div class="color3 col-xs-12 col-sm-6 col-md-3">
+							<h4>Json</h4>
+							<p>
+								<img class="img_frame" src="img/json.png" alt=""> Json es
+								un formato de texto sencillo para el intercambio de datos. Se
+								trata de un subconjunto de la notación literal de objetos de
+								JavaScript, aunque, debido a su amplia adopción como alternativa
+								a XML, se considera un formato independiente del lenguaje.
+							</p>
+						</div>
+						<div class="color4 col-xs-12 col-sm-6 col-md-3">
+							<h4>Angular Js</h4>
+							<p>
+								<img class="img_frame" src="img/angular.png" alt="">
+								AngularJs es un framework de JavaScript de código abierto,
+								mantenido por google, que se utiliza para crear y mantener
+								aplicaciones web de una sola página. Su objetivo es aumentar las
+								aplicaciones basadas en navegador con capacidad de Modelo Vista
+								Controlador (MVC)
+							</p>
+						</div>
+
+					</section>
+
+
+
+				</section>
+				<!-- Fin del div container	 -->
+
+
+				<section id="contact" class="map">
+					<iframe width="100%" height="100%" frameborder="0" scrolling="no"
+						marginheight="0" marginwidth="0"
+						src="https://maps.google.com/maps?f=q&amp;source=s_q&amp;hl=en&amp;geocode=&amp;q=Twitter,+Inc.,+Market+Street,+San+Francisco,+CA&amp;aq=0&amp;oq=twitter&amp;sll=28.659344,-81.187888&amp;sspn=0.128789,0.264187&amp;ie=UTF8&amp;hq=Twitter,+Inc.,+Market+Street,+San+Francisco,+CA&amp;t=m&amp;z=15&amp;iwloc=A&amp;output=embed"></iframe>
+					<br /> <small> <a
+						href="https://maps.google.com/maps?f=q&amp;source=embed&amp;hl=en&amp;geocode=&amp;q=Twitter,+Inc.,+Market+Street,+San+Francisco,+CA&amp;aq=0&amp;oq=twitter&amp;sll=28.659344,-81.187888&amp;sspn=0.128789,0.264187&amp;ie=UTF8&amp;hq=Twitter,+Inc.,+Market+Street,+San+Francisco,+CA&amp;t=m&amp;z=15&amp;iwloc=A"></a>
+					</small>
+				</section>
+
+				<footer>
+					<div class="container foot">
+						<h4>© 2020 Todos los derechos reservados</h4>
+					</div>
+				</footer>
 			</div>
+
 		</div>
 		<!-- /#page-content-wrapper -->
 

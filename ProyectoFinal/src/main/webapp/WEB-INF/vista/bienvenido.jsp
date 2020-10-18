@@ -13,7 +13,7 @@
         
 		
 		<link  rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/bootstrap.min.css"/>
-		<link  rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/index.css"/>
+<%-- 		<link  rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/index.css"/> --%>
        	
     </head>
     <body>

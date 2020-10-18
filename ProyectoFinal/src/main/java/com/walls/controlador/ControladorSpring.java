@@ -13,17 +13,12 @@ import com.walls.repository.Sentencias;
 @Controller
 public class ControladorSpring {
 
-	//Requestmapping mapea la ruta para redireccionar a un archivo indicado en la vista.
-
-    @RequestMapping(value="/")
-    public String index() {
-        return "panelPrincipal";
-    }
-    
+	
     
     @RequestMapping(value="/compruebaLogin", method=RequestMethod.POST)
     public String compruebaUsuario(Model model, @RequestParam("mail") String mail) {
     	
+    	mail = mail.toUpperCase();
     	boolean encontrado = Sentencias.CompruebaLogin(mail);
     	
       	if(encontrado) {
