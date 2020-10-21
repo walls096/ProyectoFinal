@@ -26,9 +26,6 @@
 .separacion {
 	padding-top: 5%;
 }
-.colorRed{
-	color:red;
-}
 </style>
 </head>
 
@@ -78,38 +75,40 @@
 		%>
 		<div class="container-fluid separacion">
 			<main class="login-form">
-	    
-	    <div class="cotainer">
-	        <div class="row justify-content-center">
-	            <div class="col-md-8">
-	                <div class="card">
-	                    <div class="card-header colorRed">${nombre}</div>
-	                    <div class="card-body">
-	                    
-	                        <form method="POST" action="compruebaPass">
-	                        
-	                            <div class="form-group row">
-	                                <label for="pass" class="col-md-4 col-form-label text-md-right">Password</label>
-	                                <div class="col-md-6">
-	                                    <input type="password" id="pass" class="form-control" name="pass" required autofocus>
-	                                </div>
-	                            </div>
-	
-	
-	                            <div class="col-md-6 offset-md-4">
-	                                <input type="submit" value="Enviar" class="btn btn-primary">
-	                                               
-	                            </div>
-	                            
-	                        </form>
-	                        
-	                    </div>
-	                </div>
-	            </div>
-	        </div>
-	    </div>
-	
-		</main>
+
+				<div class="cotainer">
+					<div class="row justify-content-center">
+						<div class="col-md-8">
+							<div class="card">
+								<div class="card-header">Comprueba tu correo electrónico...</div>
+								<div class="card-body">
+
+									<form method="POST" action="compruebaLogin">
+
+										<div class="form-group row">
+											<label for="mail"
+												class="col-md-4 col-form-label text-md-right">Correo</label>
+											<div class="col-md-6">
+												<input type="email" id="mail" class="form-control"
+													name="mail" required autofocus>
+											</div>
+										</div>
+
+
+										<div class="col-md-6 offset-md-4">
+											<input type="submit" value="Enviar" class="btn btn-primary">
+
+										</div>
+
+									</form>
+
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+			</main>
 			<!-- Fin del div container	 -->
 
 		</div>

@@ -19,10 +19,10 @@ public class ControladorSpring {
     public String compruebaUsuario(Model model, @RequestParam("mail") String mail) {
     	
     	mail = mail.toUpperCase();
-    	boolean encontrado = Sentencias.CompruebaLogin(mail);
+    	boolean encontrado = Sentencias.compruebaLogin(mail);
     	
       	if(encontrado) {
-      		model.addAttribute("nombre", Sentencias.getDatosClinica().get(0).getId().getNombre());
+      		model.addAttribute("nombre", "Hola de nuevo! "+Sentencias.getDatosClinica().get(0).getId().getNombre());
     		return "logeate";
       	}
     	else
@@ -33,10 +33,21 @@ public class ControladorSpring {
     @RequestMapping(value="/compruebaPass", method=RequestMethod.POST)
     public String compruebaPassUsuario(Model model,@RequestParam("pass") String pass) {
     	    	
-    	if(pass.equalsIgnoreCase((String)model.getAttribute("nombre")))
-    		return "hola";
-    	else
+    	if(Sentencias.compruebaPass(pass))
+    		return "panelPrincipal";
+    	else {
+    		model.addAttribute("nombre","Contraseña incorrecta, porfavor inténtelo de nuevo");
     		return "logeate";
+    	}
+    }
+    
+    @RequestMapping(value="/registrarClinica", method=RequestMethod.POST)
+    public String registrarClinica(Model model,@RequestParam("mail") String mail, @RequestParam("pass") String pass) {
+    	    	
+    	if(Sentencias.registrarClinica(mail,pass))
+    		return "panelPrincipal";
+		return null;
+    	
     }
     
     
