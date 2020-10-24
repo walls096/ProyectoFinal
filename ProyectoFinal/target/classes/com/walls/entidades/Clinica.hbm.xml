@@ -9,6 +9,9 @@
             <key-property name="nombre" type="string">
                 <column name="nombre"/>
             </key-property>
+            <key-property name="pass" type="string">
+                <column name="pass"/>
+            </key-property>
             <key-property name="direccion" type="string">
                 <column name="direccion"/>
             </key-property>

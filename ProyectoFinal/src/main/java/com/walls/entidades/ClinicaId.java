@@ -8,6 +8,7 @@ public class ClinicaId implements java.io.Serializable {
 
 	private Integer codClinica;
 	private String nombre;
+	private String pass;
 	private String direccion;
 	private String mail;
 	private Integer telefono;
@@ -15,12 +16,21 @@ public class ClinicaId implements java.io.Serializable {
 	public ClinicaId() {
 	}
 
-	public ClinicaId(Integer codClinica, String nombre, String direccion, String mail, Integer telefono) {
+	public ClinicaId(Integer codClinica, String nombre, String pass, String direccion, String mail, Integer telefono) {
 		this.codClinica = codClinica;
 		this.nombre = nombre;
+		this.pass = pass;
 		this.direccion = direccion;
 		this.mail = mail;
 		this.telefono = telefono;
+	}
+
+	public String getPass() {
+		return pass;
+	}
+
+	public void setPass(String pass) {
+		this.pass = pass;
 	}
 
 	public Integer getCodClinica() {

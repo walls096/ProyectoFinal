@@ -9,7 +9,7 @@ import org.hibernate.cfg.Configuration;
 import com.walls.entidades.Clinica;
 import com.walls.entidades.ClinicaId;
 
-public class Sentencias {
+public class BrokerLogin {
 
 	private static List<Clinica> datosClinica;
 	private static List<Clinica> todasLasCLinicas;
@@ -57,29 +57,43 @@ public class Sentencias {
 
 	public static boolean compruebaPass(String pass) {
 
-		if (datosClinica.get(0).getId().getNombre().equalsIgnoreCase(pass)) {
+		if (datosClinica.get(0).getId().getPass().equals(pass)) {
 			return true;
 		} else {
 			return false;
 		}
 
 	}
+	
+	/**
+	 * Primero recogemos todas las clinicas para verificar que el mail no existe, si existe abortamos,
+	 * tambien se comprueba el ultimo elemento para establecerle un id
+	 * @param mail
+	 * @param nombre
+	 * @param pass
+	 * @return
+	 */
 
-	public static boolean registrarClinica(String mail, String pass) {
+	public static boolean registrarClinica(String mail, String nombre, String pass) {
 
-		// abre la sesion con hibernate
 		Session session = HibernateUtils.getSessionFactory().openSession();
-		
 		
 		try {
 
 			session.beginTransaction();
 			
 			todasLasClinicas();
+			
+			for(Clinica clinica : todasLasCLinicas) {
+				if(clinica.getId().getMail().equalsIgnoreCase(mail)) {
+					return false;
+				}
+			}
+			
 			int id = todasLasCLinicas.size();
 			
 			Clinica nueva = new Clinica();
-			nueva.setId(new ClinicaId(id,pass,"",mail,0));
+			nueva.setId(new ClinicaId(id,nombre,pass,"",mail,0));
 			
 			session.save(nueva);
 
@@ -101,13 +115,10 @@ public class Sentencias {
 		return true;
 	}
 
+	
 	public static void todasLasClinicas() {
 
-		// abre la sesion con hibernate
 		Session session = HibernateUtils.getSessionFactory().openSession();
-
-		// recupera la sesion actual
-//		this.sesion = HibernateUtil.getSessionFactory().getCurrentSession();
 
 		try {
 
