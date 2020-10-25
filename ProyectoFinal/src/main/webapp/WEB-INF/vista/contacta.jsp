@@ -2,7 +2,7 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
-<%@page import="com.walls.repository.BrokerLogin"%>
+<%@page import="com.walls.repository.BrokerLoginClinicas"%>
 <%@page import="java.util.List"%>
 <%@page import="com.walls.entidades.Clinica"%>
 <!DOCTYPE html>
@@ -55,7 +55,7 @@
 						aria-expanded="false"> Sesión </a>
 						<div class="dropdown-menu dropdown-menu-right"
 							aria-labelledby="navbarDropdown">
-							<a class="dropdown-item" href="bienvenido">Inicia sesión</a> <a
+							<a class="dropdown-item" href="iniciaSesion">Inicia sesión</a> <a
 								class="dropdown-item" href="registrate">Regístrate</a>
 <!-- 							<div class="dropdown-divider"></div> -->
 <!-- 							<a class="dropdown-item" href="#">Cerrar sesion</a> -->

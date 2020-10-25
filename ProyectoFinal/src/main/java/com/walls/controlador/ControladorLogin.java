@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.walls.repository.BrokerLogin;
+import com.walls.repository.BrokerLoginClinicas;
 
 
 //anotacion de spring indica que esta clase es un controlador 
@@ -19,10 +19,10 @@ public class ControladorLogin {
     public String compruebaUsuario(Model model, @RequestParam("mail") String mail) {
     	
     	mail = mail.toUpperCase();
-    	boolean encontrado = BrokerLogin.compruebaLogin(mail);
+    	boolean encontrado = BrokerLoginClinicas.compruebaLogin(mail);
     	
       	if(encontrado) {
-      		model.addAttribute("nombre", "Hola de nuevo! "+BrokerLogin.getDatosClinica().get(0).getId().getNombre());
+      		model.addAttribute("nombre", "Hola de nuevo! "+BrokerLoginClinicas.getDatosClinica().get(0).getId().getNombre());
     		return "logeate";
       	}
     	else
@@ -33,7 +33,7 @@ public class ControladorLogin {
     @RequestMapping(value="/compruebaPass", method=RequestMethod.POST)
     public String compruebaPassUsuario(Model model,@RequestParam("pass") String pass) {
     	    	
-    	if(BrokerLogin.compruebaPass(pass))
+    	if(BrokerLoginClinicas.compruebaPass(pass))
     		return "panelPrincipal";
     	else {
     		model.addAttribute("nombre","Contraseña incorrecta, porfavor inténtelo de nuevo");
@@ -54,7 +54,7 @@ public class ControladorLogin {
     	if(pass.equals(pass2)) {
     		
     		mail = mail.toUpperCase();
-    		if(BrokerLogin.registrarClinica(mail,nombre,pass)) {
+    		if(BrokerLoginClinicas.registrarClinica(mail,nombre,pass)) {
     			return "panelPrincipal";
     		}else {
         		model.addAttribute("mensaje","El correo introducido ya existe");

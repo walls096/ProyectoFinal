@@ -3,26 +3,19 @@ package com.walls.repository;
 import java.util.List;
 
 import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.cfg.Configuration;
 
 import com.walls.entidades.Clinica;
 import com.walls.entidades.ClinicaId;
 
-public class BrokerLogin {
+public class BrokerLoginClinicas {
 
 	private static List<Clinica> datosClinica;
 	private static List<Clinica> todasLasCLinicas;
 
-	// Comprueba que los datos introducidos en el login aparecen en la base de
-	// datos.
+	
 	public static boolean compruebaLogin(String mail) {
 
-		// abre la sesion con hibernate
 		Session session = HibernateUtils.getSessionFactory().openSession();
-
-		// recupera la sesion actual
-//		this.sesion = HibernateUtil.getSessionFactory().getCurrentSession();
 
 		try {
 
