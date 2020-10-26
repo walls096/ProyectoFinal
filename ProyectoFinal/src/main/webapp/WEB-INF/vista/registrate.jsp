@@ -2,9 +2,8 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
-<%@page import="com.walls.repository.BrokerLoginClinicas"%>
+<%@page import="com.walls.repository.BrokerLoginClientes"%>
 <%@page import="java.util.List"%>
-<%@page import="com.walls.entidades.Clinica"%>
 <!DOCTYPE html>
 <html>
 
@@ -27,8 +26,8 @@
 	padding-top: 5%;
 }
 
-.colorRed{
-	color:red;
+.colorRed {
+	color: red;
 }
 </style>
 </head>
@@ -84,14 +83,23 @@
 					<div class="row justify-content-center">
 						<div class="col-md-8">
 							<div class="card">
-								<div class="card-header">No estas dado de alta, porfavor regístrate </div>
+								<div class="card-header">No estas dado de alta, porfavor
+									regístrate</div>
 								<div class="card-body">
 
-									<form method="POST" action="registrarClinica">
+									<form method="POST" action="registrarCliente">
 
 										<div class="form-group row">
+											<label for="dni"
+												class="col-md-4 col-form-label text-md-right">DNI</label>
+											<div class="col-md-6">
+												<input type="text" id="dni" class="form-control"
+													name="dni" required autofocus>
+											</div>
+										</div>
+										<div class="form-group row">
 											<label for="nombre"
-												class="col-md-4 col-form-label text-md-right">Nombre Clinica</label>
+												class="col-md-4 col-form-label text-md-right">Nombre</label>
 											<div class="col-md-6">
 												<input type="text" id="nombre" class="form-control"
 													name="nombre" required autofocus>
@@ -100,13 +108,23 @@
 
 										<div class="form-group row">
 											<label for="mail"
-												class="col-md-4 col-form-label text-md-right">Correo electrónico</label>
+												class="col-md-4 col-form-label text-md-right">Correo
+												electrónico</label>
 											<div class="col-md-6">
 												<input type="text" id="mail" class="form-control"
 													name="mail" required>
 											</div>
 										</div>
 										
+										<div class="form-group row">
+											<label for="fecha_nac"
+												class="col-md-4 col-form-label text-md-right">Fecha de nacimiento</label>
+											<div class="col-md-6">
+												<input type="date" id="fecha_nac" class="form-control"
+													name="fecha_nac" required>
+											</div>
+										</div>
+
 										<div class="form-group row">
 											<label for="pass"
 												class="col-md-4 col-form-label text-md-right">Contraseña</label>
@@ -115,10 +133,11 @@
 													name="pass" required autofocus>
 											</div>
 										</div>
-										
+
 										<div class="form-group row">
 											<label for="pass2"
-												class="col-md-4 col-form-label text-md-right">Repita Contraseña</label>
+												class="col-md-4 col-form-label text-md-right">Repita
+												Contraseña</label>
 											<div class="col-md-6">
 												<input type="password" id="pass2" class="form-control"
 													name="pass2" required autofocus>
@@ -127,15 +146,15 @@
 
 
 										<div class="col-md-6 offset-md-4">
-										
+
 											<input type="submit" value="Enviar" class="btn btn-primary">
-										
+
 										</div>
-										
+
 										<div class="col-md-6 offset-md-4 colorRed">
-										
+
 											<h4>${mensaje}</h4>
-										
+
 										</div>
 
 									</form>

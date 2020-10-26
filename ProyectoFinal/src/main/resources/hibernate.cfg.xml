@@ -12,7 +12,7 @@
         <property name="hibernate.search.autoregister_listeners">true</property>
         <property name="hibernate.validator.apply_to_ddl">false</property>
         <mapping resource="com/walls/entidades/Cliente.hbm.xml"/>
-        <mapping resource="com/walls/entidades/Clinica.hbm.xml"/>
         <mapping resource="com/walls/entidades/Mascota.hbm.xml"/>
+        <mapping resource="com/walls/entidades/Cita.hbm.xml"/>
     </session-factory>
 </hibernate-configuration>

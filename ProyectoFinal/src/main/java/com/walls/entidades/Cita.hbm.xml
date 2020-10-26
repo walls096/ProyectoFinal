@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Generated 25-oct-2020 17:32:58 by Hibernate Tools 5.4.14.Final --><!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping auto-import="true" default-access="property" default-cascade="none" default-lazy="true">
+    <class dynamic-insert="false" dynamic-update="false" mutable="true" name="com.walls.entidades.Cita" optimistic-lock="version" polymorphism="implicit" schema="public" select-before-update="false" table="cita">
+        <id name="codCita" type="int">
+            <column name="cod_cita"/>
+            <generator class="assigned"/>
+        </id>
+        <property generated="never" lazy="false" name="codCliente" optimistic-lock="true" type="java.lang.Integer" unique="false">
+            <column name="cod_cliente"/>
+        </property>
+        <property generated="never" lazy="false" name="codMascota" optimistic-lock="true" type="java.lang.Integer" unique="false">
+            <column name="cod_mascota"/>
+        </property>
+        <property generated="never" lazy="false" name="fecha" optimistic-lock="true" type="date" unique="false">
+            <column length="13" name="fecha"/>
+        </property>
+        <property generated="never" lazy="false" name="tipoCita" optimistic-lock="true" type="string" unique="false">
+            <column name="tipo_cita"/>
+        </property>
+        <property generated="never" lazy="false" name="observacion" optimistic-lock="true" type="string" unique="false">
+            <column name="observacion"/>
+        </property>
+    </class>
+</hibernate-mapping>

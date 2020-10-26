@@ -2,7 +2,7 @@
 <!DOCTYPE hibernate-reverse-engineering PUBLIC "-//Hibernate/Hibernate Reverse Engineering DTD 3.0//EN" "http://hibernate.org/dtd/hibernate-reverse-engineering-3.0.dtd" >
 
 <hibernate-reverse-engineering>
+  <table-filter match-schema="public" match-name="cita"/>
   <table-filter match-schema="public" match-name="cliente"/>
-  <table-filter match-schema="public" match-name="clinica"/>
   <table-filter match-schema="public" match-name="mascota"/>
 </hibernate-reverse-engineering>

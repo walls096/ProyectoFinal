@@ -1,28 +1,30 @@
 package com.walls.controlador;
 
+import java.sql.Date;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.walls.repository.BrokerLoginClinicas;
+import com.walls.repository.BrokerLoginClientes;
 
 
 //anotacion de spring indica que esta clase es un controlador 
 @Controller
 public class ControladorLogin {
 
-	
+	//HAY QUE IMPLEMENTAR EL USO DE SERVICES
     
     @RequestMapping(value="/compruebaLogin", method=RequestMethod.POST)
     public String compruebaUsuario(Model model, @RequestParam("mail") String mail) {
     	
     	mail = mail.toUpperCase();
-    	boolean encontrado = BrokerLoginClinicas.compruebaLogin(mail);
+    	boolean encontrado = BrokerLoginClientes.compruebaLogin(mail);
     	
       	if(encontrado) {
-      		model.addAttribute("nombre", "Hola de nuevo! "+BrokerLoginClinicas.getDatosClinica().get(0).getId().getNombre());
+      		model.addAttribute("nombre", "Hola de nuevo! "+BrokerLoginClientes.getDatosCliente().get(0).getNombre());
     		return "logeate";
       	}
     	else
@@ -33,7 +35,7 @@ public class ControladorLogin {
     @RequestMapping(value="/compruebaPass", method=RequestMethod.POST)
     public String compruebaPassUsuario(Model model,@RequestParam("pass") String pass) {
     	    	
-    	if(BrokerLoginClinicas.compruebaPass(pass))
+    	if(BrokerLoginClientes.compruebaPass(pass))
     		return "panelPrincipal";
     	else {
     		model.addAttribute("nombre","Contraseña incorrecta, porfavor inténtelo de nuevo");
@@ -42,11 +44,13 @@ public class ControladorLogin {
     }
     
     
-    @RequestMapping(value="/registrarClinica", method=RequestMethod.POST)
-    public String registrarClinica(
+    @RequestMapping(value="/registrarCliente", method=RequestMethod.POST)
+    public String registrarCliente(
     		Model model,
+    		@RequestParam("dni") String dni,
     		@RequestParam("mail") String mail,
     		@RequestParam("nombre") String nombre,
+    		@RequestParam("fecha_nac") Date fecha_nac,
     		@RequestParam("pass") String pass,
     		@RequestParam("pass2") String pass2) {
     	    	
@@ -54,7 +58,7 @@ public class ControladorLogin {
     	if(pass.equals(pass2)) {
     		
     		mail = mail.toUpperCase();
-    		if(BrokerLoginClinicas.registrarClinica(mail,nombre,pass)) {
+    		if(BrokerLoginClientes.registrarCliente(dni,mail,nombre,fecha_nac,pass)) {
     			return "panelPrincipal";
     		}else {
         		model.addAttribute("mensaje","El correo introducido ya existe");

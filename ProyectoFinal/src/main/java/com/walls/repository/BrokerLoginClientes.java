@@ -1,16 +1,16 @@
 package com.walls.repository;
 
+import java.sql.Date;
 import java.util.List;
 
 import org.hibernate.Session;
 
-import com.walls.entidades.Clinica;
-import com.walls.entidades.ClinicaId;
+import com.walls.entidades.Cliente;
 
-public class BrokerLoginClinicas {
+public class BrokerLoginClientes {
 
-	private static List<Clinica> datosClinica;
-	private static List<Clinica> todasLasCLinicas;
+	private static List<Cliente> datosCliente;
+	private static List<Cliente> todosLosClientes;
 
 	
 	public static boolean compruebaLogin(String mail) {
@@ -21,17 +21,17 @@ public class BrokerLoginClinicas {
 
 			session.beginTransaction();
 
-			List<Clinica> clinica = (List<Clinica>) session
-					.createQuery("from com.walls.entidades.Clinica where mail = '" + mail + "'", Clinica.class)
+			List<Cliente> cliente = (List<Cliente>) session
+					.createQuery("from com.walls.entidades.Cliente where mail = '" + mail + "'", Cliente.class)
 					.getResultList();
 
-			datosClinica = clinica;
+			datosCliente = cliente;
 
 			session.getTransaction().commit();
 
 			session.close();
 
-			if (!clinica.isEmpty())
+			if (!cliente.isEmpty())
 				return true;
 			else
 				return false;
@@ -50,7 +50,7 @@ public class BrokerLoginClinicas {
 
 	public static boolean compruebaPass(String pass) {
 
-		if (datosClinica.get(0).getId().getPass().equals(pass)) {
+		if (datosCliente.get(0).getPass().equals(pass)) {
 			return true;
 		} else {
 			return false;
@@ -67,7 +67,8 @@ public class BrokerLoginClinicas {
 	 * @return
 	 */
 
-	public static boolean registrarClinica(String mail, String nombre, String pass) {
+	public static boolean registrarCliente(
+			String dni, String mail, String nombre,Date fecha_nac, String pass) {
 
 		Session session = HibernateUtils.getSessionFactory().openSession();
 		
@@ -75,20 +76,26 @@ public class BrokerLoginClinicas {
 
 			session.beginTransaction();
 			
-			todasLasClinicas();
+			todosLosClientes();
 			
-			for(Clinica clinica : todasLasCLinicas) {
-				if(clinica.getId().getMail().equalsIgnoreCase(mail)) {
+			for(Cliente c : todosLosClientes) {
+				if(c.getMail().equalsIgnoreCase(mail)) {
 					return false;
 				}
 			}
 			
-			int id = todasLasCLinicas.size();
+			int id = todosLosClientes.size();
 			
-			Clinica nueva = new Clinica();
-			nueva.setId(new ClinicaId(id,nombre,pass,"",mail,0));
+			Cliente c = new Cliente();
+			c.setCodCliente(id);
+			c.setDni(dni);
+			c.setNombre(nombre);
+			c.setPass(pass);
+			c.setFechaNac(fecha_nac);
+			c.setMail(mail);
 			
-			session.save(nueva);
+			
+			session.save(c);
 
 			session.getTransaction().commit();
 
@@ -109,7 +116,7 @@ public class BrokerLoginClinicas {
 	}
 
 	
-	public static void todasLasClinicas() {
+	public static void todosLosClientes() {
 
 		Session session = HibernateUtils.getSessionFactory().openSession();
 
@@ -117,11 +124,11 @@ public class BrokerLoginClinicas {
 
 			session.beginTransaction();
 
-			List<Clinica> todasClinicas = (List<Clinica>) session
-					.createQuery("from com.walls.entidades.Clinica", Clinica.class)
+			List<Cliente> Clientes = (List<Cliente>) session
+					.createQuery("from com.walls.entidades.Cliente", Cliente.class)
 					.getResultList();
 
-			todasLasCLinicas = todasClinicas;
+			todosLosClientes = Clientes;
 
 			session.getTransaction().commit();
 
@@ -137,8 +144,8 @@ public class BrokerLoginClinicas {
 
 	}
 	
-	public static List<Clinica> getDatosClinica() {
-		return datosClinica;
+	public static List<Cliente> getDatosCliente() {
+		return datosCliente;
 	}
 
 	/*

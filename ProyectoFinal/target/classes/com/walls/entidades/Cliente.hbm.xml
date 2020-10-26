@@ -1,26 +1,31 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<!-- Generated 15-may-2020 17:52:10 by Hibernate Tools 5.4.14.Final --><!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 25-oct-2020 17:32:58 by Hibernate Tools 5.4.14.Final --><!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 <hibernate-mapping auto-import="true" default-access="property" default-cascade="none" default-lazy="true">
     <class dynamic-insert="false" dynamic-update="false" mutable="true" name="com.walls.entidades.Cliente" optimistic-lock="version" polymorphism="implicit" schema="public" select-before-update="false" table="cliente">
-        <composite-id class="com.walls.entidades.ClienteId" mapped="false" name="id" unsaved-value="undefined">
-            <key-property name="codCliente" type="java.lang.Integer">
-                <column name="cod_cliente"/>
-            </key-property>
-            <key-property name="dni" type="string">
-                <column name="dni"/>
-            </key-property>
-            <key-property name="nombre" type="string">
-                <column name="nombre"/>
-            </key-property>
-            <key-property name="apellido" type="string">
-                <column name="apellido"/>
-            </key-property>
-            <key-property name="fechaAlta" type="date">
-                <column length="13" name="fecha_alta"/>
-            </key-property>
-            <key-property name="codClinica" type="java.lang.Integer">
-                <column name="cod_clinica"/>
-            </key-property>
-        </composite-id>
+        <id name="codCliente" type="int">
+            <column name="cod_cliente"/>
+            <generator class="assigned"/>
+        </id>
+        <property generated="never" lazy="false" name="dni" optimistic-lock="true" type="string" unique="false">
+            <column name="dni"/>
+        </property>
+        <property generated="never" lazy="false" name="nombre" optimistic-lock="true" type="string" unique="false">
+            <column name="nombre"/>
+        </property>
+        <property generated="never" lazy="false" name="pass" optimistic-lock="true" type="string" unique="false">
+            <column name="pass"/>
+        </property>
+        <property generated="never" lazy="false" name="mail" optimistic-lock="true" type="string" unique="false">
+            <column name="mail"/>
+        </property>
+        <property generated="never" lazy="false" name="fechaNac" optimistic-lock="true" type="date" unique="false">
+            <column length="13" name="fecha_nac"/>
+        </property>
+        <property generated="never" lazy="false" name="direccion" optimistic-lock="true" type="string" unique="false">
+            <column name="direccion"/>
+        </property>
+        <property generated="never" lazy="false" name="localidad" optimistic-lock="true" type="string" unique="false">
+            <column name="localidad"/>
+        </property>
     </class>
 </hibernate-mapping>

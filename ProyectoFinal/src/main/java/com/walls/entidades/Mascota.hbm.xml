@@ -1,23 +1,22 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<!-- Generated 15-may-2020 17:52:10 by Hibernate Tools 5.4.14.Final --><!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 25-oct-2020 17:32:58 by Hibernate Tools 5.4.14.Final --><!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 <hibernate-mapping auto-import="true" default-access="property" default-cascade="none" default-lazy="true">
     <class dynamic-insert="false" dynamic-update="false" mutable="true" name="com.walls.entidades.Mascota" optimistic-lock="version" polymorphism="implicit" schema="public" select-before-update="false" table="mascota">
-        <composite-id class="com.walls.entidades.MascotaId" mapped="false" name="id" unsaved-value="undefined">
-            <key-property name="codMascota" type="java.lang.Integer">
-                <column name="cod_mascota"/>
-            </key-property>
-            <key-property name="nombre" type="string">
-                <column name="nombre"/>
-            </key-property>
-            <key-property name="tipo" type="string">
-                <column name="tipo"/>
-            </key-property>
-            <key-property name="raza" type="string">
-                <column name="raza"/>
-            </key-property>
-            <key-property name="codCliente" type="java.lang.Integer">
-                <column name="cod_cliente"/>
-            </key-property>
-        </composite-id>
+        <id name="codMascota" type="int">
+            <column name="cod_mascota"/>
+            <generator class="assigned"/>
+        </id>
+        <property generated="never" lazy="false" name="nombre" optimistic-lock="true" type="string" unique="false">
+            <column name="nombre"/>
+        </property>
+        <property generated="never" lazy="false" name="tipo" optimistic-lock="true" type="string" unique="false">
+            <column name="tipo"/>
+        </property>
+        <property generated="never" lazy="false" name="raza" optimistic-lock="true" type="string" unique="false">
+            <column name="raza"/>
+        </property>
+        <property generated="never" lazy="false" name="codCliente" optimistic-lock="true" type="java.lang.Integer" unique="false">
+            <column name="cod_cliente"/>
+        </property>
     </class>
 </hibernate-mapping>
