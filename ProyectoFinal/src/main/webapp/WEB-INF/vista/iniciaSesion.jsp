@@ -2,7 +2,7 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
-<%@page import="com.walls.repository.BrokerLoginClientes"%>
+<%@page import="com.walls.dao.ClienteDAO"%>
 <%@page import="java.util.List"%>
 <!DOCTYPE html>
 <html>

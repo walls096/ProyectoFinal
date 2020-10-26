@@ -2,7 +2,7 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
-<%@page import="com.walls.repository.BrokerLoginClientes"%>
+<%@page import="com.walls.dao.ClienteDAO"%>
 <%@page import="java.util.List"%>
 <!DOCTYPE html>
 <html>
@@ -32,12 +32,11 @@
 
 			<div class="sidebar-heading">Veterinaria</div>
 			<div class="list-group list-group-flush">
-				<a href="#" class="list-group-item list-group-item-action bg-light">Dashboard</a>
-				<a href="#" class="list-group-item list-group-item-action bg-light">Shortcuts</a>
-				<a href="#" class="list-group-item list-group-item-action bg-light">Overview</a>
-				<a href="#" class="list-group-item list-group-item-action bg-light">Events</a>
-				<a href="#" class="list-group-item list-group-item-action bg-light">Profile</a>
-				<a href="#" class="list-group-item list-group-item-action bg-light">Status</a>
+				<a href="panelPrincipal" class="list-group-item list-group-item-action bg-light">Citas</a>
+				<a href="#" class="list-group-item list-group-item-action bg-light">Administrar Citas</a>
+				<a href="listadoMascotas" class="list-group-item list-group-item-action bg-light">Mascotas</a>
+				<a href="#" class="list-group-item list-group-item-action bg-light">Administrar Mascotas</a>
+				<a href="#" class="list-group-item list-group-item-action bg-light">Datos personales</a>
 			</div>
 		</div>
 

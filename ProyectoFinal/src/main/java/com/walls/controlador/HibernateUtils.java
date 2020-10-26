@@ -1,4 +1,4 @@
-package com.walls.repository;
+package com.walls.controlador;
 
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;

@@ -1,13 +1,14 @@
-package com.walls.repository;
+package com.walls.dao;
 
 import java.sql.Date;
 import java.util.List;
 
 import org.hibernate.Session;
 
+import com.walls.controlador.HibernateUtils;
 import com.walls.entidades.Cliente;
 
-public class BrokerLoginClientes {
+public class ClienteDAO {
 
 	private static List<Cliente> datosCliente;
 	private static List<Cliente> todosLosClientes;
@@ -146,6 +147,10 @@ public class BrokerLoginClientes {
 	
 	public static List<Cliente> getDatosCliente() {
 		return datosCliente;
+	}
+	
+	public static int getCodCliente() {
+		return datosCliente.get(0).getCodCliente();
 	}
 
 	/*

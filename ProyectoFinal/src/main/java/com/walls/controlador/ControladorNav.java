@@ -22,6 +22,13 @@ public class ControladorNav {
     @RequestMapping(value="/contacta") public String formContact() { return "contacta"; }
     
     
+    //------------------------------------------------------------------------------
+  	//-----------------------MAPEO DE MENULOGEADO-------------------------------------
+  	//------------------------------------------------------------------------------
+    
+    @RequestMapping(value="/panelPrincipal") public String panelPrincipal() { return "panelPrincipal"; }
+    
+    @RequestMapping(value="/listadoMascotas") public String MascotasDeCliente() { return "listadoMascota"; }
     
     
     
