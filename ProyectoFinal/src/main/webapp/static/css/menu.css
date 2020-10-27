@@ -1,0 +1,20 @@
+@charset "ISO-8859-1";
+
+a {
+	border-radius: 20px 20px;
+	transition: background-color .5s;
+}
+
+a:hover {
+	background-color: #fbb540;
+}
+
+.weight-auto{
+	padding-bottom: 8%;
+}
+.texto-footer{
+	padding-top:5%;
+}
+.pie-pagina{
+	height: 155px;
+}

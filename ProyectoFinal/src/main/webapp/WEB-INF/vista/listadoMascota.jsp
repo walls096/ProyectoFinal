@@ -90,8 +90,6 @@
 							%>
 							
 						</article>
-						<!-- puedo ocultar el aside para pantallas pequeñas  -->
-						
 					</section>
 
 					

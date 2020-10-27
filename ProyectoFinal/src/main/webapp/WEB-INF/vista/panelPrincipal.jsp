@@ -65,7 +65,7 @@
 								aria-labelledby="navbarDropdown">
 								<a class="dropdown-item" href="modificarDatos">Modificar Datos</a>
 								<div class="dropdown-divider"></div>
-								<a class="dropdown-item" href="cerrarSesion">Cerrar sesión</a>
+								<a class="dropdown-item" href="index">Cerrar sesión</a>
 							</div></li>
 					</ul>
 				</div>

@@ -13,30 +13,34 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="">
 
-<title>Veterinarias</title>
+<title>Pets´ Clinic</title>
 
 <!--     Bootstrap core CSS  -->
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/static/css/bootstrap.min.css" />
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/static/css/simple-sidebar.css" />
+<link rel="stylesheet" type="text/css"
+	href="${pageContext.request.contextPath}/static/css/menu.css" />
 
 </head>
 
-<div class="d-flex" id="wrapper">
+<div class="d-flex bg-light" id="wrapper">
 
 	<!-- Page Content -->
 	<div id="page-content-wrapper">
 
 		<nav
-			class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
-			<img class="img_frame" src="${pageContext.request.contextPath}/static/img/boot.png" alt="">
+			class="navbar navbar-expand-lg navbar-light bg-info border-bottom text-warning">
+			<img class="img_frame"
+				src="${pageContext.request.contextPath}/static/img/icon.png" alt="">
 			<div id="page-content-wrapper">
-			<h2>TITULO</h2>
+				<h2>Clínica Pets</h2>
 			</div>
 
-			<button class="navbar-toggler" type="button" data-toggle="collapse"
-				data-target="#navbarSupportedContent"
+<!-- 			aparece en la vista movil el boton blanco -->
+			<button class="navbar-toggler bg-light" type="button"
+				data-toggle="collapse" data-target="#navbarSupportedContent"
 				aria-controls="navbarSupportedContent" aria-expanded="false"
 				aria-label="Toggle navigation">
 				<span class="navbar-toggler-icon"></span>
@@ -44,22 +48,20 @@
 
 			<div class="collapse navbar-collapse" id="navbarSupportedContent">
 				<ul class="navbar-nav ml-auto mt-2 mt-lg-0">
-					<li class="nav-item active"><a class="nav-link" href="index">Inicio
-							<span class="sr-only">(current)</span>
+					<li class="nav-item font-weight-bold"><a class="nav-link"
+						href="index">Inicio <span class="sr-only">(current)</span>
 					</a></li>
-					<li class="nav-item"><a class="nav-link" href="contacta">Contáctanos</a></li>
+					<li class="nav-item font-weight-bold"><a class="nav-link"
+						href="contacta">Contáctanos</a></li>
 					<li class="nav-item dropdown"><a
-						class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
-						role="button" data-toggle="dropdown" aria-haspopup="true"
-						aria-expanded="false"> Sesión </a>
-						<div class="dropdown-menu dropdown-menu-right"
+						class="nav-link dropdown-toggle font-weight-bold" href="#"
+						id="navbarDropdown" role="button" data-toggle="dropdown"
+						aria-haspopup="true" aria-expanded="false"> Sesión </a>
+						<div class="dropdown-menu dropdown-menu-right bg-info"
 							aria-labelledby="navbarDropdown">
-							<a class="dropdown-item" href="iniciaSesion">Inicia sesión</a> <a
-								class="dropdown-item" href="registrate">Regístrate</a>
-<!-- 							<div class="dropdown-divider"></div> -->
-<!-- 							<a class="dropdown-item" href="#">Cerrar sesion</a> -->
-						</div>
-					</li>
+							<a class="dropdown-item font-weight-bold" href="iniciaSesion">Inicia
+								sesión</a> <a class="dropdown-item font-weight-bold" href="registrate">Regístrate</a>
+						</div></li>
 				</ul>
 			</div>
 		</nav>
@@ -69,7 +71,6 @@
 			<section class="container">
 				<section class="main row">
 					<article class="content col-xs-12 col-sm-12 col-md-8">
-						<h3>Descripcion del trabajo</h3>
 						<p>
 							He realizado esta práctica haciendo uso de diferentes frameworks
 							los cuales enlazo gracias a su CDN. La mayoria de frameworks
@@ -175,17 +176,17 @@
 				</small>
 			</section>
 
-			<footer>
-				<div class="container foot">
-					<h4>© 2020 Todos los derechos reservados</h4>
-				</div>
-			</footer>
 		</div>
 
 	</div>
 	<!-- /#page-content-wrapper -->
 
 </div>
+<footer class="pie-pagina bg-info">
+	<div class="container foot text-center texto-footer">
+		<h4>© 2020 Todos los derechos reservados</h4>
+	</div>
+</footer>
 
 <!-- Bootstrap core JavaScript -->
 <script
