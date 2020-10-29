@@ -26,9 +26,13 @@ public class ControladorNav {
   	//-----------------------MAPEO DE MENULOGEADO-------------------------------------
   	//------------------------------------------------------------------------------
     
+    @RequestMapping(value="/cerrarSesion") public String cerrarSesion() { return "index"; }
+    
     @RequestMapping(value="/panelPrincipal") public String panelPrincipal() { return "panelPrincipal"; }
     
-    @RequestMapping(value="/listadoMascotas") public String MascotasDeCliente() { return "listadoMascota"; }
+    @RequestMapping(value="/listadoMascotas") public String mascotasDeCliente() { return "listadoMascota"; }
+    
+    @RequestMapping(value="/crearMascota") public String crearMascota() { return "crearMascota"; }
     
     
     

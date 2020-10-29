@@ -1,3 +1,4 @@
+<%@page import="com.walls.dao.MascotaDAO"%>
 <%@page import="com.walls.controlador.ControladorMascota"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
@@ -23,7 +24,39 @@
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/static/css/simple-sidebar.css" />
 
+<script>
+function redireccionar(){
+	window.location="crearMascota";
+}
 
+function modificar(){
+	/*import * as MascotaDAO from "com.walls.dao";
+	var cont = 0;
+	var id = -1;
+	for (var m in MascotaDAO.getTodasLasMascotas()){
+		if(document.getElementById("m.getCodMascota()").checked){
+			cont = cont +1;
+			id = m.getCodMascota();
+		}
+	}
+	
+	if(cont > 1){
+		alert("No se puede modificar mas de una mascota a la vez");
+	}else{
+		alert(id);
+	}
+	*/
+}
+</script>
+
+<style>
+.borde{
+	border: 2px solid red;
+}
+.margin{
+	margin: 2%;
+}
+</style>
 </head>
 
 <body>
@@ -36,7 +69,7 @@
 			<div class="list-group list-group-flush">
 				<a href="panelPrincipal" class="list-group-item list-group-item-action bg-light">Citas</a>
 				<a href="#" class="list-group-item list-group-item-action bg-light">Administrar Citas</a>
-				<a href="#" class="list-group-item list-group-item-action bg-light">Mascotas</a>
+				<a href="listadoMascotas" class="list-group-item list-group-item-action bg-light">Mascotas</a>
 				<a href="#" class="list-group-item list-group-item-action bg-light">Administrar Mascotas</a>
 				<a href="#" class="list-group-item list-group-item-action bg-light">Datos personales</a>
 			</div>
@@ -74,22 +107,51 @@
 			</nav>
 
 			<div class="container-fluid">
+				<h3 class="text-center">Listado de Mascotas</h3>
+				
 				<section class="container">
+				
 					<section class="main row">
-						<article class="content col-xs-12 col-sm-12 col-md-8">
-							<h3>mascotas</h3>
+					
+					<!-- Article de la botonera para modificar -->
+						<article class="col-xs-12 col-sm-12 col-md-12 border">
+							<div class="text-center text-md-left separacion">
+								<a class="btn btn-primary" onclick="redireccionar()">Agregar mascota</a>
+								<a class="btn btn-primary" onclick="modificar()">Modificar Mascota</a>
+								<a class="btn btn-primary" onclick="">Eliminar Mascota</a>
+							</div>
+						</article>
 							
 							<%
-								ControladorMascota mascota = new ControladorMascota();
-								for(Mascota m : mascota.obtenerMascotasCliente()){
+							
+								try{
+									for(Mascota m : MascotaDAO.getTodasLasMascotas()){
 									
 							%>
-								<p> <%= m.getNombre() %></p>
+									<article class="border margin col-xs-12 col-sm-5">
+									<input type="checkbox" id="<%=m.getCodMascota()%>" value="">
+										<p>Nombre: <%= m.getNombre() %></p>
+									</article>
+							<%
+									}if(MascotaDAO.getTodasLasMascotas().size() == 0){
+									
+							%>
+									<h5>Actualmente no tiene mascotas registradas</h5>
+									<div class="text-center text-md-left separacion">
+										<a class="btn btn-primary"
+											onclick="redireccionar()">Agregar mascota</a>
+									</div>
+							<%
+									}
+								}catch(NullPointerException e){
+									
+							%>
+								<meta http-equiv="Refresh" content="6;url=http://localhost:8080/ProyectoFinal/iniciaSesion">
+								<script>alert("La sesion ha caducado, le estamos redirigiendo al login...")</script>
 							<%
 								}
 							%>
 							
-						</article>
 					</section>
 
 					

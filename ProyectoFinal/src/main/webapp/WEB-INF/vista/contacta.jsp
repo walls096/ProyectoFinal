@@ -28,7 +28,11 @@
 	padding-top: 5%;
 }
 </style>
-
+<script>
+function funcionEnviar(){
+	alert("Mensaje enviado");
+}
+</script>
 </head>
 
 <div class="d-flex bg-light" id="wrapper">
@@ -89,7 +93,7 @@
 
 					<!--Grid column-->
 					<div class="col-md-9 mb-md-0 mb-5">
-						<form id="contact-form" name="contact-form" action="mail.php"
+						<form id="contact-form" name="contact-form" action=""
 							method="POST">
 
 							<!--Grid row-->
@@ -149,7 +153,7 @@
 
 						<div class="text-center text-md-left separacion">
 							<a class="btn btn-primary"
-								onclick="document.getElementById('contact-form').submit();">Enviar</a>
+								onclick="funcionEnviar();">Enviar</a>
 						</div>
 						<div class="status"></div>
 					</div>

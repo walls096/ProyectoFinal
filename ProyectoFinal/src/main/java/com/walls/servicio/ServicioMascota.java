@@ -11,10 +11,15 @@ import com.walls.entidades.Mascota;
 public class ServicioMascota {
 
 	
-	public static List<Mascota> obtenerMascotasCliente() throws Exception{
+	public static List<Mascota> obtenerMascotasCliente(){
 		
 		return MascotaDAO.obtenerMascotasCliente();
 		
+	}
+	
+	public static void agregarMascota(String nombre, String tipo, String raza) {
+		MascotaDAO.agregarMascota(nombre,tipo,raza);
+		MascotaDAO.getTodasLasMascotas();
 	}
 	
 }

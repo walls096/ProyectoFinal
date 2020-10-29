@@ -2,18 +2,16 @@ package com.walls.controlador;
 
 import java.sql.Date;
 
-import javax.servlet.http.HttpSession;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.walls.dao.ClienteDAO;
 import com.walls.servicio.ServicioCliente;
+import com.walls.servicio.ServicioMascota;
 
 
 //anotacion de spring indica que esta clase es un controlador 
@@ -41,8 +39,10 @@ public class ControladorCliente {
     @RequestMapping(value="/compruebaPass", method=RequestMethod.POST)
     public String compruebaPassUsuario(Model model,@RequestParam("pass") String pass) {
     	    	
-    	if(servicioCliente.compruebaPass(pass))
+    	if(servicioCliente.compruebaPass(pass)) {
+    		ServicioMascota.obtenerMascotasCliente();
     		return "panelPrincipal";
+    	}
     	else {
     		model.addAttribute("nombre","Contraseña incorrecta, porfavor inténtelo de nuevo");
     		return "logeate";

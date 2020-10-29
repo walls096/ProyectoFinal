@@ -148,13 +148,13 @@
 
 										<div class="col-md-6 offset-md-4">
 
-											<input type="submit" value="Enviar" class="btn btn-primary">
+											<input type="submit" value="Aceptar" class="btn btn-primary">
 
 										</div>
 
 										<div class="col-md-6 offset-md-4 colorRed">
 
-											<h4>${mensaje}</h4>
+											<h5>${mensaje}</h5>
 
 										</div>
 
