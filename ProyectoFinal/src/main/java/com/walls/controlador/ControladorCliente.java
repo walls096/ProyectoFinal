@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.walls.dao.ClienteDAO;
+import com.walls.repositorio.ClienteRepositorio;
 import com.walls.servicio.ServicioCliente;
 import com.walls.servicio.ServicioMascota;
 
@@ -28,7 +28,7 @@ public class ControladorCliente {
     	boolean encontrado = servicioCliente.compruebaLogin(mail);
     	
       	if(encontrado) {
-      		model.addAttribute("nombre", "Hola de nuevo "+ClienteDAO.getDatosCliente().get(0).getNombre()+" !");
+      		model.addAttribute("nombre", "Hola de nuevo "+ClienteRepositorio.getDatosCliente().get(0).getNombre()+" !");
     		return "logeate";
       	}
     	else
@@ -65,6 +65,7 @@ public class ControladorCliente {
     		
     		mail = mail.toUpperCase();
     		if(servicioCliente.registrarCliente(dni,mail,nombre,fecha_nac,pass)) {
+    			ServicioMascota.obtenerMascotasCliente();
     			return "panelPrincipal";
     		}else {
         		model.addAttribute("mensaje","El correo introducido ya existe");
@@ -78,6 +79,29 @@ public class ControladorCliente {
     	
     	
     }
+    
+    @RequestMapping(value="/modificarCliente", method=RequestMethod.POST)
+    public String modificarCliente(
+    		Model model,
+    		@RequestParam("mail") String mail,
+    		@RequestParam("nombre") String nombre,
+    		@RequestParam("direccion") String direccion,
+    		@RequestParam("localidad") String localidad) {
+    	    	
+    	mail = mail.toUpperCase();
+    	if(servicioCliente.modificarCliente(nombre,mail,direccion,localidad)) {
+    		
+    		return "panelPrincipal";
+    		
+		}else {
+    		model.addAttribute("mensaje","El correo introducido ya existe");
+    		return "modificarCliente";
+    	}
+    	
+    	
+    }
+    
+    
     
     
 }

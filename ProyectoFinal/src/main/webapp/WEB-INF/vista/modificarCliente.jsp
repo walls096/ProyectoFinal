@@ -20,6 +20,8 @@
 	href="${pageContext.request.contextPath}/static/css/bootstrap.min.css" />
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/static/css/simple-sidebar.css" />
+<link rel="stylesheet" type="text/css"
+	href="${pageContext.request.contextPath}/static/css/menu.css" />
 
 <style>
 .separacion {
@@ -37,9 +39,11 @@
 
 			<div class="sidebar-heading">Bienvenido <%=ClienteRepositorio.getDatosCliente().get(0).getNombre() %></div>
 			<div class="list-group list-group-flush">
-				<a href="panelPrincipal" class="list-group-item list-group-item-action bg-light">Citas</a>
-				<a href="#" class="list-group-item list-group-item-action bg-light">Administrar Citas</a>
-				<a href="listadoMascotas" class="list-group-item list-group-item-action bg-light">Mascotas</a>
+				<a href="panelPrincipal"
+					class="list-group-item list-group-item-action bg-light">Citas</a> <a
+					href="#" class="list-group-item list-group-item-action bg-light">Administrar
+					Citas</a> <a href="listadoMascotas"
+					class="list-group-item list-group-item-action bg-light">Mascotas</a>
 			</div>
 		</div>
 
@@ -59,14 +63,15 @@
 
 				<div class="collapse navbar-collapse" id="navbarSupportedContent">
 					<ul class="navbar-nav ml-auto mt-2 mt-lg-0">
-						
+
 						<li class="nav-item dropdown"><a
 							class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
 							role="button" data-toggle="dropdown" aria-haspopup="true"
 							aria-expanded="false"> Ajustes </a>
 							<div class="dropdown-menu dropdown-menu-right"
 								aria-labelledby="navbarDropdown">
-								<a class="dropdown-item" href="modificarCliente">Modificar Datos</a>
+								<a class="dropdown-item" href="modificarCliente">Modificar
+									Datos</a>
 								<div class="dropdown-divider"></div>
 								<a class="dropdown-item" href="cerrarSesion">Cerrar sesión</a>
 							</div></li>
@@ -78,7 +83,7 @@
 		<div class="container-fluid separacion">
 			<main class="login-form weight-auto">
 							<div class="text-center text-md-left">
-								<a class="btn btn-light" href="listadoMascotas">←</a>
+								<a class="btn btn-light" href="panelPrincipal">←</a>
 							</div>
 				<div class="cotainer">
 				
@@ -86,50 +91,80 @@
 					
 						<div class="col-md-8">
 							<div class="card">
-								<div class="card-header">Agrega una nueva mascota</div>
+								<div class="card-header">Datos actuales del cliente</div>
 								<div class="card-body">
 
-									<form method="POST" action="crearMascota">
+									<form method="POST" action="modificarCliente">
 									
+									<div class="col-md-6 offset-md-4 colorRed">
+
+											<h5>${mensaje}</h5>
+
+										</div>
+
+										<div class="form-group row">
+											<label for="dni"
+												class="col-md-4 col-form-label text-md-right">DNI</label>
+											<div class="col-md-6">
+												<input type="text" id="dni" class="form-control"
+													name="dni" required autofocus disabled placeholder="<%=ClienteRepositorio.getDatosCliente().get(0).getDni()%>">
+											</div>
+										</div>
 										<div class="form-group row">
 											<label for="nombre"
 												class="col-md-4 col-form-label text-md-right">Nombre</label>
 											<div class="col-md-6">
 												<input type="text" id="nombre" class="form-control"
-													name="nombre" required autofocus>
+													name="nombre" required autofocus placeholder="<%=ClienteRepositorio.getDatosCliente().get(0).getNombre()%>">
 											</div>
 										</div>
 
 										<div class="form-group row">
-											<label for="tipo"
-												class="col-md-4 col-form-label text-md-right">Tipo mascota</label>
+											<label for="mail"
+												class="col-md-4 col-form-label text-md-right">Correo
+												electrónico</label>
 											<div class="col-md-6">
-												<input type="text" id="tipo" class="form-control"
-													name="tipo" required>
+												<input type="text" id="mail" class="form-control"
+													name="mail" required placeholder="<%=ClienteRepositorio.getDatosCliente().get(0).getMail()%>">
 											</div>
 										</div>
 										
 										<div class="form-group row">
-											<label for="raza"
-												class="col-md-4 col-form-label text-md-right">Raza</label>
+											<label for="fecha_nac"
+												class="col-md-4 col-form-label text-md-right">Fecha de nacimiento</label>
 											<div class="col-md-6">
-												<input type="text" id="raza" class="form-control"
-													name="raza">
+												<input type="text" id="fecha_nac" class="form-control"
+													name="fecha_nac" required placeholder="<%=ClienteRepositorio.getDatosCliente().get(0).getFechaNac()%>" disabled>
 											</div>
 										</div>
-
+										
+										<div class="form-group row">
+											<label for="direccion"
+												class="col-md-4 col-form-label text-md-right">Dirección</label>
+											<div class="col-md-6">
+												<input type="text" id="direccion" class="form-control"
+													name="direccion" required placeholder="<%=ClienteRepositorio.getDatosCliente().get(0).getDireccion()%>">
+											</div>
+										</div>
+										
+										<div class="form-group row">
+											<label for="localidad"
+												class="col-md-4 col-form-label text-md-right">Localidad</label>
+											<div class="col-md-6">
+												<input type="text" id="localidad" class="form-control"
+													name="localidad" required placeholder="<%=ClienteRepositorio.getDatosCliente().get(0).getLocalidad()%>">
+													<input id="boton" type="button" value="Cambiar contraseña" onclick="cambiarPass()" class="btn btn-link">
+											</div>											
+										</div>
 
 										<div class="col-md-6 offset-md-4">
 
-											<input type="submit" value="Aceptar" class="btn btn-primary">
+											<input id="boton" type="submit" value="Guardar" class="btn btn-primary">
 
 										</div>
-
-										<div class="col-md-6 offset-md-4 colorRed">
-
-											<h5>${mensaje}</h5>
-
-										</div>
+										
+										
+										
 
 									</form>
 

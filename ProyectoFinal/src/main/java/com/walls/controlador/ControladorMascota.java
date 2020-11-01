@@ -1,15 +1,17 @@
 package com.walls.controlador;
 
-import java.sql.Date;
 import java.util.List;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.walls.entidades.Mascota;
+import com.walls.repositorio.MascotaRepositorio;
 import com.walls.servicio.ServicioMascota;
 
 @Controller
@@ -32,5 +34,30 @@ public class ControladorMascota {
 		return "listadoMascota";
     	
     }
+	
+	
+	@RequestMapping(value="/borrarMascota", method=RequestMethod.GET)
+    public String borrarMascota(
+    		Model model,
+    		@RequestParam("id") int id) {
+    	
+		//Eliminamos de la base de datos y de la lista
+		List<Mascota> mascota = ServicioMascota.obtenerUnaMascota(id);
+		ServicioMascota.eliminarMascota(mascota.get(0));
+		
+		for(Mascota m : MascotaRepositorio.getTodasLasMascotas()) {
+			if(id == m.getCodMascota()) {
+				ServicioMascota.borrarMascotaLista(m);
+				return "listadoMascota";
+			}
+		}
+		
+		
+		return null;
+		
+		
+    	
+    }
+	
 	
 }

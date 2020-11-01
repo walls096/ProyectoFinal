@@ -2,7 +2,7 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
-<%@page import="com.walls.dao.ClienteDAO"%>
+<%@page import="com.walls.repositorio.ClienteRepositorio"%>
 <%@page import="java.util.List"%>
 <!DOCTYPE html>
 <html>
@@ -30,13 +30,11 @@
 
 		<div class="bg-light border-right" id="sidebar-wrapper">
 
-			<div class="sidebar-heading">Veterinaria</div>
+			<div class="sidebar-heading">Bienvenido <%=ClienteRepositorio.getDatosCliente().get(0).getNombre() %></div>
 			<div class="list-group list-group-flush">
 				<a href="panelPrincipal" class="list-group-item list-group-item-action bg-light">Citas</a>
 				<a href="#" class="list-group-item list-group-item-action bg-light">Administrar Citas</a>
 				<a href="listadoMascotas" class="list-group-item list-group-item-action bg-light">Mascotas</a>
-				<a href="#" class="list-group-item list-group-item-action bg-light">Administrar Mascotas</a>
-				<a href="#" class="list-group-item list-group-item-action bg-light">Datos personales</a>
 			</div>
 		</div>
 
@@ -63,7 +61,7 @@
 							aria-expanded="false"> Ajustes </a>
 							<div class="dropdown-menu dropdown-menu-right"
 								aria-labelledby="navbarDropdown">
-								<a class="dropdown-item" href="modificarDatos">Modificar Datos</a>
+								<a class="dropdown-item" href="modificarCliente">Modificar Datos</a>
 								<div class="dropdown-divider"></div>
 								<a class="dropdown-item" href="index">Cerrar sesión</a>
 							</div></li>

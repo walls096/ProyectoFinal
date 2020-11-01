@@ -1,6 +1,7 @@
-package com.walls.dao;
+package com.walls.repositorio;
 
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.Session;
@@ -8,7 +9,7 @@ import org.hibernate.Session;
 import com.walls.controlador.HibernateUtils;
 import com.walls.entidades.Cliente;
 
-public class ClienteDAO {
+public class ClienteRepositorio {
 
 	private static List<Cliente> datosCliente;
 	private static List<Cliente> todosLosClientes;
@@ -95,7 +96,8 @@ public class ClienteDAO {
 			c.setFechaNac(fecha_nac);
 			c.setMail(mail);
 			
-			
+			datosCliente = new ArrayList<Cliente>();
+			datosCliente.add(c);
 			session.save(c);
 
 			session.getTransaction().commit();
@@ -107,7 +109,7 @@ public class ClienteDAO {
 
 		catch (Exception e) {
 
-			System.out.println("Error al crear nueva clinica.");
+			System.out.println("Error al crear el cliente.");
 			session.getTransaction().rollback();
 			session.close();
 			return false;
@@ -115,7 +117,99 @@ public class ClienteDAO {
 		
 		return true;
 	}
+	
+//	
+//	public static boolean ModificarPass() {
+//
+//		Session session = HibernateUtils.getSessionFactory().openSession();
+//		
+//		try {
+//
+//			session.beginTransaction();
+//			
+//			todosLosClientes();
+//			
+//			for(Cliente c : todosLosClientes) {
+//				if(c.getMail().equalsIgnoreCase(mail)) {
+//					return false;
+//				}
+//			}
+//			
+//			
+//			Cliente c = new Cliente();
+//			c.setNombre(nombre);
+//			c.setMail(mail);
+//			c.setDireccion(direccion);
+//			c.setLocalidad(localidad);
+//			
+//			
+//			session.update(c);
+//
+//			session.getTransaction().commit();
+//
+//			session.close();
+//
+//
+//		}
+//
+//		catch (Exception e) {
+//
+//			System.out.println("Error al modificar el cliente.");
+//			session.getTransaction().rollback();
+//			session.close();
+//			return false;
+//		}
+//		
+//		return true;
+//	}
+	
+	
 
+	public static boolean modificarCliente(
+			String nombre, String mail, String direccion, String localidad) {
+
+		Session session = HibernateUtils.getSessionFactory().openSession();
+		
+		try {
+
+			session.beginTransaction();
+			
+			todosLosClientes();
+			
+			for(Cliente c : todosLosClientes) {
+				if(c.getMail().equalsIgnoreCase(mail)) {
+					return false;
+				}
+			}
+			
+			
+			Cliente c = new Cliente();
+			c.setNombre(nombre);
+			c.setMail(mail);
+			c.setDireccion(direccion);
+			c.setLocalidad(localidad);
+			
+			
+			session.update(c);
+
+			session.getTransaction().commit();
+
+			session.close();
+
+
+		}
+
+		catch (Exception e) {
+
+			System.out.println("Error al modificar el cliente.");
+			session.getTransaction().rollback();
+			session.close();
+			return false;
+		}
+		
+		return true;
+	}
+	
 	
 	public static void todosLosClientes() {
 
@@ -151,6 +245,11 @@ public class ClienteDAO {
 	
 	public static int getCodCliente() {
 		return datosCliente.get(0).getCodCliente();
+	}
+	
+	public static void borrarListaCliente() {
+		datosCliente.clear();
+		todosLosClientes.clear();
 	}
 
 	/*

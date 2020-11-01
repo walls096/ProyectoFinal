@@ -85,7 +85,10 @@ public class Cliente implements java.io.Serializable {
 	}
 
 	public String getDireccion() {
-		return this.direccion;
+		if(this.direccion != null)
+			return this.direccion;
+		else
+			return "-- no especificado --";
 	}
 
 	public void setDireccion(String direccion) {
@@ -93,7 +96,10 @@ public class Cliente implements java.io.Serializable {
 	}
 
 	public String getLocalidad() {
-		return this.localidad;
+		if(this.localidad != null)
+			return this.localidad;
+		else
+			return "-- no especificado --";
 	}
 
 	public void setLocalidad(String localidad) {

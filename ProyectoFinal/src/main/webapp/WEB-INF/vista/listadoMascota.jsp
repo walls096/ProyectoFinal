@@ -1,10 +1,10 @@
-<%@page import="com.walls.dao.MascotaDAO"%>
+<%@page import="com.walls.repositorio.MascotaRepositorio"%>
 <%@page import="com.walls.controlador.ControladorMascota"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
-<%@page import="com.walls.dao.ClienteDAO"%>
+<%@page import="com.walls.repositorio.ClienteRepositorio"%>
 <%@page import="com.walls.entidades.Mascota"%>
 <%@page import="java.util.List"%>
 <!DOCTYPE html>
@@ -25,35 +25,32 @@
 	href="${pageContext.request.contextPath}/static/css/simple-sidebar.css" />
 
 <script>
-function redireccionar(){
-	window.location="crearMascota";
-}
+	function seguro(id) {
 
-function modificar(){
-	/*import * as MascotaDAO from "com.walls.dao";
-	var cont = 0;
-	var id = -1;
-	for (var m in MascotaDAO.getTodasLasMascotas()){
-		if(document.getElementById("m.getCodMascota()").checked){
-			cont = cont +1;
-			id = m.getCodMascota();
+		if (window.confirm("¿ Esta seguro que desea eliminar la mascota ?")) {
+			window.location = "borrarMascota?id="+id;
+		} else {
+			window.location = "listadoMascotas";
 		}
 	}
 	
-	if(cont > 1){
-		alert("No se puede modificar mas de una mascota a la vez");
-	}else{
-		alert(id);
+
+	function modificar() {
+		
 	}
-	*/
-}
 </script>
 
 <style>
-.borde{
+
+.separacion {
+	padding-top: 5%;
+}
+
+.borde {
 	border: 2px solid red;
 }
-.margin{
+
+.margin {
 	margin: 2%;
 }
 </style>
@@ -65,13 +62,13 @@ function modificar(){
 
 		<div class="bg-light border-right" id="sidebar-wrapper">
 
-			<div class="sidebar-heading">-------</div>
+			<div class="sidebar-heading">Bienvenido <%=ClienteRepositorio.getDatosCliente().get(0).getNombre() %></div>
 			<div class="list-group list-group-flush">
-				<a href="panelPrincipal" class="list-group-item list-group-item-action bg-light">Citas</a>
-				<a href="#" class="list-group-item list-group-item-action bg-light">Administrar Citas</a>
-				<a href="listadoMascotas" class="list-group-item list-group-item-action bg-light">Mascotas</a>
-				<a href="#" class="list-group-item list-group-item-action bg-light">Administrar Mascotas</a>
-				<a href="#" class="list-group-item list-group-item-action bg-light">Datos personales</a>
+				<a href="panelPrincipal"
+					class="list-group-item list-group-item-action bg-light">Citas</a> <a
+					href="#" class="list-group-item list-group-item-action bg-light">Administrar
+					Citas</a> <a href="listadoMascotas"
+					class="list-group-item list-group-item-action bg-light">Mascotas</a>
 			</div>
 		</div>
 
@@ -91,14 +88,15 @@ function modificar(){
 
 				<div class="collapse navbar-collapse" id="navbarSupportedContent">
 					<ul class="navbar-nav ml-auto mt-2 mt-lg-0">
-						
+
 						<li class="nav-item dropdown"><a
 							class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
 							role="button" data-toggle="dropdown" aria-haspopup="true"
 							aria-expanded="false"> Ajustes </a>
 							<div class="dropdown-menu dropdown-menu-right"
 								aria-labelledby="navbarDropdown">
-								<a class="dropdown-item" href="modificarDatos">Modificar Datos</a>
+								<a class="dropdown-item" href="modificarCliente">Modificar
+									Datos</a>
 								<div class="dropdown-divider"></div>
 								<a class="dropdown-item" href="cerrarSesion">Cerrar sesión</a>
 							</div></li>
@@ -107,59 +105,77 @@ function modificar(){
 			</nav>
 
 			<div class="container-fluid">
-				<h3 class="text-center">Listado de Mascotas</h3>
-				
+				<h3 class="text-center separacion">Listado de Mascotas</h3>
+
 				<section class="container">
-				
+
 					<section class="main row">
-					
-					<!-- Article de la botonera para modificar -->
-						<article class="col-xs-12 col-sm-12 col-md-12 border">
-							<div class="text-center text-md-left separacion">
-								<a class="btn btn-primary" onclick="redireccionar()">Agregar mascota</a>
-								<a class="btn btn-primary" onclick="modificar()">Modificar Mascota</a>
-								<a class="btn btn-primary" onclick="">Eliminar Mascota</a>
+
+						<article class="col-xs-12 col-sm-12 col-md-12">
+							<div class="text-center text-md-left">
+								<a class="btn btn-primary" href="crearMascota">Agregar
+									mascota</a>
 							</div>
 						</article>
+
+						<%
+							try {
+								
+								if (MascotaRepositorio.getTodasLasMascotas().size() == 0) {
+									%>
+									<h5 class="separacion">Actualmente no tiene mascotas registradas</h5>
+									<%
+								}else{
+								
+							for (Mascota m : MascotaRepositorio.getTodasLasMascotas()) {
+						%>
+						<article class="border margin col-xs-12 col-sm-5">
 							
-							<%
+							<div class="row">
+							<div class="border margin col-xs-12 col-sm-6">
 							
-								try{
-									for(Mascota m : MascotaDAO.getTodasLasMascotas()){
-									
-							%>
-									<article class="border margin col-xs-12 col-sm-5">
-									<input type="checkbox" id="<%=m.getCodMascota()%>" value="">
-										<p>Nombre: <%= m.getNombre() %></p>
-									</article>
-							<%
-									}if(MascotaDAO.getTodasLasMascotas().size() == 0){
-									
-							%>
-									<h5>Actualmente no tiene mascotas registradas</h5>
-									<div class="text-center text-md-left separacion">
-										<a class="btn btn-primary"
-											onclick="redireccionar()">Agregar mascota</a>
-									</div>
-							<%
-									}
-								}catch(NullPointerException e){
-									
-							%>
-								<meta http-equiv="Refresh" content="6;url=http://localhost:8080/ProyectoFinal/iniciaSesion">
-								<script>alert("La sesion ha caducado, le estamos redirigiendo al login...")</script>
-							<%
+							<p>Nombre: <%=m.getNombre()%></p>
+							<p>Tipo:   <%=m.getTipo()%></p>
+							<%if(m.getRaza().equals("")) m.setRaza("Sin especificar"); else  %>
+							<p>Raza:   <%=m.getRaza()%></p>
+								
+							</div>
+							
+							<div class="border margin col-xs-12 col-sm-4">
+							
+							</div>
+							
+							
+								
+							</div>		
+							<a class="btn btn-primary" onclick="modificar()">Modificar
+								Mascota</a> <a class="btn btn-primary" onclick="seguro(<%=m.getCodMascota()%>)">Eliminar
+								Mascota</a>					
+
+						</article>
+						<%
+							}
 								}
-							%>
-							
+						
+						} catch (NullPointerException e) {
+						%>
+						<meta http-equiv="Refresh"
+							content="6;url=http://localhost:8080/ProyectoFinal/iniciaSesion">
+						<script>
+							alert("La sesion ha caducado, le estamos redirigiendo al login...")
+						</script>
+						<%
+							}
+						%>
+
 					</section>
 
-					
+
 				</section>
 				<!-- Fin del div container	 -->
 
 
-				
+
 			</div>
 
 		</div>

@@ -3,6 +3,9 @@ package com.walls.controlador;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.walls.repositorio.ClienteRepositorio;
+import com.walls.repositorio.MascotaRepositorio;
+
 @Controller
 public class ControladorNav {
 
@@ -26,7 +29,15 @@ public class ControladorNav {
   	//-----------------------MAPEO DE MENULOGEADO-------------------------------------
   	//------------------------------------------------------------------------------
     
-    @RequestMapping(value="/cerrarSesion") public String cerrarSesion() { return "index"; }
+    @RequestMapping(value="/cerrarSesion") 
+    public String cerrarSesion() { 
+    	ClienteRepositorio.borrarListaCliente();
+    	MascotaRepositorio.borrarListaMascota();
+    	
+    	return "index"; 
+    }
+    
+    @RequestMapping(value="/modificarCliente") public String modificarCliente() { return "modificarCliente"; }
     
     @RequestMapping(value="/panelPrincipal") public String panelPrincipal() { return "panelPrincipal"; }
     
