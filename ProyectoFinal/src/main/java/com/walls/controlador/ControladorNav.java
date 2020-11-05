@@ -3,8 +3,8 @@ package com.walls.controlador;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.walls.repositorio.ClienteRepositorio;
-import com.walls.repositorio.MascotaRepositorio;
+import com.walls.repositorio.RepositorioCliente;
+import com.walls.repositorio.RepositorioMascota;
 
 @Controller
 public class ControladorNav {
@@ -31,8 +31,8 @@ public class ControladorNav {
     
     @RequestMapping(value="/cerrarSesion") 
     public String cerrarSesion() { 
-    	ClienteRepositorio.borrarListaCliente();
-    	MascotaRepositorio.borrarListaMascota();
+    	RepositorioCliente.borrarListaCliente();
+    	RepositorioMascota.borrarListaMascota();
     	
     	return "index"; 
     }

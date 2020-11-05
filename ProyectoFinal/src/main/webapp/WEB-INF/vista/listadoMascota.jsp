@@ -1,10 +1,10 @@
-<%@page import="com.walls.repositorio.MascotaRepositorio"%>
+<%@page import="com.walls.repositorio.RepositorioMascota"%>
 <%@page import="com.walls.controlador.ControladorMascota"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
-<%@page import="com.walls.repositorio.ClienteRepositorio"%>
+<%@page import="com.walls.repositorio.RepositorioCliente"%>
 <%@page import="com.walls.entidades.Mascota"%>
 <%@page import="java.util.List"%>
 <!DOCTYPE html>
@@ -62,7 +62,7 @@
 
 		<div class="bg-light border-right" id="sidebar-wrapper">
 
-			<div class="sidebar-heading">Bienvenido <%=ClienteRepositorio.getDatosCliente().get(0).getNombre() %></div>
+			<div class="sidebar-heading">Bienvenido <%=RepositorioCliente.getDatosCliente().get(0).getNombre()%></div>
 			<div class="list-group list-group-flush">
 				<a href="panelPrincipal"
 					class="list-group-item list-group-item-action bg-light">Citas</a> <a
@@ -120,15 +120,15 @@
 
 						<%
 							try {
-								
-								if (MascotaRepositorio.getTodasLasMascotas().size() == 0) {
-									%>
+												
+												if (RepositorioMascota.getTodasLasMascotas().size() == 0) {
+						%>
 									<h5 class="separacion">Actualmente no tiene mascotas registradas</h5>
 									<%
-								}else{
-								
-							for (Mascota m : MascotaRepositorio.getTodasLasMascotas()) {
-						%>
+										}else{
+															
+														for (Mascota m : RepositorioMascota.getTodasLasMascotas()) {
+									%>
 						<article class="border margin col-xs-12 col-sm-5">
 							
 							<div class="row">

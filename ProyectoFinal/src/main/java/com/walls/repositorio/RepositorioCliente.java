@@ -9,7 +9,7 @@ import org.hibernate.Session;
 import com.walls.controlador.HibernateUtils;
 import com.walls.entidades.Cliente;
 
-public class ClienteRepositorio {
+public class RepositorioCliente {
 
 	private static List<Cliente> datosCliente;
 	private static List<Cliente> todosLosClientes;
@@ -118,52 +118,6 @@ public class ClienteRepositorio {
 		return true;
 	}
 	
-//	
-//	public static boolean ModificarPass() {
-//
-//		Session session = HibernateUtils.getSessionFactory().openSession();
-//		
-//		try {
-//
-//			session.beginTransaction();
-//			
-//			todosLosClientes();
-//			
-//			for(Cliente c : todosLosClientes) {
-//				if(c.getMail().equalsIgnoreCase(mail)) {
-//					return false;
-//				}
-//			}
-//			
-//			
-//			Cliente c = new Cliente();
-//			c.setNombre(nombre);
-//			c.setMail(mail);
-//			c.setDireccion(direccion);
-//			c.setLocalidad(localidad);
-//			
-//			
-//			session.update(c);
-//
-//			session.getTransaction().commit();
-//
-//			session.close();
-//
-//
-//		}
-//
-//		catch (Exception e) {
-//
-//			System.out.println("Error al modificar el cliente.");
-//			session.getTransaction().rollback();
-//			session.close();
-//			return false;
-//		}
-//		
-//		return true;
-//	}
-	
-	
 
 	public static boolean modificarCliente(
 			String nombre, String mail, String direccion, String localidad) {
@@ -181,14 +135,33 @@ public class ClienteRepositorio {
 					return false;
 				}
 			}
-			
-			
+						
 			Cliente c = new Cliente();
-			c.setNombre(nombre);
-			c.setMail(mail);
-			c.setDireccion(direccion);
-			c.setLocalidad(localidad);
 			
+			c.setCodCliente(datosCliente.get(0).getCodCliente());
+			c.setDni(datosCliente.get(0).getDni());
+			c.setFechaNac(datosCliente.get(0).getFechaNac());
+			c.setPass(datosCliente.get(0).getPass());
+			
+			if(nombre.equals(""))
+				c.setNombre(datosCliente.get(0).getNombre());
+			else 
+				c.setNombre(nombre);
+			if(mail.equals(""))
+				c.setMail(datosCliente.get(0).getMail());
+			else 
+				c.setMail(mail.toUpperCase());
+			if(direccion.equals(""))
+				c.setDireccion(datosCliente.get(0).getDireccion());
+			else 
+				c.setDireccion(direccion.toUpperCase());
+			if(localidad.equals(""))
+				c.setLocalidad(datosCliente.get(0).getLocalidad());
+			else 
+				c.setLocalidad(localidad.toUpperCase());
+			
+			datosCliente.remove(0);
+			datosCliente.add(c);
 			
 			session.update(c);
 
@@ -196,6 +169,39 @@ public class ClienteRepositorio {
 
 			session.close();
 
+
+		}
+
+		catch (Exception e) {
+
+			System.out.println("Error al modificar el cliente.");
+			session.getTransaction().rollback();
+			session.close();
+			return false;
+		}
+		
+		return true;
+	}
+	
+	
+	
+	public static boolean ModificarPass(String nuevaPass) {
+
+		Session session = HibernateUtils.getSessionFactory().openSession();
+		
+		try {
+
+			session.beginTransaction();
+
+			String update = "update Cliente c set c.pass = :newPass where c.codCliente = :codCliente";
+			int updatedEntities = session.createQuery( update )
+			        .setString( "newPass", nuevaPass )
+			        .setString( "oldName", datosCliente.get(0).getPass() )
+			        .executeUpdate();
+			
+			session.getTransaction().commit();
+
+			session.close();
 
 		}
 

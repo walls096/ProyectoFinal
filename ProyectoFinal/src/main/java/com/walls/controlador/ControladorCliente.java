@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.walls.repositorio.ClienteRepositorio;
+import com.walls.repositorio.RepositorioCliente;
 import com.walls.servicio.ServicioCliente;
 import com.walls.servicio.ServicioMascota;
 
@@ -28,7 +28,7 @@ public class ControladorCliente {
     	boolean encontrado = servicioCliente.compruebaLogin(mail);
     	
       	if(encontrado) {
-      		model.addAttribute("nombre", "Hola de nuevo "+ClienteRepositorio.getDatosCliente().get(0).getNombre()+" !");
+      		model.addAttribute("nombre", "Hola de nuevo "+RepositorioCliente.getDatosCliente().get(0).getNombre()+" !");
     		return "logeate";
       	}
     	else

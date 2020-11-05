@@ -2,7 +2,7 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
-<%@page import="com.walls.repositorio.ClienteRepositorio"%>
+<%@page import="com.walls.repositorio.RepositorioCliente"%>
 <%@page import="java.util.List"%>
 <!DOCTYPE html>
 <html>
@@ -35,7 +35,7 @@
 
 		<div class="bg-light border-right" id="sidebar-wrapper">
 
-			<div class="sidebar-heading">Bienvenido <%=ClienteRepositorio.getDatosCliente().get(0).getNombre() %></div>
+			<div class="sidebar-heading">Bienvenido <%=RepositorioCliente.getDatosCliente().get(0).getNombre()%></div>
 			<div class="list-group list-group-flush">
 				<a href="panelPrincipal" class="list-group-item list-group-item-action bg-light">Citas</a>
 				<a href="#" class="list-group-item list-group-item-action bg-light">Administrar Citas</a>

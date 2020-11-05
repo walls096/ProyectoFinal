@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.walls.entidades.Mascota;
-import com.walls.repositorio.MascotaRepositorio;
+import com.walls.repositorio.RepositorioMascota;
 import com.walls.servicio.ServicioMascota;
 
 @Controller
@@ -45,7 +45,7 @@ public class ControladorMascota {
 		List<Mascota> mascota = ServicioMascota.obtenerUnaMascota(id);
 		ServicioMascota.eliminarMascota(mascota.get(0));
 		
-		for(Mascota m : MascotaRepositorio.getTodasLasMascotas()) {
+		for(Mascota m : RepositorioMascota.getTodasLasMascotas()) {
 			if(id == m.getCodMascota()) {
 				ServicioMascota.borrarMascotaLista(m);
 				return "listadoMascota";

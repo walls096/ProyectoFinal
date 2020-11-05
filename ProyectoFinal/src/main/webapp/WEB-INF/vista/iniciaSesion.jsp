@@ -2,7 +2,7 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
-<%@page import="com.walls.repositorio.ClienteRepositorio"%>
+<%@page import="com.walls.repositorio.RepositorioCliente"%>
 <%@page import="java.util.List"%>
 <!DOCTYPE html>
 <html>
@@ -62,7 +62,7 @@
 					<li class="nav-item dropdown"><a
 						class="nav-link dropdown-toggle font-weight-bold" href="#"
 						id="navbarDropdown" role="button" data-toggle="dropdown"
-						aria-haspopup="true" aria-expanded="false"> Sesión </a>
+						aria-haspopup="true" aria-expanded="false"> Cuenta </a>
 						<div class="dropdown-menu dropdown-menu-right bg-info"
 							aria-labelledby="navbarDropdown">
 							<a class="dropdown-item font-weight-bold" href="iniciaSesion">Inicia

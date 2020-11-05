@@ -4,25 +4,25 @@ import java.sql.Date;
 
 import org.springframework.stereotype.Service;
 
-import com.walls.repositorio.ClienteRepositorio;
+import com.walls.repositorio.RepositorioCliente;
 
 @Service
 public class ServicioCliente {
 	
 	
 	public boolean compruebaLogin (String mail) {
-		return ClienteRepositorio.compruebaLogin(mail);
+		return RepositorioCliente.compruebaLogin(mail);
 	}
 	
 	public boolean compruebaPass (String pass) {
-		return ClienteRepositorio.compruebaPass(pass);
+		return RepositorioCliente.compruebaPass(pass);
 	}
 	
 	public boolean registrarCliente (String dni,String mail, String nombre, Date fecha_nac,String pass) {
-		return ClienteRepositorio.registrarCliente(dni,mail,nombre,fecha_nac,pass);
+		return RepositorioCliente.registrarCliente(dni,mail,nombre,fecha_nac,pass);
 	}
 	
 	public boolean modificarCliente (String nombre ,String mail, String direccion ,String localidad) {
-		return ClienteRepositorio.modificarCliente(nombre,mail,direccion,localidad);
+		return RepositorioCliente.modificarCliente(nombre,mail,direccion,localidad);
 	}
 }

@@ -2,7 +2,7 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
-<%@page import="com.walls.repositorio.ClienteRepositorio"%>
+<%@page import="com.walls.repositorio.RepositorioCliente"%>
 <%@page import="java.util.List"%>
 <!DOCTYPE html>
 <html>
@@ -24,6 +24,10 @@
 	href="${pageContext.request.contextPath}/static/css/menu.css" />
 
 <style>
+
+.colorRed{
+	color:red;
+}
 .separacion {
 	padding-top: 5%;
 }
@@ -37,7 +41,7 @@
 
 		<div class="bg-light border-right" id="sidebar-wrapper">
 
-			<div class="sidebar-heading">Bienvenido <%=ClienteRepositorio.getDatosCliente().get(0).getNombre() %></div>
+			<div class="sidebar-heading">Bienvenido <%=RepositorioCliente.getDatosCliente().get(0).getNombre()%></div>
 			<div class="list-group list-group-flush">
 				<a href="panelPrincipal"
 					class="list-group-item list-group-item-action bg-light">Citas</a> <a
@@ -107,7 +111,7 @@
 												class="col-md-4 col-form-label text-md-right">DNI</label>
 											<div class="col-md-6">
 												<input type="text" id="dni" class="form-control"
-													name="dni" required autofocus disabled placeholder="<%=ClienteRepositorio.getDatosCliente().get(0).getDni()%>">
+													name="dni" autofocus disabled placeholder="<%=RepositorioCliente.getDatosCliente().get(0).getDni()%>">
 											</div>
 										</div>
 										<div class="form-group row">
@@ -115,7 +119,7 @@
 												class="col-md-4 col-form-label text-md-right">Nombre</label>
 											<div class="col-md-6">
 												<input type="text" id="nombre" class="form-control"
-													name="nombre" required autofocus placeholder="<%=ClienteRepositorio.getDatosCliente().get(0).getNombre()%>">
+													name="nombre" autofocus placeholder="<%=RepositorioCliente.getDatosCliente().get(0).getNombre()%>">
 											</div>
 										</div>
 
@@ -125,7 +129,7 @@
 												electrónico</label>
 											<div class="col-md-6">
 												<input type="text" id="mail" class="form-control"
-													name="mail" required placeholder="<%=ClienteRepositorio.getDatosCliente().get(0).getMail()%>">
+													name="mail" placeholder="<%=RepositorioCliente.getDatosCliente().get(0).getMail()%>">
 											</div>
 										</div>
 										
@@ -134,7 +138,7 @@
 												class="col-md-4 col-form-label text-md-right">Fecha de nacimiento</label>
 											<div class="col-md-6">
 												<input type="text" id="fecha_nac" class="form-control"
-													name="fecha_nac" required placeholder="<%=ClienteRepositorio.getDatosCliente().get(0).getFechaNac()%>" disabled>
+													name="fecha_nac" placeholder="<%=RepositorioCliente.getDatosCliente().get(0).getFechaNac()%>" disabled>
 											</div>
 										</div>
 										
@@ -143,7 +147,7 @@
 												class="col-md-4 col-form-label text-md-right">Dirección</label>
 											<div class="col-md-6">
 												<input type="text" id="direccion" class="form-control"
-													name="direccion" required placeholder="<%=ClienteRepositorio.getDatosCliente().get(0).getDireccion()%>">
+													name="direccion" placeholder="<%=RepositorioCliente.getDatosCliente().get(0).getDireccion()%>">
 											</div>
 										</div>
 										
@@ -152,7 +156,7 @@
 												class="col-md-4 col-form-label text-md-right">Localidad</label>
 											<div class="col-md-6">
 												<input type="text" id="localidad" class="form-control"
-													name="localidad" required placeholder="<%=ClienteRepositorio.getDatosCliente().get(0).getLocalidad()%>">
+													name="localidad" placeholder="<%=RepositorioCliente.getDatosCliente().get(0).getLocalidad()%>">
 													<input id="boton" type="button" value="Cambiar contraseña" onclick="cambiarPass()" class="btn btn-link">
 											</div>											
 										</div>
