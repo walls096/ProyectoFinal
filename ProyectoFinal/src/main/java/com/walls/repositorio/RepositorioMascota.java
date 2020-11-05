@@ -1,12 +1,11 @@
 package com.walls.repositorio;
 
-import java.sql.Date;
 import java.util.List;
 
 import org.hibernate.Session;
 
 import com.walls.controlador.HibernateUtils;
-import com.walls.entidades.Cliente;
+import com.walls.entidades.Cita;
 import com.walls.entidades.Mascota;
 
 public class RepositorioMascota {

@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.walls.repositorio.RepositorioCliente;
+import com.walls.servicio.ServicioCita;
 import com.walls.servicio.ServicioCliente;
 import com.walls.servicio.ServicioMascota;
 
@@ -66,6 +67,7 @@ public class ControladorCliente {
     		mail = mail.toUpperCase();
     		if(servicioCliente.registrarCliente(dni,mail,nombre,fecha_nac,pass)) {
     			ServicioMascota.obtenerMascotasCliente();
+    			ServicioCita.obtenerCitasCliente();
     			return "panelPrincipal";
     		}else {
         		model.addAttribute("mensaje","El correo introducido ya existe");

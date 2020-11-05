@@ -2,7 +2,10 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
+<%@page import="com.walls.repositorio.RepositorioCita"%>
 <%@page import="com.walls.repositorio.RepositorioCliente"%>
+<%@page import="com.walls.repositorio.RepositorioMascota"%>
+<%@page import="com.walls.entidades.Cita"%>
 <%@page import="java.util.List"%>
 <!DOCTYPE html>
 <html>
@@ -31,10 +34,30 @@
 .hidden{
 	visibility:hidden;
 }
+.visible{
+	visibility:visible;
+}
 .center{
 	text-align:center;
 }
 </style>
+
+<script>
+
+	function mostrarDetalles(id){
+
+		var item = document.getElementById(id);
+		var compruebaClase = item.classList ;
+		
+		if(compruebaClase.contains('hidden')){
+			item.classList.replace('hidden','visible');
+		}else{
+			item.classList.replace('visible','hidden');
+		}
+		
+	}
+
+</script>
 
 </head>
 
@@ -92,38 +115,70 @@
 
 				<h3 class="text-center">Próximas citas</h3>
 
-				<main class="login-form weight-auto separacion">
-
 					<div class="cotainer">
 
 						<div class="row justify-content-center ">
+						
+						<%
+							try {
+												
+									if (RepositorioCita.obtenerCitasCliente().size() == 0) {
+						%>
+										<h5 class="separacion">Actualmente no tiene próximas citas</h5>
+						<%
+										}else{	
+						%>
 
 							<div class="col-md-8">
 								<table class="table center ">
 									<thead class="thead-light">
 										<tr>
 											<th scope="col">FECHA</th>
+											<th scope="col">HORA</th>
 											<th scope="col">MASCOTA</th>
 											<th scope="col">TIPO</th>
 											<th scope="col">DETALLES</th>
 										</tr>
 									</thead>
 									<tbody>
+						<%
+									for (Cita c : RepositorioCita.obtenerCitasCliente()) {
+						%>
 
 										<tr>
-											<th scope="row">1</th>
-											<td>Mark</td>
-											<td>Otto</td>
-											<td><a href="#" onclick="masDetalles()" class="btn btn-sm btn-success"><span class="glyphicon glyphicon-plus-sign"></span>+</a></td>
+											<th scope="row"><%=c.getFecha() %></th>
+											<td>Mark</td> 
+											<td><%=RepositorioMascota.obtenerUnaMascota(c.getCodMascota()).get(0).getNombre() %></td> 
+											<td><%=c.getTipoCita() %></td>
+											<td><a href="#" onclick="mostrarDetalles(<%=c.getCodCita() %>)" class="btn btn-sm btn-success"><span class="glyphicon glyphicon-plus-sign"></span>+</a></td>
 										</tr>
 
-										<!-- SE OCULTA LAS OBSERVACIONES HASTA QUE NO HAYA EVENTO 
-										Comprobar que estado tiene class-->
-										<tr id="" class="hidden">
-											<th scope="row">Observaciones</th>
-											<td colspan="3">Larry the Bird</td>
-										</tr>
-
+										<!-- SE OCULTA LAS OBSERVACIONES HASTA QUE NO HAYA EVENTO -->
+										<tr id="<%=c.getCodCita() %>" class="hidden">
+												<th scope="row">Observaciones</th>
+						<%
+										String[] observaciones = c.getObservacion().split("#");
+						
+										for (String todasObservaciones : observaciones) {
+						%>
+												<td colspan="3"><%=todasObservaciones %></td>
+											
+						<%
+										}
+									%></tr><%
+									}
+								}
+									
+							} catch (NullPointerException e) {
+						%>
+						<meta http-equiv="Refresh"
+							content="6;url=http://localhost:8080/ProyectoFinal/iniciaSesion">
+						<script>
+							alert("La sesion ha caducado, le estamos redirigiendo al login...")
+						</script>
+						<%
+							}
+						%>
 									</tbody>
 								</table>
 
@@ -131,8 +186,6 @@
 						</div>
 					</div>
 
-				</main>
-				<!-- Fin del div container	 -->
 
 			</div>
 

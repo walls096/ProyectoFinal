@@ -254,8 +254,15 @@ public class RepositorioCliente {
 	}
 	
 	public static void borrarListaCliente() {
-		datosCliente.clear();
-		todosLosClientes.clear();
+		try {
+		
+			datosCliente.clear();
+			todosLosClientes.clear();
+			
+		}catch(NullPointerException e) {
+			
+		}
+		
 	}
 
 	/*
