@@ -59,5 +59,34 @@ public class ControladorMascota {
     	
     }
 	
+	@RequestMapping(value="/modificarMascota", method=RequestMethod.GET)
+    public String modoificarMascota(
+    		Model model,
+    		@RequestParam("id") int id) {
+    	
+		
+		ServicioMascota.obtenerUnaMascota(id);
+		
+		
+		return "modificarMascota";
+			
+    }
+	
+	@RequestMapping(value="/modificarMascotaFormulario", method=RequestMethod.POST)
+    public String modificarMascotaFormulario(
+    		Model model,
+    		@RequestParam("nombre") String nombre,
+    		@RequestParam("tipo") String tipo,
+    		@RequestParam("raza") String raza) {
+    	
+		
+		ServicioMascota.modificarUnaMascota(nombre,tipo,raza);
+		
+		
+		return "listadoMascota";
+			
+    	
+    }
+	
 	
 }

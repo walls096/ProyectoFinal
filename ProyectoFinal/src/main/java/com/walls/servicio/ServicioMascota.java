@@ -34,4 +34,8 @@ public class ServicioMascota {
 		RepositorioMascota.borrarMascotaLista(m);
 	}
 	
+	public static void modificarUnaMascota( String nombre, String tipo, String raza) {
+		RepositorioMascota.modificarUnaMascota(nombre,tipo,raza);
+	}
+	
 }

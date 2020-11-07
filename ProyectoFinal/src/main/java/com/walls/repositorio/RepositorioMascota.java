@@ -5,12 +5,12 @@ import java.util.List;
 import org.hibernate.Session;
 
 import com.walls.controlador.HibernateUtils;
-import com.walls.entidades.Cita;
 import com.walls.entidades.Mascota;
 
 public class RepositorioMascota {
 
 	private static List<Mascota> todasLasMascotas;
+	private static List<Mascota> unaMascota;
 	
 	
 	public static List<Mascota> obtenerMascotasCliente() {
@@ -119,6 +119,12 @@ public class RepositorioMascota {
 		
 	}
 	
+	/**
+	 * Método por el cual recupera una mascota del cliente y la almacena en una lista estática 
+	 * List<Mascota> unaMascota;
+	 * @param id Codigo de la mascota para filtrar por una sola
+	 * @return retorna la mascota
+	 */
 	
 	public static List<Mascota> obtenerUnaMascota(int id) {
 		
@@ -128,15 +134,17 @@ public class RepositorioMascota {
 
 			session.beginTransaction();
 
-			List<Mascota> mascotas = (List<Mascota>) session
+			List<Mascota> mascota = (List<Mascota>) session
 					.createQuery("from com.walls.entidades.Mascota where codMascota = '" + id + "'", Mascota.class)
 					.getResultList();
+			
+			unaMascota = mascota;
 
 			session.getTransaction().commit();
 
 			session.close();
 			
-			return mascotas;
+			return unaMascota;
 		}
 
 		catch (Exception e) {
@@ -147,6 +155,54 @@ public class RepositorioMascota {
 			return null;
 		}
 		
+	}
+	
+	public static void modificarUnaMascota( String nombre, String tipo, String raza) {
+		
+		Session session = HibernateUtils.getSessionFactory().openSession();
+
+		try {
+
+			session.beginTransaction();
+			
+			
+			
+			Mascota m = new Mascota();
+			m.setCodMascota(unaMascota.get(0).getCodMascota());
+			m.setCodCliente(unaMascota.get(0).getCodCliente());
+			
+			
+			if(nombre.equals(""))
+				m.setNombre(unaMascota.get(0).getNombre());
+			else 
+				m.setNombre(nombre);
+			if(tipo.equals(""))
+				m.setTipo(unaMascota.get(0).getTipo());
+			else 
+				m.setTipo(tipo.toUpperCase());
+			if(raza.equals(""))
+				m.setRaza(unaMascota.get(0).getRaza());
+			else 
+				m.setRaza(raza.toUpperCase());
+			
+			session.update(m);
+
+			session.getTransaction().commit();
+
+			session.close();
+			
+			todasLasMascotas.clear();
+			unaMascota.clear();
+			RepositorioMascota.obtenerMascotasCliente();
+			
+		}
+
+		catch (Exception e) {
+
+			System.out.println("Error al modificar las mascotas del cliente (sessionFactory)");
+			session.getTransaction().rollback();
+			session.close();
+		}
 	}
 	
 	
@@ -186,6 +242,10 @@ public class RepositorioMascota {
 	
 	public static List<Mascota> getTodasLasMascotas() {
 		return todasLasMascotas;
+	}
+	
+	public static List<Mascota> getUnaMascota() {
+		return unaMascota;
 	}
 
 	

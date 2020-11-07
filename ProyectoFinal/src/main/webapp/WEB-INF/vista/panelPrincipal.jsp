@@ -73,7 +73,7 @@
 			<div class="list-group list-group-flush">
 				<a href="panelPrincipal"
 					class="list-group-item list-group-item-action bg-light">Citas</a> <a
-					href="#" class="list-group-item list-group-item-action bg-light">Administrar
+					href="administrarCitas" class="list-group-item list-group-item-action bg-light">Administrar
 					Citas</a> <a href="listadoMascotas"
 					class="list-group-item list-group-item-action bg-light">Mascotas</a>
 			</div>
@@ -125,12 +125,17 @@
 									if (RepositorioCita.obtenerCitasCliente().size() == 0) {
 						%>
 										<h5 class="separacion">Actualmente no tiene próximas citas</h5>
+										<article class="col-xs-12 col-sm-12 col-md-12">
+											<div class="text-center text-md-left">
+												<a class="btn btn-primary" href="administrarCitas">Administrar Citas</a>
+											</div>
+										</article>
 						<%
 										}else{	
 						%>
 
 							<div class="col-md-8">
-								<table class="table center ">
+								<table class="table">
 									<thead class="thead-light">
 										<tr>
 											<th scope="col">FECHA</th>
@@ -140,11 +145,13 @@
 											<th scope="col">DETALLES</th>
 										</tr>
 									</thead>
-									<tbody>
+								</table>
 						<%
 									for (Cita c : RepositorioCita.obtenerCitasCliente()) {
 						%>
 
+								<table class="table">
+									<tbody>
 										<tr>
 											<th scope="row"><%=c.getFecha() %></th>
 											<td>Mark</td> 
@@ -152,20 +159,23 @@
 											<td><%=c.getTipoCita() %></td>
 											<td><a href="#" onclick="mostrarDetalles(<%=c.getCodCita() %>)" class="btn btn-sm btn-success"><span class="glyphicon glyphicon-plus-sign"></span>+</a></td>
 										</tr>
-
-										<!-- SE OCULTA LAS OBSERVACIONES HASTA QUE NO HAYA EVENTO -->
-										<tr id="<%=c.getCodCita() %>" class="hidden">
-												<th scope="row">Observaciones</th>
+										
+										<tbody id="<%=c.getCodCita() %>" class="hidden">
+										
+						
 						<%
+						
 										String[] observaciones = c.getObservacion().split("#");
+		
 						
 										for (String todasObservaciones : observaciones) {
 						%>
-												<td colspan="3"><%=todasObservaciones %></td>
-											
+											<tr>
+												<th scope="row">-------</th>
+												<td colspan="3"><%=todasObservaciones %></td> 
+											</tr>
 						<%
 										}
-									%></tr><%
 									}
 								}
 									

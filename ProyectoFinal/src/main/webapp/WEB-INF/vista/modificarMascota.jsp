@@ -3,6 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <%@page import="com.walls.repositorio.RepositorioCliente"%>
+<%@page import="com.walls.repositorio.RepositorioMascota"%>
 <%@page import="java.util.List"%>
 <!DOCTYPE html>
 <html>
@@ -30,6 +31,9 @@
 }
 .separacion {
 	padding-top: 5%;
+}
+.hidden{
+	visibility:hidden;
 }
 </style>
 
@@ -87,7 +91,7 @@
 		<div class="container-fluid separacion">
 			<main class="login-form weight-auto">
 							<div class="text-center text-md-left">
-								<a class="btn btn-light" href="panelPrincipal">←</a>
+								<a class="btn btn-light" href="listadoMascotas">←</a>
 							</div>
 				<div class="cotainer">
 				
@@ -95,71 +99,39 @@
 					
 						<div class="col-md-8">
 							<div class="card">
-								<div class="card-header">Datos actuales del cliente</div>
+								<div class="card-header">Datos actuales de la mascota</div>
 								<div class="card-body">
 
-									<form method="POST" action="modificarCliente">
+									<form method="POST" action="modificarMascotaFormulario">
 									
-									<div class="col-md-6 offset-md-4 colorRed">
-
-											<h5>${mensaje}</h5>
-
-										</div>
-
-										<div class="form-group row">
-											<label for="dni"
-												class="col-md-4 col-form-label text-md-right">DNI</label>
-											<div class="col-md-6">
-												<input type="text" id="dni" class="form-control"
-													name="dni" autofocus disabled placeholder="<%=RepositorioCliente.getDatosCliente().get(0).getDni()%>">
-											</div>
-										</div>
+										
 										<div class="form-group row">
 											<label for="nombre"
 												class="col-md-4 col-form-label text-md-right">Nombre</label>
 											<div class="col-md-6">
 												<input type="text" id="nombre" class="form-control"
-													name="nombre" autofocus placeholder="<%=RepositorioCliente.getDatosCliente().get(0).getNombre()%>">
+													name="nombre" autofocus placeholder="<%=RepositorioMascota.getUnaMascota().get(0).getNombre()%>">
 											</div>
 										</div>
 
 										<div class="form-group row">
-											<label for="mail"
-												class="col-md-4 col-form-label text-md-right">Correo
-												electrónico</label>
+											<label for="tipo"
+												class="col-md-4 col-form-label text-md-right">Tipo</label>
 											<div class="col-md-6">
-												<input type="text" id="mail" class="form-control"
-													name="mail" placeholder="<%=RepositorioCliente.getDatosCliente().get(0).getMail()%>">
+												<input type="text" id="tipo" class="form-control"
+													name="tipo" placeholder="<%=RepositorioMascota.getUnaMascota().get(0).getTipo()%>">
 											</div>
 										</div>
 										
 										<div class="form-group row">
-											<label for="fecha_nac"
-												class="col-md-4 col-form-label text-md-right">Fecha de nacimiento</label>
+											<label for="raza"
+												class="col-md-4 col-form-label text-md-right">Raza</label>
 											<div class="col-md-6">
-												<input type="text" id="fecha_nac" class="form-control"
-													name="fecha_nac" placeholder="<%=RepositorioCliente.getDatosCliente().get(0).getFechaNac()%>" disabled>
+												<input type="text" id="raza" class="form-control"
+													name="raza" placeholder="<%=RepositorioMascota.getUnaMascota().get(0).getRaza()%>">
 											</div>
 										</div>
 										
-										<div class="form-group row">
-											<label for="direccion"
-												class="col-md-4 col-form-label text-md-right">Dirección</label>
-											<div class="col-md-6">
-												<input type="text" id="direccion" class="form-control"
-													name="direccion" placeholder="<%=RepositorioCliente.getDatosCliente().get(0).getDireccion()%>">
-											</div>
-										</div>
-										
-										<div class="form-group row">
-											<label for="localidad"
-												class="col-md-4 col-form-label text-md-right">Localidad</label>
-											<div class="col-md-6">
-												<input type="text" id="localidad" class="form-control"
-													name="localidad" placeholder="<%=RepositorioCliente.getDatosCliente().get(0).getLocalidad()%>">
-													<input id="boton" type="button" value="Cambiar contraseña" onclick="cambiarPass()" class="btn btn-link">
-											</div>											
-										</div>
 
 										<div class="col-md-6 offset-md-4">
 

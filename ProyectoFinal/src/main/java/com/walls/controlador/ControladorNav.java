@@ -45,6 +45,10 @@ public class ControladorNav {
     
     @RequestMapping(value="/crearMascota") public String crearMascota() { return "crearMascota"; }
     
+    @RequestMapping(value="/administrarCitas") public String administrarCitas() { return "administrarCitas"; }
+    
+    @RequestMapping(value="/crearCita") public String crearCita() { return "crearCita"; }
+    
     
     
     

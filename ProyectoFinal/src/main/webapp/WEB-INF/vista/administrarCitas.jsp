@@ -1,3 +1,4 @@
+<%@page import="com.walls.repositorio.RepositorioCita"%>
 <%@page import="com.walls.repositorio.RepositorioMascota"%>
 <%@page import="com.walls.controlador.ControladorMascota"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -5,7 +6,9 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <%@page import="com.walls.repositorio.RepositorioCliente"%>
-<%@page import="com.walls.entidades.Mascota"%>
+<%@page import="com.walls.repositorio.RepositorioMascota"%>
+<%@page import="com.walls.repositorio.RepositorioCita"%>
+<%@page import="com.walls.entidades.Cita"%>
 <%@page import="java.util.List"%>
 <!DOCTYPE html>
 <html>
@@ -105,7 +108,7 @@
 			</nav>
 
 			<div class="container-fluid">
-				<h3 class="text-center separacion">Listado de Mascotas</h3>
+				<h3 class="text-center separacion">Todas las citas</h3>
 
 				<section class="container">
 
@@ -113,52 +116,67 @@
 
 						<article class="col-xs-12 col-sm-12 col-md-12">
 							<div class="text-center text-md-left">
-								<a class="btn btn-primary" href="crearMascota">Agregar
-									mascota</a>
+								<a class="btn btn-primary" href="crearCita">Pedir cita</a>
 							</div>
 						</article>
-
+					</section>
 						<%
 							try {
 												
-												if (RepositorioMascota.getTodasLasMascotas().size() == 0) {
+									if (RepositorioCita.obtenerCitasCliente().size() == 0) {
 						%>
-									<h5 class="separacion">Actualmente no tiene mascotas registradas</h5>
+									<h5 class="separacion">Actualmente no tiene citas registradas</h5>
 									<%
-										}else{
-															
-														for (Mascota m : RepositorioMascota.getTodasLasMascotas()) {
+									}else{
 									%>
-						<article class="border margin col-xs-12 col-sm-5">
-							
-							<div class="row">
-							<div class="border margin col-xs-12 col-sm-6">
-							
-							<p>Nombre: <%=m.getNombre()%></p>
-							<p>Tipo:   <%=m.getTipo()%></p>
-							<%if(m.getRaza().equals("")) m.setRaza("Sin especificar"); else  %>
-							<p>Raza:   <%=m.getRaza()%></p>
-								
-							</div>
-							
-							<div class="border margin col-xs-12 col-sm-4">
-							
-							</div>
-							
-							
-								
-							</div>		
-							<a class="btn btn-warning" onclick="modificar(<%=m.getCodMascota()%>)">Modificar
-								Mascota</a> <a class="btn btn-danger" onclick="seguro(<%=m.getCodMascota()%>)">Eliminar
-								Mascota</a>					
-
-						</article>
-						<%
-							}
-								}
+										<section class="main row separacion">
+				
+											<article class="col-xs-12 col-sm-12 col-md-12">
+												<table class="table table-striped">
+													<thead class="thead-light">
+														<tr>
+															<th scope="col">FECHA</th>
+															<th scope="col">HORA</th>
+															<th scope="col">MASCOTA</th>
+															<th scope="col">TIPO</th>
+															<th scope="col">DETALLES</th>
+															<th scope="col"></th>
+														</tr>
+													</thead>
+													<tbody>
+											<%for (Cita c : RepositorioCita.obtenerCitasCliente()) { %>
+									
+													
+														<tr>
+															<td><%=c.getFecha() %></td>
+															<td scope="col">HORA</td>
+															<td><%=RepositorioMascota.obtenerUnaMascota(c.getCodMascota()).get(0).getNombre() %></td>
+															<td><%=c.getTipoCita()%></td>
+															<td>
+															<%String[] observaciones = c.getObservacion().split("#");
+															for (String todasObservaciones : observaciones) { %>
+																<p><%=todasObservaciones %></p>
+															<%} %>
+															</td>
+															<td>
+															<a href="#" onclick="mostrarDetalles(<%=c.getCodCita() %>)" class="btn btn-sm btn-warning"><span class="glyphicon glyphicon-plus-sign"></span>editar</a>
+															<a href="#" onclick="mostrarDetalles(<%=c.getCodCita() %>)" class="btn btn-sm btn-danger"><span class="glyphicon glyphicon-plus-sign"></span>borrar</a>
+															</td>
+														</tr>
+													
+									
 						
-						} catch (NullPointerException e) {
-						%>
+								<%
+											}%></tbody>
+												</table>
+											</article>
+												
+										</section>
+										<%
+										}
+								
+								} catch (NullPointerException e) {
+								%>
 						<meta http-equiv="Refresh"
 							content="6;url=http://localhost:8080/ProyectoFinal/iniciaSesion">
 						<script>
@@ -168,7 +186,7 @@
 							}
 						%>
 
-					</section>
+					
 
 
 				</section>
