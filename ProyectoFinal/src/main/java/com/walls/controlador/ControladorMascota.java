@@ -77,10 +77,11 @@ public class ControladorMascota {
     		Model model,
     		@RequestParam("nombre") String nombre,
     		@RequestParam("tipo") String tipo,
-    		@RequestParam("raza") String raza) {
+    		@RequestParam("raza") String raza,
+    		@RequestParam("imagen") String imagen) {
     	
 		
-		ServicioMascota.modificarUnaMascota(nombre,tipo,raza);
+		ServicioMascota.modificarUnaMascota(nombre,tipo,raza,imagen);
 		
 		
 		return "listadoMascota";

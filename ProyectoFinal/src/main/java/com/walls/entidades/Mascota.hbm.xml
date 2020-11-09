@@ -18,5 +18,8 @@
         <property generated="never" lazy="false" name="codCliente" optimistic-lock="true" type="java.lang.Integer" unique="false">
             <column name="cod_cliente"/>
         </property>
+        <property generated="never" lazy="false" name="imagen" optimistic-lock="true" type="string" unique="false">
+            <column name="imagen"/>
+        </property>
     </class>
 </hibernate-mapping>

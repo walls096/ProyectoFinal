@@ -15,6 +15,9 @@
         <property generated="never" lazy="false" name="fecha" optimistic-lock="true" type="date" unique="false">
             <column length="13" name="fecha"/>
         </property>
+        <property generated="never" lazy="false" name="hora" optimistic-lock="true" type="string" unique="false">
+            <column name="hora"/>
+        </property>
         <property generated="never" lazy="false" name="tipoCita" optimistic-lock="true" type="string" unique="false">
             <column name="tipo_cita"/>
         </property>

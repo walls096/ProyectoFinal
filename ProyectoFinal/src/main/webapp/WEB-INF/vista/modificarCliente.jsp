@@ -157,7 +157,7 @@
 											<div class="col-md-6">
 												<input type="text" id="localidad" class="form-control"
 													name="localidad" placeholder="<%=RepositorioCliente.getDatosCliente().get(0).getLocalidad()%>">
-													<input id="boton" type="button" value="Cambiar contraseña" onclick="cambiarPass()" class="btn btn-link">
+											<input id="boton" type="button" value="Cambiar contraseña" onclick="cambiarPass()" class="btn btn-link">
 											</div>											
 										</div>
 

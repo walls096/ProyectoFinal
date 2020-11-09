@@ -21,7 +21,7 @@ private static List<Cita> citasCliente;
 			session.beginTransaction();
 
 			List<Cita> citas = (List<Cita>) session
-					.createQuery("from com.walls.entidades.Cita where codCliente = '" + RepositorioCliente.getCodCliente() + "'", Cita.class)
+					.createQuery("from com.walls.entidades.Cita where codCliente = '" + RepositorioCliente.getCodCliente() + "' order by fecha", Cita.class)
 					.getResultList();
 
 			citasCliente = citas;

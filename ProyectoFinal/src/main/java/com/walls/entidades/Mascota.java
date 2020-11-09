@@ -11,6 +11,7 @@ public class Mascota implements java.io.Serializable {
 	private String tipo;
 	private String raza;
 	private Integer codCliente;
+	private String imagen;
 
 	public Mascota() {
 	}
@@ -19,12 +20,23 @@ public class Mascota implements java.io.Serializable {
 		this.codMascota = codMascota;
 	}
 
-	public Mascota(int codMascota, String nombre, String tipo, String raza, Integer codCliente) {
+	public Mascota(int codMascota, String nombre, String tipo, String raza, Integer codCliente,String imagen) {
 		this.codMascota = codMascota;
 		this.nombre = nombre;
 		this.tipo = tipo;
 		this.raza = raza;
 		this.codCliente = codCliente;
+		this.imagen = imagen;
+	}
+
+	
+	
+	public String getImagen() {
+		return imagen;
+	}
+
+	public void setImagen(String imagen) {
+		this.imagen = imagen;
 	}
 
 	public int getCodMascota() {

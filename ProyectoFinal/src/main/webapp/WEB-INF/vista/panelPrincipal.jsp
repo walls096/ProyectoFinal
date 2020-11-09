@@ -153,8 +153,8 @@
 								<table class="table">
 									<tbody>
 										<tr>
-											<th scope="row"><%=c.getFecha() %></th>
-											<td>Mark</td> 
+											<th scope="row"><%=c.getFechaToString() %></th>
+											<td><%=c.getHora() %></td> 
 											<td><%=RepositorioMascota.obtenerUnaMascota(c.getCodMascota()).get(0).getNombre() %></td> 
 											<td><%=c.getTipoCita() %></td>
 											<td><a href="#" onclick="mostrarDetalles(<%=c.getCodCita() %>)" class="btn btn-sm btn-success"><span class="glyphicon glyphicon-plus-sign"></span>+</a></td>

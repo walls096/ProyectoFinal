@@ -1,6 +1,12 @@
 package com.walls.repositorio;
 
+import java.awt.Image;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.List;
+
+import javax.swing.ImageIcon;
 
 import org.hibernate.Session;
 
@@ -157,7 +163,7 @@ public class RepositorioMascota {
 		
 	}
 	
-	public static void modificarUnaMascota( String nombre, String tipo, String raza) {
+	public static void modificarUnaMascota( String nombre, String tipo, String raza, String imagen) {
 		
 		Session session = HibernateUtils.getSessionFactory().openSession();
 
@@ -175,7 +181,7 @@ public class RepositorioMascota {
 			if(nombre.equals(""))
 				m.setNombre(unaMascota.get(0).getNombre());
 			else 
-				m.setNombre(nombre);
+				m.setNombre(nombre.toUpperCase());
 			if(tipo.equals(""))
 				m.setTipo(unaMascota.get(0).getTipo());
 			else 
@@ -184,6 +190,13 @@ public class RepositorioMascota {
 				m.setRaza(unaMascota.get(0).getRaza());
 			else 
 				m.setRaza(raza.toUpperCase());
+			if(imagen.equals(""))
+				m.setImagen(unaMascota.get(0).getImagen());
+			else {
+				
+				m.setImagen(imagen);
+			}
+			
 			
 			session.update(m);
 
@@ -231,6 +244,29 @@ public class RepositorioMascota {
 		
 	}
 	
+	public void crearImagen(String nombre) {
+		
+		String origen = "";
+		String destino = "" + nombre;
+		
+		ImageIcon nueva = new ImageIcon(origen);
+        nueva = adaptarImagen(nueva);
+        
+        try {
+            Files.copy(Paths.get(origen),Paths.get(destino));
+        } catch (IOException ex) {}
+		
+		
+	}
+	
+	public ImageIcon adaptarImagen(ImageIcon i){
+        
+        Image imagen = i.getImage();
+        
+        imagen = imagen.getScaledInstance(155, 158, Image.SCALE_SMOOTH);
+        
+        return new ImageIcon(imagen);
+    }
 	
 	public static void borrarMascotaLista(Mascota o) {
 		todasLasMascotas.remove(o);

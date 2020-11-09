@@ -25,19 +25,33 @@
 	href="${pageContext.request.contextPath}/static/css/menu.css" />
 
 <style>
-
-.colorRed{
-	color:red;
+.colorRed {
+	color: red;
 }
+
 .separacion {
 	padding-top: 5%;
 }
-.hidden{
-	visibility:hidden;
+
+.hidden {
+	visibility: hidden;
 }
 </style>
 
 </head>
+
+<script type="text/javascript">
+
+       $(function()
+       {
+           $('#imagen').on('change',function ()
+           {
+               var filePath = $(this).val();
+               console.log(filePath);
+           });
+       });
+
+</script>
 
 <body>
 
@@ -45,11 +59,14 @@
 
 		<div class="bg-light border-right" id="sidebar-wrapper">
 
-			<div class="sidebar-heading">Bienvenido <%=RepositorioCliente.getDatosCliente().get(0).getNombre()%></div>
+			<div class="sidebar-heading">
+				Bienvenido
+				<%=RepositorioCliente.getDatosCliente().get(0).getNombre()%></div>
 			<div class="list-group list-group-flush">
 				<a href="panelPrincipal"
 					class="list-group-item list-group-item-action bg-light">Citas</a> <a
-					href="administrarCitas" class="list-group-item list-group-item-action bg-light">Administrar
+					href="administrarCitas"
+					class="list-group-item list-group-item-action bg-light">Administrar
 					Citas</a> <a href="listadoMascotas"
 					class="list-group-item list-group-item-action bg-light">Mascotas</a>
 			</div>
@@ -86,83 +103,96 @@
 					</ul>
 				</div>
 			</nav>
-		
-		
-		<div class="container-fluid separacion">
-			<main class="login-form weight-auto">
-							<div class="text-center text-md-left">
-								<a class="btn btn-light" href="listadoMascotas">←</a>
-							</div>
-				<div class="cotainer">
-				
-					<div class="row justify-content-center">
-					
-						<div class="col-md-8">
-							<div class="card">
-								<div class="card-header">Datos actuales de la mascota</div>
-								<div class="card-body">
 
-									<form method="POST" action="modificarMascotaFormulario">
-									
-										
-										<div class="form-group row">
-											<label for="nombre"
-												class="col-md-4 col-form-label text-md-right">Nombre</label>
-											<div class="col-md-6">
-												<input type="text" id="nombre" class="form-control"
-													name="nombre" autofocus placeholder="<%=RepositorioMascota.getUnaMascota().get(0).getNombre()%>">
+
+			<div class="container-fluid separacion">
+				<main class="login-form weight-auto">
+					<div class="text-center text-md-left">
+						<a class="btn btn-light" href="listadoMascotas">←</a>
+					</div>
+					<div class="cotainer">
+
+						<div class="row justify-content-center">
+
+							<div class="col-md-8">
+								<div class="card">
+									<div class="card-header">Datos actuales de la mascota</div>
+									<div class="card-body">
+
+										<form method="POST" action="modificarMascotaFormulario">
+
+
+											<div class="form-group row">
+												<label for="nombre"
+													class="col-md-4 col-form-label text-md-right">Nombre</label>
+												<div class="col-md-6">
+													<input type="text" id="nombre" class="form-control"
+														name="nombre" autofocus
+														placeholder="<%=RepositorioMascota.getUnaMascota().get(0).getNombre()%>">
+												</div>
 											</div>
-										</div>
 
-										<div class="form-group row">
-											<label for="tipo"
-												class="col-md-4 col-form-label text-md-right">Tipo</label>
-											<div class="col-md-6">
-												<input type="text" id="tipo" class="form-control"
-													name="tipo" placeholder="<%=RepositorioMascota.getUnaMascota().get(0).getTipo()%>">
+											<div class="form-group row">
+												<label for="tipo"
+													class="col-md-4 col-form-label text-md-right">Tipo</label>
+												<div class="col-md-6">
+													<input type="text" id="tipo" class="form-control"
+														name="tipo"
+														placeholder="<%=RepositorioMascota.getUnaMascota().get(0).getTipo()%>">
+												</div>
 											</div>
-										</div>
-										
-										<div class="form-group row">
-											<label for="raza"
-												class="col-md-4 col-form-label text-md-right">Raza</label>
-											<div class="col-md-6">
-												<input type="text" id="raza" class="form-control"
-													name="raza" placeholder="<%=RepositorioMascota.getUnaMascota().get(0).getRaza()%>">
+
+											<div class="form-group row">
+												<label for="raza"
+													class="col-md-4 col-form-label text-md-right">Raza</label>
+												<div class="col-md-6">
+													<input type="text" id="raza" class="form-control"
+														name="raza"
+														placeholder="<%=RepositorioMascota.getUnaMascota().get(0).getRaza()%>">
+												</div>
 											</div>
-										</div>
-										
 
-										<div class="col-md-6 offset-md-4">
+											<div class="form-group row">
+												<label class="col-md-4 col-form-label text-md-right" 
+												for="imagen">Cambiar imagen</label>
+												<div class="col-md-6">
+													<input type="file" class="form-control-file" name="imagen" id="imagen">
+												</div>
+												
+											</div>
 
-											<input id="boton" type="submit" value="Guardar" class="btn btn-primary">
 
-										</div>
-										
-										
-										
+											<div class="col-md-6 offset-md-4">
 
-									</form>
+												<input id="boton" type="submit" value="Guardar"
+													class="btn btn-primary">
 
+											</div>
+
+
+
+
+										</form>
+
+									</div>
 								</div>
 							</div>
 						</div>
 					</div>
-				</div>
 
-			</main>
-			<!-- Fin del div container	 -->
+				</main>
+				<!-- Fin del div container	 -->
+
+			</div>
 
 		</div>
+		<!-- /#page-content-wrapper -->
 
 	</div>
-	<!-- /#page-content-wrapper -->
-
-</div>
-<!-- Bootstrap core JavaScript -->
-<script
-	src="${pageContext.request.contextPath}/static/jquery/jquery.min.js"></script>
-<script
-	src="${pageContext.request.contextPath}/static/js/bootstrap.bundle.min.js"></script>
+	<!-- Bootstrap core JavaScript -->
+	<script
+		src="${pageContext.request.contextPath}/static/jquery/jquery.min.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/static/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

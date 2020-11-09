@@ -44,9 +44,8 @@
 </script>
 
 <style>
-
 .separacion {
-	padding-top: 5%;
+	padding-top: 3%;
 }
 
 .borde {
@@ -56,7 +55,36 @@
 .margin {
 	margin: 2%;
 }
+
+.hidden {
+	visibility: hidden;
+}
+
+.visible {
+	visibility: visible;
+}
+
+.center {
+	text-align: center;
+}
 </style>
+
+<script>
+
+	function filtrar(){
+
+		var item = document.getElementById("filtrar");
+		var compruebaClase = item.classList ;
+		
+		if(compruebaClase.contains('hidden')){
+			item.classList.replace('hidden','visible');
+		}else{
+			item.classList.replace('visible','hidden');
+		}
+		
+	}
+
+</script>
 </head>
 
 <body>
@@ -65,11 +93,14 @@
 
 		<div class="bg-light border-right" id="sidebar-wrapper">
 
-			<div class="sidebar-heading">Bienvenido <%=RepositorioCliente.getDatosCliente().get(0).getNombre()%></div>
+			<div class="sidebar-heading">
+				Bienvenido
+				<%=RepositorioCliente.getDatosCliente().get(0).getNombre()%></div>
 			<div class="list-group list-group-flush">
 				<a href="panelPrincipal"
 					class="list-group-item list-group-item-action bg-light">Citas</a> <a
-					href="administrarCitas" class="list-group-item list-group-item-action bg-light">Administrar
+					href="administrarCitas"
+					class="list-group-item list-group-item-action bg-light">Administrar
 					Citas</a> <a href="listadoMascotas"
 					class="list-group-item list-group-item-action bg-light">Mascotas</a>
 			</div>
@@ -114,79 +145,122 @@
 
 					<section class="main row">
 
-						<article class="col-xs-12 col-sm-12 col-md-12">
+						<article class="col-xs-12 col-sm-12 col-md-2	">
 							<div class="text-center text-md-left">
 								<a class="btn btn-primary" href="crearCita">Pedir cita</a>
 							</div>
 						</article>
+
+						<article class="col-xs-12 col-sm-12 col-md-6">
+							<div class="text-center text-md-left">
+								<a class="btn btn-primary" onclick="filtrar()">Organizar</a>
+							</div>
+						</article>
 					</section>
-						<%
-							try {
-												
-									if (RepositorioCita.obtenerCitasCliente().size() == 0) {
-						%>
-									<h5 class="separacion">Actualmente no tiene citas registradas</h5>
-									<%
-									}else{
-									%>
-										<section class="main row separacion">
-				
-											<article class="col-xs-12 col-sm-12 col-md-12">
-												<table class="table table-striped">
-													<thead class="thead-light">
-														<tr>
-															<th scope="col">FECHA</th>
-															<th scope="col">HORA</th>
-															<th scope="col">MASCOTA</th>
-															<th scope="col">TIPO</th>
-															<th scope="col">DETALLES</th>
-															<th scope="col"></th>
-														</tr>
-													</thead>
-													<tbody>
-											<%for (Cita c : RepositorioCita.obtenerCitasCliente()) { %>
-									
-													
-														<tr>
-															<td><%=c.getFecha() %></td>
-															<td scope="col">HORA</td>
-															<td><%=RepositorioMascota.obtenerUnaMascota(c.getCodMascota()).get(0).getNombre() %></td>
-															<td><%=c.getTipoCita()%></td>
-															<td>
-															<%String[] observaciones = c.getObservacion().split("#");
-															for (String todasObservaciones : observaciones) { %>
-																<p><%=todasObservaciones %></p>
-															<%} %>
-															</td>
-															<td>
-															<a href="#" onclick="mostrarDetalles(<%=c.getCodCita() %>)" class="btn btn-sm btn-warning"><span class="glyphicon glyphicon-plus-sign"></span>editar</a>
-															<a href="#" onclick="mostrarDetalles(<%=c.getCodCita() %>)" class="btn btn-sm btn-danger"><span class="glyphicon glyphicon-plus-sign"></span>borrar</a>
-															</td>
-														</tr>
-													
-									
-						
-								<%
-											}%></tbody>
-												</table>
-											</article>
-												
-										</section>
-										<%
-										}
+					<section id="filtrar" class="main row hidden separacion">
+
+						<form method="POST" action="campoFiltrado">
+							<div class="form-row align-items-center">
+								<div class="col-auto my-1">
+									<select class="custom-select mr-sm-2"
+										id="filtroMascota">
+										<option selected>-MASCOTAS-</option>
+										<option value="1">One</option>
+									</select>
+								</div>
+								<div class="col-auto my-1">
+									<select class="custom-select mr-sm-2"
+										id="filtroTipo">
+										<option selected>-TIPO CITA-</option>
+										<option value="1">One</option>
+									</select>
+								</div>
+								<div class="col-auto my-4 ">
+									<div class="col-auto my-1">
+									<button type="submit" class="btn btn-primary">Filtrar</button>
+								</div>
+								</div>
 								
-								} catch (NullPointerException e) {
-								%>
-						<meta http-equiv="Refresh"
-							content="6;url=http://localhost:8080/ProyectoFinal/iniciaSesion">
-						<script>
+							</div>
+						</form>
+					</section>
+					<%
+						try {
+
+						if (RepositorioCita.obtenerCitasCliente().size() == 0) {
+					%>
+					<h5 class="separacion">Actualmente no tiene citas registradas</h5>
+					<%
+						} else {
+					%>
+					<section class="main row separacion">
+
+						<article class="col-xs-12 col-sm-12 col-md-12">
+							<table class="table table-striped">
+								<thead class="thead-light">
+									<tr>
+										<th scope="col">FECHA</th>
+										<th scope="col">HORA</th>
+										<th scope="col">MASCOTA</th>
+										<th scope="col">TIPO</th>
+										<th scope="col">DETALLES</th>
+										<th scope="col"></th>
+									</tr>
+								</thead>
+								<tbody>
+									<%
+										for (Cita c : RepositorioCita.obtenerCitasCliente()) {
+									%>
+
+
+									<tr>
+										<td><%=c.getFecha()%></td>
+										<td><%=c.getHora()%></td>
+										<td><%=RepositorioMascota.obtenerUnaMascota(c.getCodMascota()).get(0).getNombre()%></td>
+										<td><%=c.getTipoCita()%></td>
+										<td>
+											<%
+												String[] observaciones = c.getObservacion().split("#");
+											for (String todasObservaciones : observaciones) {
+											%>
+											<p><%=todasObservaciones%></p> <%
+ 	}
+ %>
+										</td>
+										<td><a href="#"
+											onclick="mostrarDetalles(<%=c.getCodCita()%>)"
+											class="btn btn-sm btn-warning"><span
+												class="glyphicon glyphicon-plus-sign"></span>editar</a> <a
+											href="#" onclick="mostrarDetalles(<%=c.getCodCita()%>)"
+											class="btn btn-sm btn-danger"><span
+												class="glyphicon glyphicon-plus-sign"></span>borrar</a></td>
+									</tr>
+
+
+
+									<%
+										}
+									%>
+								</tbody>
+							</table>
+						</article>
+
+					</section>
+					<%
+						}
+
+					} catch (NullPointerException e) {
+					%>
+					<meta http-equiv="Refresh"
+						content="6;url=http://localhost:8080/ProyectoFinal/iniciaSesion">
+					<script>
 							alert("La sesion ha caducado, le estamos redirigiendo al login...")
 						</script>
-						<%
-							}
-						%>
+					<%
+						}
+					%>
 
-					
+
 
 
 				</section>

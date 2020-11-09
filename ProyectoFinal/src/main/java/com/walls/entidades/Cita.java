@@ -1,6 +1,7 @@
 package com.walls.entidades;
 // Generated 25-oct-2020 17:32:58 by Hibernate Tools 5.4.14.Final
 
+import java.util.Calendar;
 import java.util.Date;
 
 /**
@@ -12,6 +13,7 @@ public class Cita implements java.io.Serializable {
 	private Integer codCliente;
 	private Integer codMascota;
 	private Date fecha;
+	private String hora;
 	private String tipoCita;
 	private String observacion;
 
@@ -22,13 +24,24 @@ public class Cita implements java.io.Serializable {
 		this.codCita = codCita;
 	}
 
-	public Cita(int codCita, Integer codCliente, Integer codMascota, Date fecha, String tipoCita, String observacion) {
+	public Cita(int codCita, Integer codCliente, Integer codMascota, Date fecha, String hora, String tipoCita, String observacion) {
 		this.codCita = codCita;
 		this.codCliente = codCliente;
 		this.codMascota = codMascota;
 		this.fecha = fecha;
+		this.hora = hora;
 		this.tipoCita = tipoCita;
 		this.observacion = observacion;
+	}
+	
+	
+
+	public String getHora() {
+		return hora;
+	}
+
+	public void setHora(String hora) {
+		this.hora = hora;
 	}
 
 	public int getCodCita() {
@@ -58,6 +71,18 @@ public class Cita implements java.io.Serializable {
 	public Date getFecha() {
 		return this.fecha;
 	}
+	
+	public String getFechaToString() {
+		
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(fecha);
+		
+		String dia = Integer.toString(cal.get(Calendar.DATE));
+		String mes = Integer.toString(cal.get(Calendar.MONTH));
+		String annio = Integer.toString(cal.get(Calendar.YEAR));
+		
+		return dia + "/"+mes + "/" + annio;
+	}
 
 	public void setFecha(Date fecha) {
 		this.fecha = fecha;
@@ -72,7 +97,11 @@ public class Cita implements java.io.Serializable {
 	}
 
 	public String getObservacion() {
-		return this.observacion;
+		
+		if(observacion.equals(""))
+			return "SIN OBSERVACIONES";
+		else
+			return this.observacion;
 	}
 
 	public void setObservacion(String observacion) {

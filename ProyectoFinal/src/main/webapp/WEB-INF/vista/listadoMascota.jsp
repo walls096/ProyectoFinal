@@ -142,7 +142,8 @@
 							</div>
 							
 							<div class="border margin col-xs-12 col-sm-4">
-							
+								<img alt="imagen" 
+								src="${pageContext.request.contextPath}/static/img/<%=m.getCodMascota() %>.jpg"class="img-fluid">
 							</div>
 							
 							
