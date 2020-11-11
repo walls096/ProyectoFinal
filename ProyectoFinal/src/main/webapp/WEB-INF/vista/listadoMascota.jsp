@@ -1,10 +1,12 @@
-<%@page import="com.walls.repositorio.RepositorioMascota"%>
-<%@page import="com.walls.controlador.ControladorMascota"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
+<%@page import="com.walls.repositorio.RepositorioMascota"%>
+<%@page import="com.walls.controlador.ControladorMascota"%>
+<%@page import="com.walls.controlador.ControladorCita"%>
 <%@page import="com.walls.repositorio.RepositorioCliente"%>
+<%@page import="com.walls.repositorio.RepositorioCita"%>
 <%@page import="com.walls.entidades.Mascota"%>
 <%@page import="java.util.List"%>
 <!DOCTYPE html>
@@ -25,12 +27,24 @@
 	href="${pageContext.request.contextPath}/static/css/simple-sidebar.css" />
 
 <script>
-	function seguro(id) {
+	
+	function seguro(id,tieneCita) {
 
-		if (window.confirm("¿ Esta seguro que desea eliminar la mascota ?")) {
-			window.location = "borrarMascota?id="+id;
-		} else {
-			window.location = "listadoMascotas";
+		if(tieneCita){
+			
+			if (window.confirm("La mascota que va a borrar tiene una cita asignada, ¿ desea continuar ?")) {
+				window.location = "borrarMascotaConCita?codMascota="+id;
+			} else {
+				window.location = "listadoMascotas";
+			}
+			
+		}else{
+			
+			if (window.confirm("¿ Esta seguro que desea eliminar la mascota ?")) {
+				window.location = "borrarMascota?id="+id;
+			} else {
+				window.location = "listadoMascotas";
+			}
 		}
 	}
 	
@@ -41,7 +55,6 @@
 </script>
 
 <style>
-
 .separacion {
 	padding-top: 5%;
 }
@@ -62,11 +75,14 @@
 
 		<div class="bg-light border-right" id="sidebar-wrapper">
 
-			<div class="sidebar-heading">Bienvenido <%=RepositorioCliente.getDatosCliente().get(0).getNombre()%></div>
+			<div class="sidebar-heading">
+				Bienvenido
+				<%=RepositorioCliente.getDatosCliente().get(0).getNombre()%></div>
 			<div class="list-group list-group-flush">
 				<a href="panelPrincipal"
 					class="list-group-item list-group-item-action bg-light">Citas</a> <a
-					href="administrarCitas" class="list-group-item list-group-item-action bg-light">Administrar
+					href="administrarCitas"
+					class="list-group-item list-group-item-action bg-light">Administrar
 					Citas</a> <a href="listadoMascotas"
 					class="list-group-item list-group-item-action bg-light">Mascotas</a>
 			</div>
@@ -109,55 +125,83 @@
 
 				<section class="container">
 
-					<section class="main row">
+					<section class="main row separacion">
 
-						<article class="col-xs-12 col-sm-12 col-md-12">
+						<article class="col-xs-12 col-sm-12 col-md-3">
 							<div class="text-center text-md-left">
 								<a class="btn btn-primary" href="crearMascota">Agregar
 									mascota</a>
 							</div>
 						</article>
 
+						<article class="col-xs-12 col-sm-12 col-md-5">
+							<div class="text-center text-md-left">
+								<form class="form-inline md-form mr-auto mb-2" >
+									<input class="form-control mr-sm-2" type="text"
+										placeholder="buscar por nombre" aria-label="Search">
+									<button class="btn aqua-gradient btn-rounded btn-sm my-0"
+										type="submit">Buscar</button>
+								</form>
+							</div>
+						</article>
+
+					</section>
+					<section class="main row">
+
 						<%
 							try {
-												
-												if (RepositorioMascota.getTodasLasMascotas().size() == 0) {
+
+							if (RepositorioMascota.getTodasLasMascotas().size() == 0) {
 						%>
-									<h5 class="separacion">Actualmente no tiene mascotas registradas</h5>
-									<%
-										}else{
-															
-														for (Mascota m : RepositorioMascota.getTodasLasMascotas()) {
-									%>
+						<h5 class="separacion">Actualmente no tiene mascotas
+							registradas</h5>
+						<%
+							} else {
+
+							for (Mascota m : RepositorioMascota.getTodasLasMascotas()) {
+						%>
 						<article class="border margin col-xs-12 col-sm-5">
-							
+
 							<div class="row">
-							<div class="border margin col-xs-12 col-sm-6">
-							
-							<p>Nombre: <%=m.getNombre()%></p>
-							<p>Tipo:   <%=m.getTipo()%></p>
-							<%if(m.getRaza().equals("")) m.setRaza("Sin especificar"); else  %>
-							<p>Raza:   <%=m.getRaza()%></p>
-								
+								<div class="border margin col-xs-12 col-sm-6">
+
+									<p>
+										Nombre:
+										<%=m.getNombre()%></p>
+									<p>
+										Tipo:
+										<%=m.getTipo()%></p>
+									<%
+										if (m.getRaza().equals(""))
+										m.setRaza("Sin especificar");
+									else
+									%>
+									<p>
+										Raza:
+										<%=m.getRaza()%></p>
+
+								</div>
+
+								<div class="border margin col-xs-12 col-sm-4">
+									<img alt="imagen"
+										src="${pageContext.request.contextPath}/static/img/<%=m.getImagen() %>"
+										class="img-fluid">
+								</div>
+
+
+
 							</div>
 							
-							<div class="border margin col-xs-12 col-sm-4">
-								<img alt="imagen" 
-								src="${pageContext.request.contextPath}/static/img/<%=m.getCodMascota() %>.jpg"class="img-fluid">
-							</div>
-							
-							
-								
-							</div>		
-							<a class="btn btn-warning" onclick="modificar(<%=m.getCodMascota()%>)">Modificar
-								Mascota</a> <a class="btn btn-danger" onclick="seguro(<%=m.getCodMascota()%>)">Eliminar
-								Mascota</a>					
+							<a class="btn btn-warning"
+								onclick="modificar(<%=m.getCodMascota()%>)">Modificar
+								Mascota</a> <a class="btn btn-danger"
+								onclick="seguro(<%=m.getCodMascota()%>,<%= RepositorioCita.tieneCita(m.getCodMascota()) %>)">Eliminar Mascota</a>
 
 						</article>
 						<%
 							}
-								}
-						
+						}
+
 						} catch (NullPointerException e) {
 						%>
 						<meta http-equiv="Refresh"

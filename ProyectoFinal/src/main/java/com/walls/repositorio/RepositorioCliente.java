@@ -184,7 +184,7 @@ public class RepositorioCliente {
 	}
 	
 	
-	
+	//TODO: Comprobar funcionamiento
 	public static boolean ModificarPass(String nuevaPass) {
 
 		Session session = HibernateUtils.getSessionFactory().openSession();
@@ -264,45 +264,5 @@ public class RepositorioCliente {
 		}
 		
 	}
-
-	/*
-	 * public static void main(String[] args) {
-	 * 
-	 * Session session = HibernateUtils.getSessionFactory().getCurrentSession();
-	 * 
-	 * try {
-	 * 
-	 * System.out.println("Preparado para realizar alta");
-	 * 
-	 * Clinica c = new Clinica(new ClinicaId( 1, "Prueba", "c/ave", "aa@aa.com",
-	 * 999999999));
-	 * 
-	 * session.beginTransaction();
-	 * 
-	 * session.save(c);
-	 * 
-	 * session.getTransaction().commit();
-	 * 
-	 * System.out.println("Alta realizada con exito");
-	 * 
-	 * ---------------------------
-	 * 
-	 * session.beginTransaction(); List<Clinica> clinicas =
-	 * (List<Clinica>)session.createQuery("from Clinica ",Clinica.class).
-	 * getResultList(); session.getTransaction().commit();
-	 * 
-	 * for (Clinica c : clinicas) { System.out.println("***: "+
-	 * c.getId().getNombre()); }
-	 * 
-	 * } catch(Exception e) { System.out.println("Error al hacer transca");
-	 * session.getTransaction().rollback(); } finally {
-	 * 
-	 * HibernateUtils.closeSessionFactory();
-	 * 
-	 * }
-	 * 
-	 * 
-	 * }
-	 */
 
 }

@@ -9,6 +9,7 @@
 <%@page import="com.walls.repositorio.RepositorioMascota"%>
 <%@page import="com.walls.repositorio.RepositorioCita"%>
 <%@page import="com.walls.entidades.Cita"%>
+<%@page import="com.walls.entidades.Mascota"%>
 <%@page import="java.util.List"%>
 <!DOCTYPE html>
 <html>
@@ -30,22 +31,35 @@
 <script>
 	function seguro(id) {
 
-		if (window.confirm("¿ Esta seguro que desea eliminar la mascota ?")) {
-			window.location = "borrarMascota?id="+id;
+		if (window.confirm("¿ Esta seguro que desea eliminar la cita ?")) {
+			window.location = "borrarCita?id="+id;
 		} else {
-			window.location = "listadoMascotas";
+			window.location = "administrarCitas";
 		}
 	}
 	
 
 	function modificar(id) {
-		window.location = "modificarMascota?id="+id;
+		window.location = "modificarCita?id="+id;
+	}
+	
+	function filtrar(){
+
+		var item = document.getElementById("filtrar");
+		var compruebaClase = item.classList ;
+		
+		if(compruebaClase.contains('hidden')){
+			item.classList.replace('hidden','visible');
+		}else{
+			item.classList.replace('visible','hidden');
+		}
+		
 	}
 </script>
 
 <style>
 .separacion {
-	padding-top: 3%;
+	padding-top: 1%;
 }
 
 .borde {
@@ -68,23 +82,6 @@
 	text-align: center;
 }
 </style>
-
-<script>
-
-	function filtrar(){
-
-		var item = document.getElementById("filtrar");
-		var compruebaClase = item.classList ;
-		
-		if(compruebaClase.contains('hidden')){
-			item.classList.replace('hidden','visible');
-		}else{
-			item.classList.replace('visible','hidden');
-		}
-		
-	}
-
-</script>
 </head>
 
 <body>
@@ -165,14 +162,23 @@
 									<select class="custom-select mr-sm-2"
 										id="filtroMascota">
 										<option selected>-MASCOTAS-</option>
-										<option value="1">One</option>
+										<% 
+											for(Mascota m : RepositorioMascota.getTodasLasMascotas()){
+										%>
+											<option value="1"><%=m.getNombre()%></option>
+										<%
+											}
+										%> 
 									</select>
 								</div>
 								<div class="col-auto my-1">
 									<select class="custom-select mr-sm-2"
 										id="filtroTipo">
 										<option selected>-TIPO CITA-</option>
-										<option value="1">One</option>
+										<option value="1">REVISION</option>
+										<option value="2">URGENCIA</option>
+										<option value="3">VACUNACION</option>
+										<option value="4">PELUQUERIA</option>
 									</select>
 								</div>
 								<div class="col-auto my-4 ">
@@ -221,19 +227,16 @@
 										<td>
 											<%
 												String[] observaciones = c.getObservacion().split("#");
-											for (String todasObservaciones : observaciones) {
+												for (String todasObservaciones : observaciones) {
 											%>
-											<p><%=todasObservaciones%></p> <%
- 	}
- %>
+													<p><%=todasObservaciones%></p> <%
+										 		}
+											%>
 										</td>
-										<td><a href="#"
-											onclick="mostrarDetalles(<%=c.getCodCita()%>)"
-											class="btn btn-sm btn-warning"><span
-												class="glyphicon glyphicon-plus-sign"></span>editar</a> <a
-											href="#" onclick="mostrarDetalles(<%=c.getCodCita()%>)"
-											class="btn btn-sm btn-danger"><span
-												class="glyphicon glyphicon-plus-sign"></span>borrar</a></td>
+										<td>
+											<a href="#" onclick="modificar(<%=c.getCodCita()%>)" class="btn btn-sm btn-warning">editar</a> 
+											<a href="#" onclick="seguro(<%=c.getCodCita()%>)" class="btn btn-sm btn-danger">borrar</a>
+										</td>
 									</tr>
 
 

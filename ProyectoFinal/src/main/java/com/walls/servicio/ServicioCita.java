@@ -2,12 +2,39 @@ package com.walls.servicio;
 
 import java.util.List;
 
+import org.springframework.stereotype.Service;
+
 import com.walls.entidades.Cita;
 import com.walls.repositorio.RepositorioCita;
 
+@Service
 public class ServicioCita {
 
 	public static List<Cita> obtenerCitasCliente() {
 		return RepositorioCita.obtenerCitasCliente();
+	}
+	
+	public List<Cita> obtenerUnaCita(int id) {
+		return RepositorioCita.obtenerUnaCita(id);
+	}
+	
+	public void eliminarCita(Cita c) {
+		RepositorioCita.eliminarCita(c);
+	}
+	
+	public void eliminarCitaLista(Cita c) {
+		RepositorioCita.eliminarCitaLista(c);
+	}
+	
+	public List<Cita> getCitasCliente(){
+		return RepositorioCita.getCitasCliente();
+	}
+	
+	public void crearCita(Cita c) {
+		RepositorioCita.crearCita(c);
+	}
+	
+	public void tieneCita(int id) {
+		RepositorioCita.tieneCita(id);
 	}
 }

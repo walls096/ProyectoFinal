@@ -15,8 +15,8 @@ import com.walls.entidades.Mascota;
 
 public class RepositorioMascota {
 
-	private static List<Mascota> todasLasMascotas;
-	private static List<Mascota> unaMascota;
+	private static List<Mascota> todasLasMascotas;	//OBTIENE LAS MASCOTAS DEL CLIENTE
+	private static List<Mascota> unaMascota;		//MASCOTA QUE PASA A SER MODIFICADA
 	
 	
 	public static List<Mascota> obtenerMascotasCliente() {
@@ -97,10 +97,11 @@ public class RepositorioMascota {
 				
 				Mascota m = new Mascota();
 				m.setCodMascota(id);
-				m.setNombre(nombre);
-				m.setTipo(tipo);
-				m.setRaza(raza);
+				m.setNombre(nombre.toUpperCase());
+				m.setTipo(tipo.toUpperCase());
+				m.setRaza(raza.toUpperCase());
 				m.setCodCliente(RepositorioCliente.getCodCliente());
+				m.setImagen("default.png");
 				
 				//Importante guardar en base de datos y en la lista.
 				session.save(m);
@@ -244,7 +245,7 @@ public class RepositorioMascota {
 		
 	}
 	
-	public void crearImagen(String nombre) {
+	public static void crearImagen(String nombre) {
 		
 		String origen = "";
 		String destino = "" + nombre;
@@ -259,7 +260,7 @@ public class RepositorioMascota {
 		
 	}
 	
-	public ImageIcon adaptarImagen(ImageIcon i){
+	public static ImageIcon adaptarImagen(ImageIcon i){
         
         Image imagen = i.getImage();
         

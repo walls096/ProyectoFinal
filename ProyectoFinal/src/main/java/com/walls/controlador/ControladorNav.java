@@ -15,7 +15,6 @@ public class ControladorNav {
 	
     @RequestMapping(value="/") public String index() { return "index"; }
     
-    //Comprueba la ruta si se encuentra en otra distanta a la raiz
     @RequestMapping(value="/index") public String indexMenu() { return "index"; }
     
     @RequestMapping(value="/iniciaSesion") public String login() { return "iniciaSesion"; }
@@ -28,15 +27,7 @@ public class ControladorNav {
     //------------------------------------------------------------------------------
   	//-----------------------MAPEO DE MENULOGEADO-------------------------------------
   	//------------------------------------------------------------------------------
-    
-    @RequestMapping(value="/cerrarSesion") 
-    public String cerrarSesion() { 
-    	RepositorioCliente.borrarListaCliente();
-    	RepositorioMascota.borrarListaMascota();
-    	
-    	return "index"; 
-    }
-    
+        
     @RequestMapping(value="/modificarCliente") public String modificarCliente() { return "modificarCliente"; }
     
     @RequestMapping(value="/panelPrincipal") public String panelPrincipal() { return "panelPrincipal"; }
@@ -49,7 +40,15 @@ public class ControladorNav {
     
     @RequestMapping(value="/crearCita") public String crearCita() { return "crearCita"; }
     
+//    @RequestMapping(value="/borrarMascotaConCita") public String borrarMascotaConCita() { return "listadoMascota"; }
     
+    @RequestMapping(value="/cerrarSesion") 
+	    public String cerrarSesion() { 
+	    	RepositorioCliente.borrarListaCliente();
+	    	RepositorioMascota.borrarListaMascota();
+	    	
+    	return "index"; 
+    }
     
     
 }
