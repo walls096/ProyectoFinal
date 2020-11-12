@@ -1,18 +1,21 @@
 package com.walls.repositorio;
 
+import java.util.Date;
 import java.util.List;
 
 import org.hibernate.Session;
 
 import com.walls.controlador.HibernateUtils;
 import com.walls.entidades.Cita;
-import com.walls.entidades.Mascota;
 
 public class RepositorioCita {
 
 	private static List<Cita> citasCliente;
-	private static List<Cita> citasFiltradas;
+	private static List<Cita> unaCita;
 	private static List<Cita> mascotaConCita;
+	private static String[] horasDisponibles = {
+			"08:00","08:30","09:00","09:30","10:00","10:30","11:00","11:30","12:00","12:30","13:00","13:30","14:00",
+			"16:00","16:30","17:00","17:30","18:00","18:30","19:00","19:30","20:00","20:30"};
 	
 	//TODO: NO FUNCIONA
 	public static int obtenerIdCita() {
@@ -24,7 +27,7 @@ public class RepositorioCita {
 			session.beginTransaction();
 
 			List<Cita> citaId = (List<Cita>) session
-					.createQuery("from com.walls.entidades.Cita c where c.codCita = (select max(cc.codCita) from com.walls.entidades.Cita cc" , Cita.class)
+					.createQuery("SELECT MAX(codCita c) from com.walls.entidades.Cita c" , Cita.class)
 					.getResultList();
 			
 			
@@ -42,6 +45,43 @@ public class RepositorioCita {
 			session.close();
 			return 0;
 		}
+		
+	}
+	
+	public static boolean citaDisponible(Date fecha, String hora) {
+		
+		Session session = HibernateUtils.getSessionFactory().openSession();
+
+		try {
+
+			session.beginTransaction();
+
+			List<Cita> citaDisponible = (List<Cita>) session
+					.createQuery("from com.walls.entidades.Cita where fecha = '"+fecha
+							+ "' and hora = '" + hora + "'" , Cita.class)
+					.getResultList();
+			
+			
+			session.getTransaction().commit();
+
+			session.close();
+			
+			if(citaDisponible.isEmpty()) {
+				return true;
+			}else {
+				return false;
+			}
+			
+		}
+
+		catch (Exception e) {
+
+			System.out.println("Error al recuperar las mascotas del cliente (sessionFactory)");
+			session.getTransaction().rollback();
+			session.close();
+			return false;
+		}
+		
 		
 	}
 	
@@ -89,7 +129,8 @@ public class RepositorioCita {
 					.createQuery("from com.walls.entidades.Cita where codCita = '" + id + "'", Cita.class)
 					.getResultList();
 
-
+			unaCita = cita;
+			
 			session.getTransaction().commit();
 
 			session.close();
@@ -212,8 +253,18 @@ public class RepositorioCita {
 		return citasCliente;
 	}
 	
+	public static List<Cita> getUnaCita(){
+		return unaCita;
+	}
+	
+	public static String[] getHorasDisponibles(){
+		return horasDisponibles;
+	}
+	
 	public static void eliminarCitasCliente() {
 		citasCliente.clear();
+		unaCita.clear();
+		mascotaConCita.clear();
 	}
 	
 	public static void eliminarCitaLista(Cita c) {

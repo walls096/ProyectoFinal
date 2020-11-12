@@ -1,5 +1,6 @@
 package com.walls.servicio;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -32,6 +33,10 @@ public class ServicioCita {
 	
 	public void crearCita(Cita c) {
 		RepositorioCita.crearCita(c);
+	}
+	
+	public boolean citaDisponible(Date fecha, String hora) {
+		return RepositorioCita.citaDisponible(fecha,hora);
 	}
 	
 	public void tieneCita(int id) {

@@ -78,7 +78,7 @@ public class Cita implements java.io.Serializable {
 		cal.setTime(fecha);
 		
 		String dia = Integer.toString(cal.get(Calendar.DATE));
-		String mes = Integer.toString(cal.get(Calendar.MONTH));
+		String mes = Integer.toString(cal.get(Calendar.MONTH)+1);
 		String annio = Integer.toString(cal.get(Calendar.YEAR));
 		
 		return dia + "/"+mes + "/" + annio;

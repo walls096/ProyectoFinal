@@ -38,7 +38,7 @@ public class ControladorNav {
     
     @RequestMapping(value="/administrarCitas") public String administrarCitas() { return "administrarCitas"; }
     
-    @RequestMapping(value="/crearCita") public String crearCita() { return "crearCita"; }
+    @RequestMapping(value="/pedirCita") public String crearCita() { return "pedirCita"; }
     
 //    @RequestMapping(value="/borrarMascotaConCita") public String borrarMascotaConCita() { return "listadoMascota"; }
     

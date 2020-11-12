@@ -144,7 +144,7 @@
 
 						<article class="col-xs-12 col-sm-12 col-md-2	">
 							<div class="text-center text-md-left">
-								<a class="btn btn-primary" href="crearCita">Pedir cita</a>
+								<a class="btn btn-primary" href="pedirCita">Pedir cita</a>
 							</div>
 						</article>
 
@@ -220,7 +220,7 @@
 
 
 									<tr>
-										<td><%=c.getFecha()%></td>
+										<td><%=c.getFechaToString()%></td>
 										<td><%=c.getHora()%></td>
 										<td><%=RepositorioMascota.obtenerUnaMascota(c.getCodMascota()).get(0).getNombre()%></td>
 										<td><%=c.getTipoCita()%></td>
