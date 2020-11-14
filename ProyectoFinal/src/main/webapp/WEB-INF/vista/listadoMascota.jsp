@@ -133,18 +133,20 @@
 									mascota</a>
 							</div>
 						</article>
-
+						<%
+							if (RepositorioMascota.getTodasLasMascotas().size() != 0) {
+						%>
 						<article class="col-xs-12 col-sm-12 col-md-5">
 							<div class="text-center text-md-left">
-								<form class="form-inline md-form mr-auto mb-2" >
-									<input class="form-control mr-sm-2" type="text"
+								<form class="form-inline md-form mr-auto mb-2" method="POST" action="buscarMascota">
+									<input name="nombre" class="form-control mr-sm-2" type="text"
 										placeholder="buscar por nombre" aria-label="Search">
-									<button class="btn aqua-gradient btn-rounded btn-sm my-0"
+									<button class="btn btn-primary btn-rounded "
 										type="submit">Buscar</button>
 								</form>
 							</div>
 						</article>
-
+						<%} %>
 					</section>
 					<section class="main row">
 

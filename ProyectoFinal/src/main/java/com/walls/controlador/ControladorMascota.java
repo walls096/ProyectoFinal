@@ -89,5 +89,20 @@ public class ControladorMascota {
     	
     }
 	
+	@RequestMapping(value="/buscarMascota", method=RequestMethod.POST)
+    public String buscarMascota(
+    		Model model,
+    		@RequestParam("nombre") String nombre) {
+    	    	
+		
+    	if("".equals(nombre)) 
+    		ServicioMascota.obtenerMascotasCliente();
+    	else
+    		ServicioMascota.buscarMascotaPorNombre(nombre.toUpperCase());
+		
+		return "listadoMascota";
+    	
+    }
+	
 	
 }

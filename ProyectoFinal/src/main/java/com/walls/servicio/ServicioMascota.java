@@ -38,4 +38,8 @@ public class ServicioMascota {
 		RepositorioMascota.modificarUnaMascota(nombre,tipo,raza,imagen);
 	}
 	
+	public static void buscarMascotaPorNombre(String nombre) {
+		RepositorioMascota.buscarMascotaPorNombre(nombre);
+	}
+	
 }

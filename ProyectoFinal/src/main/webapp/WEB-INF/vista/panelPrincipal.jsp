@@ -6,6 +6,7 @@
 <%@page import="com.walls.repositorio.RepositorioCliente"%>
 <%@page import="com.walls.repositorio.RepositorioMascota"%>
 <%@page import="com.walls.entidades.Cita"%>
+<%@page import="com.walls.entidades.Utiles"%>
 <%@page import="java.util.List"%>
 <!DOCTYPE html>
 <html>
@@ -111,31 +112,39 @@
 				</div>
 			</nav>
 
-			<div class="container-fluid separacion">
+			<div class="container-fluid border">
+				<div class="row justify-content-center border">
+				<h3 class="text-center">Hora y fecha actual ---> <%=Utiles.formatearFecha() %></h3>
+				</div>
+				<h3 class="text-center separacion">Próximas citas</h3>
 
-				<h3 class="text-center">Próximas citas</h3>
-
-					<div class="cotainer">
+					<div class="cotainer border">
 
 						<div class="row justify-content-center ">
 						
-						<%
-							try {
+							<%
 												
-									if (RepositorioCita.obtenerCitasCliente().size() == 0) {
-						%>
+							if (RepositorioCita.obtenerCitasCliente().size() == 0) {
+							%>
 										<h5 class="separacion">Actualmente no tiene próximas citas</h5>
 										<article class="col-xs-12 col-sm-12 col-md-12">
 											<div class="text-center text-md-left">
 												<a class="btn btn-primary" href="administrarCitas">Administrar Citas</a>
 											</div>
 										</article>
-						<%
-										}else{	
-						%>
+							<%
+							}else
+							{	
+							%>
 
-							<div class="col-md-8">
-								<table class="table">
+							<div class="col-md-8 separacion">
+								
+							<%
+								for (Cita c : RepositorioCita.obtenerCitasCliente()) {
+									
+									if(!c.getFecha().before(Utiles.getFechaActual())){
+							%>
+								<table class="table center">
 									<thead class="thead-light">
 										<tr>
 											<th scope="col">FECHA</th>
@@ -145,12 +154,6 @@
 											<th scope="col">DETALLES</th>
 										</tr>
 									</thead>
-								</table>
-						<%
-									for (Cita c : RepositorioCita.obtenerCitasCliente()) {
-						%>
-
-								<table class="table">
 									<tbody>
 										<tr>
 											<th scope="row"><%=c.getFechaToString() %></th>
@@ -159,35 +162,33 @@
 											<td><%=c.getTipoCita() %></td>
 											<td><a href="#" onclick="mostrarDetalles(<%=c.getCodCita() %>)" class="btn btn-sm btn-success"><span class="glyphicon glyphicon-plus-sign"></span>+</a></td>
 										</tr>
-										
+									</tbody>
+									</table>
+									<table class="table">
 										<tbody id="<%=c.getCodCita() %>" class="hidden">
 										
 						
-						<%
+							<%
 						
 										String[] observaciones = c.getObservacion().split("#");
 		
 						
-										for (String todasObservaciones : observaciones) {
-						%>
-											<tr>
-												<th scope="row">-------</th>
-												<td colspan="3"><%=todasObservaciones %></td> 
-											</tr>
-						<%
+											for (String todasObservaciones : observaciones) {
+							%>
+												<tr>
+													<th scope="row">-------</th>
+													<%if(!todasObservaciones.equals("")) {%>
+														<td colspan="3"><%=todasObservaciones %></td>
+													<%}else {%>
+													<td colspan="3">Sin observaciones</td> 
+													<%} %>
+												</tr>
+							<%
+											}
 										}
 									}
 								}
 									
-							} catch (NullPointerException e) {
-						%>
-						<meta http-equiv="Refresh"
-							content="6;url=http://localhost:8080/ProyectoFinal/iniciaSesion">
-						<script>
-							alert("La sesion ha caducado, le estamos redirigiendo al login...")
-						</script>
-						<%
-							}
 						%>
 									</tbody>
 								</table>

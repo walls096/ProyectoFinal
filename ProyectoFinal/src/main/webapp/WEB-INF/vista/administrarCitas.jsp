@@ -147,12 +147,13 @@
 								<a class="btn btn-primary" href="pedirCita">Pedir cita</a>
 							</div>
 						</article>
-
+						<%if (RepositorioCita.obtenerCitasCliente().size() != 0) { %>
 						<article class="col-xs-12 col-sm-12 col-md-6">
 							<div class="text-center text-md-left">
 								<a class="btn btn-primary" onclick="filtrar()">Organizar</a>
 							</div>
 						</article>
+						<%} %>
 					</section>
 					<section id="filtrar" class="main row hidden separacion">
 

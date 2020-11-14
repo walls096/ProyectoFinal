@@ -50,6 +50,39 @@ public class RepositorioMascota {
 		
 	}
 	
+	public static List<Mascota> buscarMascotaPorNombre(String nombre) {
+		
+		Session session = HibernateUtils.getSessionFactory().openSession();
+
+		try {
+
+			session.beginTransaction();
+
+			List<Mascota> mascotas = (List<Mascota>) session
+					.createQuery("from com.walls.entidades.Mascota where codCliente = '" + RepositorioCliente.getCodCliente() + "' and nombre = '"+nombre+"'", Mascota.class)
+					.getResultList();
+			
+			if(!mascotas.isEmpty()) {
+				todasLasMascotas = mascotas;	
+			}
+
+			session.getTransaction().commit();
+
+			session.close();
+			
+			return todasLasMascotas;
+		}
+
+		catch (Exception e) {
+
+			System.out.println("Error al recuperar las mascotas del cliente (sessionFactory)");
+			session.getTransaction().rollback();
+			session.close();
+			return null;
+		}
+		
+	}
+	
 	public static List<Mascota> obtenerTodasLasMascotas() {
 		
 		Session session = HibernateUtils.getSessionFactory().openSession();
