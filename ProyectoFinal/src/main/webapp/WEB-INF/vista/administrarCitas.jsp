@@ -194,7 +194,7 @@
 					<%
 						try {
 
-						if (RepositorioCita.obtenerCitasCliente().size() == 0) {
+						if (RepositorioCita.getCitasCliente().size() == 0) {
 					%>
 					<h5 class="separacion">Actualmente no tiene citas registradas</h5>
 					<%
@@ -216,7 +216,7 @@
 								</thead>
 								<tbody>
 									<%
-										for (Cita c : RepositorioCita.obtenerCitasCliente()) {
+										for (Cita c : RepositorioCita.getCitasCliente()) {
 									%>
 
 

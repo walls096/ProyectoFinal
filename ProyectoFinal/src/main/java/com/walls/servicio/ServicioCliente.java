@@ -25,4 +25,8 @@ public class ServicioCliente {
 	public boolean modificarCliente (String nombre ,String mail, String direccion ,String localidad) {
 		return RepositorioCliente.modificarCliente(nombre,mail,direccion,localidad);
 	}
+	
+	public void modificarPassCliente(String pass) {
+		RepositorioCliente.modificarPass(pass);
+	}
 }

@@ -151,12 +151,16 @@ public class ControladorCita {
     		@RequestParam("filtroMascota") String filtroMascota,
     		@RequestParam("filtroTipo") String filtroTipo) {
     	
-    	
-      	if(filtroMascota.contentEquals("-MASCOTAS-") && filtroTipo.contentEquals("-TIPO CITA-")) {
-    		return "administrarCitas";
+    	//Si se aplican ambos filtros
+      	if(!filtroMascota.contentEquals("-MASCOTAS-") && !filtroTipo.contentEquals("-TIPO CITA-")) {
+    		
       	}
-    	else
-    		return "registrate";
+    	else {
+    		
+    		
+    	}
+    		
+      	return "administrarCitas";
     }
 	
 }

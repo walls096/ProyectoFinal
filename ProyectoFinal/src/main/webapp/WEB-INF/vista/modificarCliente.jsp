@@ -22,11 +22,17 @@
 	href="${pageContext.request.contextPath}/static/css/simple-sidebar.css" />
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/static/css/menu.css" />
+<link rel="stylesheet" type="text/css"
+	href="${pageContext.request.contextPath}/static/css/estilos.css" />
 
 <style>
 
 .colorRed{
 	color:red;
+}
+
+.colorGreen{
+	color: green;
 }
 .separacion {
 	padding-top: 5%;
@@ -105,6 +111,12 @@
 											<h5>${mensaje}</h5>
 
 										</div>
+										
+										<div class="col-md-6 offset-md-4 colorGreen">
+
+											<h5>${mensajeExito}</h5>
+
+										</div>
 
 										<div class="form-group row">
 											<label for="dni"
@@ -157,7 +169,7 @@
 											<div class="col-md-6">
 												<input type="text" id="localidad" class="form-control"
 													name="localidad" placeholder="<%=RepositorioCliente.getDatosCliente().get(0).getLocalidad()%>">
-											<input id="boton" type="button" value="Cambiar contraseña" onclick="cambiarPass()" class="btn btn-link">
+											<input id="btn-abrir-popup" class="btn-abrir-popup btn btn-link" type="button" value="Cambiar contraseña">
 											</div>											
 										</div>
 
@@ -182,12 +194,33 @@
 			<!-- Fin del div container	 -->
 
 		</div>
+		
+		<div class="overlay" id="overlay">
+			<div class="popup" id="popup">
+				<h4>Cambiar Contraseña</h4>
+				<form action="modificarPass" method="POST">
+					<div class="contenedor-inputs">
+						<input name="passActual" type="text" placeholder="Contraseña actual" required>
+						<input name="passNueva" type="text" placeholder="Nueva contraseña" required>
+						<input name="repitePass" type="text" placeholder="Repita contraseña" required>
+					</div>
+					<div class="contenedor-inputs">
+						<input type="submit" class="btn-submit" value="Aceptar">
+						<input type="button" id="btn-cerrar-popup" class="btn-danger" value="Cancelar">
+					</div>
+					
+				</form>
+			</div>
+		</div>
+	</div>
 
 	</div>
 	<!-- /#page-content-wrapper -->
 
 </div>
 <!-- Bootstrap core JavaScript -->
+<script
+	src="${pageContext.request.contextPath}/static/js/popup.js"></script>
 <script
 	src="${pageContext.request.contextPath}/static/jquery/jquery.min.js"></script>
 <script

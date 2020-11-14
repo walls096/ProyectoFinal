@@ -184,8 +184,7 @@ public class RepositorioCliente {
 	}
 	
 	
-	//TODO: Comprobar funcionamiento
-	public static boolean ModificarPass(String nuevaPass) {
+	public static boolean modificarPass(String nuevaPass) {
 
 		Session session = HibernateUtils.getSessionFactory().openSession();
 		
@@ -196,18 +195,20 @@ public class RepositorioCliente {
 			String update = "update Cliente c set c.pass = :newPass where c.codCliente = :codCliente";
 			int updatedEntities = session.createQuery( update )
 			        .setString( "newPass", nuevaPass )
-			        .setString( "oldName", datosCliente.get(0).getPass() )
+			        .setInteger( "codCliente", datosCliente.get(0).getCodCliente() )
 			        .executeUpdate();
 			
 			session.getTransaction().commit();
 
 			session.close();
+			
+			datosCliente.get(0).setPass(nuevaPass);
 
 		}
 
 		catch (Exception e) {
 
-			System.out.println("Error al modificar el cliente.");
+			System.out.println("Error al modificar la pass del cliente.");
 			session.getTransaction().rollback();
 			session.close();
 			return false;

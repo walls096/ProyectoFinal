@@ -6,10 +6,12 @@ import java.util.Date;
 
 public class Utiles {
 
-	private static Date fechaActual = new Date();
+	private static Date fechaActual;
 	
 	
 	public static String formatearFecha() {
+		
+		fechaActual = new Date();
 		
 		DateFormat hourFormat = new SimpleDateFormat("HH:mm");
 		DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");

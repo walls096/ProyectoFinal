@@ -99,7 +99,32 @@ public class ControladorCliente {
     		model.addAttribute("mensaje","El correo introducido ya existe");
     		return "modificarCliente";
     	}
-    	
+    }
+    
+    
+    	@RequestMapping(value="/modificarPass", method=RequestMethod.POST)
+        public String modificarPass(
+        		Model model,
+        		@RequestParam("passActual") String passActual,
+        		@RequestParam("passNueva") String passNueva,
+        		@RequestParam("repitePass") String repitePass) {
+        	    	
+        	
+        	if(passActual.equals(RepositorioCliente.getDatosCliente().get(0).getPass())) {
+        		
+        		if(passNueva.equals(repitePass)) {
+        			
+        			servicioCliente.modificarPassCliente(passNueva);
+        			model.addAttribute("mensajeExito","Se ha modificado la contraseña");
+        			
+        		}else {
+            		model.addAttribute("mensaje","La nueva contraseña no coinciden");
+            	}
+    		}else {
+        		model.addAttribute("mensaje","La contraseña actual es incorrecta");
+        	}
+        	
+        	return "modificarCliente";
     	
     }
     
