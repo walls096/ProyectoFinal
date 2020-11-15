@@ -95,7 +95,7 @@
 				<%=RepositorioCliente.getDatosCliente().get(0).getNombre()%></div>
 			<div class="list-group list-group-flush">
 				<a href="panelPrincipal"
-					class="list-group-item list-group-item-action bg-light">Citas</a> <a
+					class="list-group-item list-group-item-action bg-light">Próximas citas</a> <a
 					href="administrarCitas"
 					class="list-group-item list-group-item-action bg-light">Administrar
 					Citas</a> <a href="listadoMascotas"
@@ -161,12 +161,12 @@
 							<div class="form-row align-items-center">
 								<div class="col-auto my-1">
 									<select class="custom-select mr-sm-2"
-										id="filtroMascota">
+										name="filtroMascota">
 										<option selected>-MASCOTAS-</option>
 										<% 
 											for(Mascota m : RepositorioMascota.getTodasLasMascotas()){
 										%>
-											<option value="1"><%=m.getNombre()%></option>
+											<option><%=m.getNombre()%></option>
 										<%
 											}
 										%> 
@@ -174,12 +174,12 @@
 								</div>
 								<div class="col-auto my-1">
 									<select class="custom-select mr-sm-2"
-										id="filtroTipo">
+										name="filtroTipo">
 										<option selected>-TIPO CITA-</option>
-										<option value="1">REVISION</option>
-										<option value="2">URGENCIA</option>
-										<option value="3">VACUNACION</option>
-										<option value="4">PELUQUERIA</option>
+										<option>REVISION</option>
+										<option>URGENCIA</option>
+										<option>VACUNACION</option>
+										<option>PELUQUERIA</option>
 									</select>
 								</div>
 								<div class="col-auto my-4 ">
@@ -216,6 +216,7 @@
 								</thead>
 								<tbody>
 									<%
+										
 										for (Cita c : RepositorioCita.getCitasCliente()) {
 									%>
 

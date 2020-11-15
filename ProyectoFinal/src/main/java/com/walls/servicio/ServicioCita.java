@@ -23,6 +23,10 @@ public class ServicioCita {
 		RepositorioCita.eliminarCita(c);
 	}
 	
+	public void modificarCita() {
+		//RepositorioCita.modificarCita();
+	}
+	
 	public void eliminarCitaLista(Cita c) {
 		RepositorioCita.eliminarCitaLista(c);
 	}
@@ -41,5 +45,9 @@ public class ServicioCita {
 	
 	public void tieneCita(int id) {
 		RepositorioCita.tieneCita(id);
+	}
+	
+	public void obtenerCitasFiltradas(String filtroMascota, String filtroTipo, boolean dosFiltros) {
+		RepositorioCita.obtenerCitasFiltradas(filtroMascota,filtroTipo,dosFiltros);
 	}
 }

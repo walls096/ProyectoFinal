@@ -73,7 +73,7 @@
 				<%=RepositorioCliente.getDatosCliente().get(0).getNombre()%></div>
 			<div class="list-group list-group-flush">
 				<a href="panelPrincipal"
-					class="list-group-item list-group-item-action bg-light">Citas</a> <a
+					class="list-group-item list-group-item-action bg-light">Próximas citas</a> <a
 					href="administrarCitas" class="list-group-item list-group-item-action bg-light">Administrar
 					Citas</a> <a href="listadoMascotas"
 					class="list-group-item list-group-item-action bg-light">Mascotas</a>
@@ -111,10 +111,9 @@
 					</ul>
 				</div>
 			</nav>
-
 			<div class="container-fluid border">
 				<div class="row justify-content-center border">
-				<h3 class="text-center">Hora y fecha actual ---> <%=Utiles.formatearFecha() %></h3>
+				<h3 class="text-center"><%=Utiles.formatearFecha() %></h3>
 				</div>
 				<h3 class="text-center separacion">Próximas citas</h3>
 

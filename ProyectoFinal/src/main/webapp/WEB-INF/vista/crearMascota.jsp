@@ -37,7 +37,7 @@
 
 			<div class="sidebar-heading">Bienvenido <%=RepositorioCliente.getDatosCliente().get(0).getNombre()%></div>
 			<div class="list-group list-group-flush">
-				<a href="panelPrincipal" class="list-group-item list-group-item-action bg-light">Citas</a>
+				<a href="panelPrincipal" class="list-group-item list-group-item-action bg-light">Próximas citas</a>
 				<a href="administrarCitas" class="list-group-item list-group-item-action bg-light">Administrar Citas</a>
 				<a href="listadoMascotas" class="list-group-item list-group-item-action bg-light">Mascotas</a>
 			</div>

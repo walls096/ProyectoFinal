@@ -24,6 +24,8 @@
 	href="${pageContext.request.contextPath}/static/css/simple-sidebar.css" />
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/static/css/menu.css" />
+<link rel="stylesheet" type="text/css"
+	href="${pageContext.request.contextPath}/static/css/estilos.css" />
 
 <style>
 
@@ -46,7 +48,7 @@
 			<div class="sidebar-heading">Bienvenido <%=RepositorioCliente.getDatosCliente().get(0).getNombre()%></div>
 			<div class="list-group list-group-flush">
 				<a href="panelPrincipal"
-					class="list-group-item list-group-item-action bg-light">Citas</a> <a
+					class="list-group-item list-group-item-action bg-light">Próximas citas</a> <a
 					href="administrarCitas" class="list-group-item list-group-item-action bg-light">Administrar
 					Citas</a> <a href="listadoMascotas"
 					class="list-group-item list-group-item-action bg-light">Mascotas</a>
@@ -117,7 +119,7 @@
 												placeholder="<%=RepositorioCita.getUnaCita().get(0).getHora()%>">
 											</div>
 											<div class="col-md-2 separacion">
-												<a href="#" onclick="modificar(<%=RepositorioCita.getUnaCita().get(0).getCodCita()%>)" class="btn btn-sm btn-warning">editar</a> 
+												<input id="btn-abrir-popup" class="btn-abrir-popup btn btn-warning" type="button" value="editar"> 
 											</div>
 										</div>
 										<div class="form-group row">
@@ -134,19 +136,19 @@
 												class="col-md-4 col-form-label text-md-right">Tipo Cita</label>
 											<div class="col-md-6">
 												<select class="custom-select mr-sm-2"
-													id="tipoCita">
+													name="tipoCita">
 													<option selected><%=RepositorioCita.getUnaCita().get(0).getTipoCita()%></option>
 													<%if(!RepositorioCita.getUnaCita().get(0).getTipoCita().equals("REVISION")){ %>
-														<option value="1">REVISION</option>
+														<option>REVISION</option>
 													<%} %>
 													<%if(!RepositorioCita.getUnaCita().get(0).getTipoCita().equals("URGENCIA")){ %>
-														<option value="2">URGENCIA</option>
+														<option>URGENCIA</option>
 													<%} %>
 													<%if(!RepositorioCita.getUnaCita().get(0).getTipoCita().equals("VACUNACION")){ %>
-														<option value="3">VACUNACION</option>
+														<option>VACUNACION</option>
 													<%} %>
 													<%if(!RepositorioCita.getUnaCita().get(0).getTipoCita().equals("PELUQUERIA")){ %>
-														<option value="4">PELUQUERIA</option>
+														<option>PELUQUERIA</option>
 													<%} %>
 												</select>
 											</div>
@@ -156,12 +158,16 @@
 											<label for="observaciones"
 												class="col-md-4 col-form-label text-md-right">Observaciones</label>
 											<div class="col-md-6">
+											<p class="colorRed">(Acaba cada observacion con una ,)</p>
+											<%String[] split = RepositorioCita.getUnaCita().get(0).getObservacion().split("#");
+													
+													if(split[0].equals("SIN OBSERVACIONES"))
+														split[0] = "";
+													%>
 											
-											<%String[] split = RepositorioCita.getUnaCita().get(0).getObservacion().split("#"); %>
 											
-											
-												<textarea class="form-control" id="observaciones" rows="5" cols="200">
-												<%for(String s : split){%><%=s%><%}%></textarea>
+												<textarea class="form-control" id="observaciones" rows="5" cols="200"><%for(String s : split){%><%=s+",\n"%><%}%></textarea>
+												
 												
 											</div>
 										</div>
@@ -185,7 +191,31 @@
 
 			</main>
 			<!-- Fin del div container	 -->
-
+		
+			<div class="overlay" id="overlay">
+				<div class="popup" id="popup">
+					<h4>Cambiar fecha y hora</h4>
+					<form action="modificarFechaHora" method="POST">
+						<div class="contenedor-inputs">
+							<input name="fecha" type="date" required>
+							<select class="custom-select mr-sm-2"
+								id="hora" name="hora" required>
+								<option>HH : MM</option>
+								<%for (String h : RepositorioCita.getHorasDisponibles()){ %>
+								
+									<option><%=h%></option>
+								
+								<%}%>
+							</select>
+						</div>
+						<div class="contenedor-inputs separacion">
+							<input type="submit" class="btn-submit" value="Aceptar">
+							<input type="button" id="btn-cerrar-popup" class="btn-danger" value="Cancelar">
+						</div>
+						
+					</form>
+				</div>
+			</div>
 		</div>
 
 	</div>
@@ -193,6 +223,8 @@
 
 </div>
 <!-- Bootstrap core JavaScript -->
+<script
+	src="${pageContext.request.contextPath}/static/js/popup.js"></script>
 <script
 	src="${pageContext.request.contextPath}/static/jquery/jquery.min.js"></script>
 <script

@@ -7,6 +7,7 @@ import org.hibernate.Session;
 
 import com.walls.controlador.HibernateUtils;
 import com.walls.entidades.Cita;
+import com.walls.entidades.Mascota;
 
 public class RepositorioCita {
 
@@ -17,35 +18,129 @@ public class RepositorioCita {
 			"08:00","08:30","09:00","09:30","10:00","10:30","11:00","11:30","12:00","12:30","13:00","13:30","14:00",
 			"16:00","16:30","17:00","17:30","18:00","18:30","19:00","19:30","20:00","20:30"};
 	
-	//TODO: NO FUNCIONA
-	public static int obtenerIdCita() {
+	
+	
+	public static void obtenerCitasFiltradas(String filtroMascota, String filtroTipo, boolean dosFiltros) {
+		
+		int codMascota = 0;
+		
+		if(null != filtroMascota) {
+			for(Mascota m : RepositorioMascota.getTodasLasMascotas()) {
+				if(filtroMascota.equals(m.getNombre())) {
+					
+					codMascota = m.getCodMascota();
+					break;
+				}
+			}
+		}
+		
+		if(dosFiltros) {
+			
+			filtrarAmbosCampos(filtroTipo, codMascota);
+			
+		}else {
+				
+				if(null != filtroTipo) {
+					
+					filtrarTipoCita(filtroTipo);
+				}
+				
+				if(null != filtroMascota) {
+					
+					filtrarNombreMascota(codMascota);
+				}
+				
+			}
+			
+		
+	}
+	
+	public static void filtrarNombreMascota(int codMascota) {
 		
 		Session session = HibernateUtils.getSessionFactory().openSession();
 
 		try {
-
+			
 			session.beginTransaction();
-
-			List<Cita> citaId = (List<Cita>) session
-					.createQuery("SELECT MAX(codCita c) from com.walls.entidades.Cita c" , Cita.class)
+			
+			List<Cita> cita = (List<Cita>) session
+					.createQuery("from com.walls.entidades.Cita where codMascota = '" + codMascota + 
+							"'" + "and codCliente = '" +RepositorioCliente.getCodCliente() +"'", Cita.class)
 					.getResultList();
 			
+			if(!cita.isEmpty())
+				citasCliente = cita;
 			
 			session.getTransaction().commit();
 
 			session.close();
 			
-			return citaId.get(0).getCodCita();
-		}
-
-		catch (Exception e) {
-
-			System.out.println("Error al recuperar las mascotas del cliente (sessionFactory)");
+			
+			
+		}catch (Exception e) {
+	
+			System.out.println("Error al filtrar (mascota) las citas. (sessionFactory)");
 			session.getTransaction().rollback();
 			session.close();
-			return 0;
+		}
+	}
+	
+	public static void filtrarTipoCita(String filtroTipo) {
+		
+		Session session = HibernateUtils.getSessionFactory().openSession();
+
+		try {
+			
+			session.beginTransaction();
+			List<Cita> cita = (List<Cita>) session
+					.createQuery("from com.walls.entidades.Cita where tipoCita = '" + filtroTipo + 
+							"'" + "and codCliente = '" +RepositorioCliente.getCodCliente() +"'", Cita.class)
+					.getResultList();
+			
+			if(!cita.isEmpty())
+				citasCliente = cita;
+			
+			session.getTransaction().commit();
+
+			session.close();
+			
+			
+		}catch (Exception e) {
+	
+			System.out.println("Error al filtrar (tipo) las citas. (sessionFactory)");
+			session.getTransaction().rollback();
+			session.close();
 		}
 		
+	}
+
+	public static void filtrarAmbosCampos(String filtroTipo, int codMascota) {
+		
+		Session session = HibernateUtils.getSessionFactory().openSession();
+
+		try {
+			
+			session.beginTransaction();
+			
+			List<Cita> cita = (List<Cita>) session
+					.createQuery("from com.walls.entidades.Cita where codMascota = '" + codMascota + 
+							"'" + "and tipoCita = '" +filtroTipo +"'", Cita.class)
+					.getResultList();
+			
+			if(!cita.isEmpty())
+				citasCliente = cita;
+			
+			session.getTransaction().commit();
+	
+			session.close();
+			
+			
+		}catch (Exception e) {
+	
+			System.out.println("Error al filtrar (2) las citas. (sessionFactory)");
+			session.getTransaction().rollback();
+			session.close();
+		}
 	}
 	
 	public static boolean citaDisponible(Date fecha, String hora) {
@@ -157,13 +252,13 @@ public class RepositorioCita {
 
 			session.beginTransaction();
 			
-//			int id = 1;
-//			
-//			if(citasCliente.size() != 0)
-//				id = citasCliente.get(citasCliente.size()-1).getCodCita()+1;
-			int id = obtenerIdCita();
+			int id = 1;
+			
+			if(citasCliente.size() != 0)
+				id = citasCliente.get(citasCliente.size()-1).getCodCita()+1;
 			
 			c.setCodCita(id);
+			
 			session.save(c);
 			citasCliente.add(c);
 			
@@ -262,9 +357,14 @@ public class RepositorioCita {
 	}
 	
 	public static void eliminarCitasCliente() {
-		citasCliente.clear();
-		unaCita.clear();
-		mascotaConCita.clear();
+		try {
+			citasCliente.clear();
+			unaCita.clear();
+			mascotaConCita.clear();
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		
 	}
 	
 	public static void eliminarCitaLista(Cita c) {

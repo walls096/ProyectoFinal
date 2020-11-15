@@ -47,7 +47,7 @@
 			<div class="sidebar-heading">Bienvenido <%=RepositorioCliente.getDatosCliente().get(0).getNombre()%></div>
 			<div class="list-group list-group-flush">
 				<a href="panelPrincipal"
-					class="list-group-item list-group-item-action bg-light">Citas</a> <a
+					class="list-group-item list-group-item-action bg-light">Próximas citas</a> <a
 					href="administrarCitas" class="list-group-item list-group-item-action bg-light">Administrar
 					Citas</a> <a href="listadoMascotas"
 					class="list-group-item list-group-item-action bg-light">Mascotas</a>
@@ -146,10 +146,10 @@
 												<select class="custom-select mr-sm-2"
 													id="tipoCita" name="tipoCita" required>
 													<option selected>-TIPO CITA-</option>
-													<option value="1">REVISION</option>
-													<option value="2">URGENCIA</option>
-													<option value="3">VACUNACION</option>
-													<option value="4">PELUQUERIA</option>
+													<option>REVISION</option>
+													<option>URGENCIA</option>
+													<option>VACUNACION</option>
+													<option>PELUQUERIA</option>
 												</select>
 											</div>
 										</div>
@@ -158,7 +158,7 @@
 											<label for="observaciones"
 												class="col-md-4 col-form-label text-md-right">Observaciones</label>
 											<div class="col-md-6">
-											<p class="colorRed">Acaba cada observacion con un .</p>
+											<p class="colorRed">(Acaba cada observacion con una ,)</p>
 											<textarea class="form-control" id="observaciones" name	="observaciones" rows="5" cols="200"></textarea>
 												
 											</div>

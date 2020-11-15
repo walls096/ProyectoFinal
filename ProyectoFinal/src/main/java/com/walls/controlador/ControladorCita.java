@@ -42,14 +42,27 @@ public class ControladorCita {
 				
 					if(servicioCita.citaDisponible(fecha,hora)) {
 						
+						int codMascota = -1;
+						for(Mascota m: RepositorioMascota.getTodasLasMascotas()) {
+							if(nombre.equals(m.getNombre())) {
+								codMascota = m.getCodMascota();
+							}
+								
+						}
+						
+						String[] observ = observaciones.split(",");
+						String todasObservaciones="";
+						for(String o:observ) {
+							todasObservaciones = todasObservaciones + o +"#";
+						}
+						
 						servicioCita.crearCita(new Cita(
-								-1,
 								RepositorioCliente.getCodCliente(),
-								0,
+								codMascota,
 								fecha,
 								hora,
 								tipo,
-								observaciones));
+								todasObservaciones.toUpperCase()));
 						
 					}else {
 						model.addAttribute("mensaje","Ya hay una cita asignada a dicho dia y hora.");
@@ -114,7 +127,6 @@ public class ControladorCita {
 		for(Cita c: servicioCita.getCitasCliente()) {
 			if(id == c.getCodCita()) {
 				servicioCita.eliminarCita(c);
-				servicioCita.crearCita(c);
 				return "administrarCitas";
 			}
 		}
@@ -147,16 +159,26 @@ public class ControladorCita {
 	
 	
 	@RequestMapping(value="/campoFiltrado", method=RequestMethod.POST)
-    public String compruebaUsuario(Model model, 
+    public String campoFiltrado(Model model, 
     		@RequestParam("filtroMascota") String filtroMascota,
     		@RequestParam("filtroTipo") String filtroTipo) {
+		
     	
     	//Si se aplican ambos filtros
       	if(!filtroMascota.contentEquals("-MASCOTAS-") && !filtroTipo.contentEquals("-TIPO CITA-")) {
     		
+      		servicioCita.obtenerCitasFiltradas(filtroMascota,filtroTipo, true);
       	}
     	else {
     		
+    		if(!filtroMascota.equals("-MASCOTAS-")) {
+    			servicioCita.obtenerCitasFiltradas(filtroMascota,null, false);
+    		}
+    		else if(!filtroTipo.contentEquals("-TIPO CITA-")) {
+    			servicioCita.obtenerCitasFiltradas(null,filtroTipo, false);
+    		}else {
+    			ServicioCita.obtenerCitasCliente();
+    		}
     		
     	}
     		
