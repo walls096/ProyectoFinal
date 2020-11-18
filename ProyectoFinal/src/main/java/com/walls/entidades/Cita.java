@@ -31,7 +31,6 @@ public class Cita implements java.io.Serializable {
 	}
 
 	public Cita( Integer codCliente, Integer codMascota, Date fecha, String hora, String tipoCita, String observacion) {
-		this.codCita = codCita;
 		this.codCliente = codCliente;
 		this.codMascota = codMascota;
 		this.fecha = fecha;
@@ -40,6 +39,10 @@ public class Cita implements java.io.Serializable {
 		this.observacion = observacion;
 	}
 	
+	public Cita(String tipoCita, String observacion) {
+		this.tipoCita = tipoCita;
+		this.observacion = observacion;
+	}
 	
 
 	public String getHora() {

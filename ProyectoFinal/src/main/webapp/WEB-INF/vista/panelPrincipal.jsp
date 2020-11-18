@@ -41,6 +41,9 @@
 .center{
 	text-align:center;
 }
+.colorFondo{
+	background-color:#befe74;
+}
 </style>
 
 <script>
@@ -112,7 +115,7 @@
 				</div>
 			</nav>
 			<div class="container-fluid border">
-				<div class="row justify-content-center border">
+				<div class="row justify-content-center colorFondo">
 				<h3 class="text-center"><%=Utiles.formatearFecha() %></h3>
 				</div>
 				<h3 class="text-center separacion">Próximas citas</h3>

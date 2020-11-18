@@ -23,8 +23,8 @@ public class ServicioCita {
 		RepositorioCita.eliminarCita(c);
 	}
 	
-	public void modificarCita() {
-		//RepositorioCita.modificarCita();
+	public void modificarCita(Cita c) {
+		RepositorioCita.modificarUnaCita(c);
 	}
 	
 	public void eliminarCitaLista(Cita c) {

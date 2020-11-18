@@ -25,6 +25,8 @@
 	href="${pageContext.request.contextPath}/static/css/bootstrap.min.css" />
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/static/css/simple-sidebar.css" />
+<link rel="stylesheet" type="text/css"
+	href="${pageContext.request.contextPath}/static/css/menu.css" />
 
 <script>
 	
@@ -60,7 +62,7 @@
 }
 
 .borde {
-	border: 2px solid red;
+	border: 3px solid black;
 }
 
 .margin {
@@ -120,7 +122,7 @@
 				</div>
 			</nav>
 
-			<div class="container-fluid">
+			<div class="container-fluid weight-auto">
 				<h3 class="text-center separacion">Listado de Mascotas</h3>
 
 				<section class="container">
@@ -184,7 +186,7 @@
 
 								</div>
 
-								<div class="border margin col-xs-12 col-sm-4">
+								<div class="margin col-xs-12 col-sm-4">
 									<img alt="imagen"
 										src="${pageContext.request.contextPath}/static/img/<%=m.getImagen() %>"
 										class="img-fluid">

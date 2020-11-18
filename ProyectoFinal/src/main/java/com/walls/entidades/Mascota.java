@@ -67,7 +67,7 @@ public class Mascota implements java.io.Serializable {
 		if(!this.raza.equals(""))
 			return this.raza;
 		else
-			return "-- no especificado --";
+			return "-- NO ESPECIFICADO --";
 	}
 
 	public void setRaza(String raza) {

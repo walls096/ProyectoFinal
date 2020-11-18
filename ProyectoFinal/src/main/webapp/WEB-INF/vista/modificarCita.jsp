@@ -166,7 +166,7 @@
 													%>
 											
 											
-												<textarea class="form-control" id="observaciones" rows="5" cols="200"><%for(String s : split){%><%=s+",\n"%><%}%></textarea>
+												<textarea class="form-control" name="observaciones" rows="5" cols="200"><%for(String s : split){%><%=s+",\n"%><%}%></textarea>
 												
 												
 											</div>

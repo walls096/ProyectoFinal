@@ -211,7 +211,48 @@ public class RepositorioCita {
 		
 	}
 	
-	//TODO: FALTA POR COMPLETAR EL METODO
+	public static void modificarUnaCita(Cita c) {
+		
+		Session session = HibernateUtils.getSessionFactory().openSession();
+
+		try {
+
+			session.beginTransaction();
+			
+			c.setCodCita(unaCita.get(0).getCodCita());
+			c.setCodMascota(unaCita.get(0).getCodMascota());
+			c.setCodCliente(unaCita.get(0).getCodCliente());
+			c.setFecha(unaCita.get(0).getFecha());
+			c.setHora(unaCita.get(0).getHora());
+			
+			if(c.getTipoCita().equals(""))
+				c.setTipoCita(unaCita.get(0).getTipoCita());
+			
+			if(c.getObservacion().equals(""))
+				c.setObservacion(unaCita.get(0).getObservacion());
+			
+			
+			session.update(c);
+
+			session.getTransaction().commit();
+
+			session.close();
+			
+			citasCliente.clear();
+			unaCita.clear();
+			RepositorioCita.obtenerCitasCliente();
+			
+		}
+
+		catch (Exception e) {
+
+			System.out.println("Error al modificar las citas del cliente (sessionFactory)");
+			session.getTransaction().rollback();
+			session.close();
+		}
+		
+	}
+	
 	public static List<Cita> obtenerUnaCita(int id) {
 		
 		Session session = HibernateUtils.getSessionFactory().openSession();

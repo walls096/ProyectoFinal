@@ -50,11 +50,22 @@ public class ControladorCita {
 								
 						}
 						
-						String[] observ = observaciones.split(",");
+//						String[] observ = observaciones.split(",");	
 						String todasObservaciones="";
-						for(String o:observ) {
-							todasObservaciones = todasObservaciones + o +"#";
+//						for(String o:observ) {
+//							todasObservaciones = todasObservaciones + o +"#";
+//						}
+						
+						for (int i=0 ; i < observaciones.length(); i++) {
+							todasObservaciones = todasObservaciones + observaciones.charAt(i);
+							if(observaciones.charAt(i) == ',' ){
+								if(observaciones.length() <= i) {
+									todasObservaciones = todasObservaciones + observaciones.charAt(i+5);
+									i+=4;
+								}
+							}
 						}
+						
 						
 						servicioCita.crearCita(new Cita(
 								RepositorioCliente.getCodCliente(),
@@ -149,8 +160,16 @@ public class ControladorCita {
     		@RequestParam("tipoCita") String tipoCita,
     		@RequestParam("observaciones") String observaciones) {
 		
-		//TRatamiento demodificar
-    	
+
+		String[] split = observaciones.split(",");
+		String cadenaFormateada= "";
+		for(String o : split) {
+			o.toUpperCase();
+			cadenaFormateada = cadenaFormateada + o + "#";
+		}
+		
+		servicioCita.modificarCita(new Cita(tipoCita,cadenaFormateada)); 	
+
 		return "administrarCitas";
       	
     }
