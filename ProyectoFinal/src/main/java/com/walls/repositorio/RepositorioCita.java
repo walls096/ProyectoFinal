@@ -211,6 +211,33 @@ public class RepositorioCita {
 		
 	}
 	
+	public static List<Cita> obtenerTodasLasCitas() {
+		
+		Session session = HibernateUtils.getSessionFactory().openSession();
+
+		try {
+			
+			session.beginTransaction();
+			
+			List<Cita> cita = (List<Cita>) session
+					.createQuery("from com.walls.entidades.Cita", Cita.class)
+					.getResultList();
+			
+			session.getTransaction().commit();
+	
+			session.close();
+			
+			return cita;
+			
+		}catch (Exception e) {
+	
+			System.out.println("Error al filtrar (2) las citas. (sessionFactory)");
+			session.getTransaction().rollback();
+			session.close();
+			return null;
+		}
+	}
+	
 	public static void modificarUnaCita(Cita c) {
 		
 		Session session = HibernateUtils.getSessionFactory().openSession();
@@ -253,6 +280,44 @@ public class RepositorioCita {
 		
 	}
 	
+	public static void modificarFechaHora(Date fecha, String hora) {
+		Session session = HibernateUtils.getSessionFactory().openSession();
+
+		try {
+
+			session.beginTransaction();
+			
+			Cita c = new Cita();
+			c.setCodCita(unaCita.get(0).getCodCita());
+			c.setCodMascota(unaCita.get(0).getCodMascota());
+			c.setCodCliente(unaCita.get(0).getCodCliente());
+			c.setTipoCita(unaCita.get(0).getTipoCita());
+			c.setObservacion(unaCita.get(0).getObservacion());
+			c.setFecha(fecha);
+			c.setHora(hora);
+			
+			
+			session.update(c);
+
+			session.getTransaction().commit();
+
+			session.close();
+			
+			citasCliente.clear();
+			unaCita.clear();
+			RepositorioCita.obtenerUnaCita(c.getCodCita());
+			RepositorioCita.obtenerCitasCliente();
+			
+		}
+
+		catch (Exception e) {
+
+			System.out.println("Error al modificar las citas del cliente (sessionFactory)");
+			session.getTransaction().rollback();
+			session.close();
+		}
+	}
+	
 	public static List<Cita> obtenerUnaCita(int id) {
 		
 		Session session = HibernateUtils.getSessionFactory().openSession();
@@ -293,10 +358,10 @@ public class RepositorioCita {
 
 			session.beginTransaction();
 			
-			int id = 1;
+			int id = 0;
 			
 			if(citasCliente.size() != 0)
-				id = citasCliente.get(citasCliente.size()-1).getCodCita()+1;
+				id = RepositorioCita.obtenerTodasLasCitas().size();
 			
 			c.setCodCita(id);
 			

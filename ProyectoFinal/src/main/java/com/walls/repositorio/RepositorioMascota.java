@@ -123,10 +123,10 @@ public class RepositorioMascota {
 				
 				List<Mascota> todasMascotas = obtenerTodasLasMascotas();
 				
-				int id = 1;
+				int id = 0;
 				
 				if(todasMascotas.size() != 0)
-					id = todasMascotas.get(todasMascotas.size()-1).getCodMascota()+1;
+					id = todasMascotas.size();
 				
 				Mascota m = new Mascota();
 				m.setCodMascota(id);

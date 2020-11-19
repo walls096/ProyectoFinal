@@ -3,6 +3,7 @@ package com.walls.controlador;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.walls.repositorio.RepositorioCita;
 import com.walls.repositorio.RepositorioCliente;
 import com.walls.repositorio.RepositorioMascota;
 
@@ -46,6 +47,7 @@ public class ControladorNav {
 	    public String cerrarSesion() { 
 	    	RepositorioCliente.borrarListaCliente();
 	    	RepositorioMascota.borrarListaMascota();
+	    	RepositorioCita.eliminarCitasCliente();
 	    	
     	return "index"; 
     }

@@ -56,15 +56,15 @@ public class ControladorCita {
 //							todasObservaciones = todasObservaciones + o +"#";
 //						}
 						
-						for (int i=0 ; i < observaciones.length(); i++) {
-							todasObservaciones = todasObservaciones + observaciones.charAt(i);
-							if(observaciones.charAt(i) == ',' ){
-								if(observaciones.length() <= i) {
-									todasObservaciones = todasObservaciones + observaciones.charAt(i+5);
-									i+=4;
-								}
-							}
-						}
+//						for (int i=0 ; i < observaciones.length(); i++) {
+//							todasObservaciones = todasObservaciones + observaciones.charAt(i);
+//							if(observaciones.charAt(i) == ',' ){
+//								if(observaciones.length() <= i) {
+//									todasObservaciones = todasObservaciones + observaciones.charAt(i+5);
+//									i+=4;
+//								}
+//							}
+//						}
 						
 						
 						servicioCita.crearCita(new Cita(
@@ -133,6 +133,7 @@ public class ControladorCita {
 		
 		List<Cita> cita = servicioCita.obtenerUnaCita(id);
 		servicioCita.eliminarCita(cita.get(0));
+		ServicioCita.obtenerCitasCliente();
 		
 		
 		for(Cita c: servicioCita.getCitasCliente()) {
@@ -142,7 +143,16 @@ public class ControladorCita {
 			}
 		}
     	
-		return null;
+		return "administrarCitas";
+      	
+    }
+	
+	@RequestMapping(value="/actualizarCitas", method=RequestMethod.GET)
+    public String actualizarCitas(Model model) {
+    	
+		ServicioCita.obtenerCitasCliente();
+		
+		return "administrarCitas";
       	
     }
 	
@@ -171,6 +181,35 @@ public class ControladorCita {
 		servicioCita.modificarCita(new Cita(tipoCita,cadenaFormateada)); 	
 
 		return "administrarCitas";
+      	
+    }
+	
+	@RequestMapping(value="/modificarFechaHora", method=RequestMethod.POST)
+    public String modificarFechaHora(Model model, 
+    		@RequestParam("fecha") java.sql.Date fecha,
+    		@RequestParam("hora") String hora) {
+		
+		java.util.Date fechaActual = new java.util.Date();
+		java.sql.Date sqlDateActual = new java.sql.Date(fechaActual.getTime());
+		
+		if(sqlDateActual.before(fecha)) {
+				
+			if(servicioCita.citaDisponible(fecha,hora)) {
+
+				servicioCita.modificarFechaHora(fecha, hora);
+				model.addAttribute("mensajeExito","Fecha y hora actualizadas");
+				return "modificarCita";
+				
+			}else {
+				model.addAttribute("mensaje","Ya hay una cita asignada a dicho dia y hora.");
+				return "modificarCita";
+			}
+		}
+		else 
+		{
+			model.addAttribute("mensaje","La fecha introducida no puede ser anterior a la actual.");
+			return "modificarCita";
+		}
       	
     }
 	

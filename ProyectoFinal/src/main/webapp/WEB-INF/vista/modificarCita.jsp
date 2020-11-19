@@ -32,6 +32,9 @@
 .colorRed{
 	color:red;
 }
+.colorGreen{
+	color: green;
+}
 .separacion {
 	padding-top: 5%;
 }
@@ -109,6 +112,11 @@
 											<h5>${mensaje}</h5>
 
 										</div>
+										<div class="col-md-6 offset-md-4 colorGreen">
+
+											<h5>${mensajeExito}</h5>
+
+										</div>
 
 										<div class="form-group row">
 											<label class="col-md-4 col-form-label text-md-right">Fecha y hora</label>
@@ -161,8 +169,10 @@
 											<p class="colorRed">(Acaba cada observacion con una ,)</p>
 											<%String[] split = RepositorioCita.getUnaCita().get(0).getObservacion().split("#");
 													
-													if(split[0].equals("SIN OBSERVACIONES"))
+													if(split.length != 0)
+													if(split[0].equals("SIN OBSERVACIONES")){
 														split[0] = "";
+													}
 													%>
 											
 											

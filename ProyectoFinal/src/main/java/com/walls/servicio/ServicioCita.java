@@ -27,6 +27,10 @@ public class ServicioCita {
 		RepositorioCita.modificarUnaCita(c);
 	}
 	
+	public void modificarFechaHora(Date fecha, String hora) {
+		RepositorioCita.modificarFechaHora(fecha,hora);
+	}
+	
 	public void eliminarCitaLista(Cita c) {
 		RepositorioCita.eliminarCitaLista(c);
 	}
