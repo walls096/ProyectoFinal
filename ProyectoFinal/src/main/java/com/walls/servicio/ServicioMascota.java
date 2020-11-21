@@ -11,34 +11,36 @@ import com.walls.repositorio.RepositorioMascota;
 public class ServicioMascota {
 
 	
-	public static List<Mascota> obtenerMascotasCliente(){
-		
+	public List<Mascota> obtenerMascotasCliente(){
 		return RepositorioMascota.obtenerMascotasCliente();
-		
 	}
 	
-	public static void agregarMascota(String nombre, String tipo, String raza) {
+	public void agregarMascota(String nombre, String tipo, String raza) {
 		RepositorioMascota.agregarMascota(nombre,tipo,raza);
 		RepositorioMascota.getTodasLasMascotas();
 	}
 	
-	public static void eliminarMascota(Mascota m) {
+	public void eliminarMascota(Mascota m) {
 		RepositorioMascota.eliminarMascota(m);
 	}
 	
-	public static List<Mascota> obtenerUnaMascota(int id) {
+	public List<Mascota> obtenerUnaMascota(int id) {
 		return RepositorioMascota.obtenerUnaMascota(id);
 	}
 	
-	public static void borrarMascotaLista(Mascota m) {
+	public void borrarMascotaLista(Mascota m) {
 		RepositorioMascota.borrarMascotaLista(m);
 	}
 	
-	public static void modificarUnaMascota( String nombre, String tipo, String raza, String imagen) {
-		RepositorioMascota.modificarUnaMascota(nombre,tipo,raza,imagen);
+	public void modificarUnaMascota( String nombre, String tipo, String raza) {
+		RepositorioMascota.modificarUnaMascota(nombre,tipo,raza);
 	}
 	
-	public static void buscarMascotaPorNombre(String nombre) {
+	public void modificarImagen(Mascota m, String ruta) {
+		RepositorioMascota.modificarImagen(m,ruta);
+	}
+	
+	public void buscarMascotaPorNombre(String nombre) {
 		RepositorioMascota.buscarMascotaPorNombre(nombre);
 	}
 	

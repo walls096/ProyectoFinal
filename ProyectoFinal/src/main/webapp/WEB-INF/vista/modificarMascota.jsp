@@ -23,10 +23,15 @@
 	href="${pageContext.request.contextPath}/static/css/simple-sidebar.css" />
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/static/css/menu.css" />
+<link rel="stylesheet" type="text/css"
+	href="${pageContext.request.contextPath}/static/css/estilos.css" />
 
 <style>
 .colorRed {
 	color: red;
+}
+.colorGreen{
+	color: green;
 }
 
 .separacion {
@@ -38,20 +43,14 @@
 }
 </style>
 
+<script>
+	$('.custom-file-input').on('change',function(){
+		$(this).next('.form-control-file').addClass("selected").html($(this).val());
+	})
+</script>
+
 </head>
 
-<script type="text/javascript">
-
-       $(function()
-       {
-           $('#imagen').on('change',function ()
-           {
-               var filePath = $(this).val();
-               console.log(filePath);
-           });
-       });
-
-</script>
 
 <body>
 
@@ -120,7 +119,12 @@
 									<div class="card-body">
 
 										<form method="POST" action="modificarMascotaFormulario">
-
+										
+											<div class="col-md-6 offset-md-4 colorGreen">
+	
+												<h5>${mensajeExito}</h5>
+	
+											</div>
 
 											<div class="form-group row">
 												<label for="nombre"
@@ -149,18 +153,9 @@
 													<input type="text" id="raza" class="form-control"
 														name="raza"
 														placeholder="<%=RepositorioMascota.getUnaMascota().get(0).getRaza()%>">
+														<input id="btn-abrir-popup" class="btn-abrir-popup btn btn-link" type="button" value="Cambiar imagen">
 												</div>
 											</div>
-
-											<div class="form-group row">
-												<label class="col-md-4 col-form-label text-md-right" 
-												for="imagen">Cambiar imagen</label>
-												<div class="col-md-6">
-													<input type="file" class="form-control-file" name="imagen" id="imagen">
-												</div>
-												
-											</div>
-
 
 											<div class="col-md-6 offset-md-4">
 
@@ -184,12 +179,31 @@
 				<!-- Fin del div container	 -->
 
 			</div>
+			<div class="overlay" id="overlay">
+			<div class="popup" id="popup">
+				<h4>Selecciona un archivo</h4>
+				<form action="cambiarImagen"  enctype="multipart/form-data" method="POST">
+					<div class="contenedor-inputs">
+						<input type="file" class="custom-file-control" name="imagen" id="imagen">
+						<span class="custom-file-control form-control-file"></span>
+					</div>
+					<div class="contenedor-inputs">
+						<input type="submit" class="btn-submit" value="Aceptar">
+						<input type="button" id="btn-cerrar-popup" class="btn-danger" value="Cancelar">
+					</div>
+					
+				</form>
+			</div>
+		</div>
 
 		</div>
 		<!-- /#page-content-wrapper -->
 
 	</div>
 	<!-- Bootstrap core JavaScript -->
+
+	<script
+	src="${pageContext.request.contextPath}/static/js/popup.js"></script>
 	<script
 		src="${pageContext.request.contextPath}/static/jquery/jquery.min.js"></script>
 	<script

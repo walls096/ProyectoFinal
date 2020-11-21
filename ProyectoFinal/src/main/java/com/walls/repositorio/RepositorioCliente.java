@@ -11,10 +11,15 @@ import com.walls.entidades.Cliente;
 
 public class RepositorioCliente {
 
-	private static List<Cliente> datosCliente;
-	private static List<Cliente> todosLosClientes;
+	private static List<Cliente> datosCliente;			//Se almacenan los datos de un cliente
+	private static List<Cliente> todosLosClientes;		//Se almacenan los datos de todos los clientes
 
-	
+	/**
+	 * Se comprueba que el mail introducido es correcto y esta dado de alta, si no se procede con el registro.
+	 * 
+	 * @param mail
+	 * @return
+	 */
 	public static boolean compruebaLogin(String mail) {
 
 		Session session = HibernateUtils.getSessionFactory().openSession();

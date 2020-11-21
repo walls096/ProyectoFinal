@@ -50,6 +50,12 @@ public class RepositorioMascota {
 		
 	}
 	
+	/**
+	 * Método encargado de buscar una mascota por su nombre y guardar sus datos para mostrarlo visualmente
+	 * 
+	 * @param nombre
+	 * @return
+	 */
 	public static List<Mascota> buscarMascotaPorNombre(String nombre) {
 		
 		Session session = HibernateUtils.getSessionFactory().openSession();
@@ -113,50 +119,44 @@ public class RepositorioMascota {
 	}
 
 	public static void agregarMascota(String nombre, String tipo, String raza) {
-		
 
-			Session session = HibernateUtils.getSessionFactory().openSession();
+		Session session = HibernateUtils.getSessionFactory().openSession();
+		
+		try {
+
+			session.beginTransaction();
 			
-			try {
-
-				session.beginTransaction();
-				
-				List<Mascota> todasMascotas = obtenerTodasLasMascotas();
-				int id = todasMascotas.size();
-				
-				Mascota m = new Mascota();
-				m.setCodMascota(id);
-				m.setNombre(nombre.toUpperCase());
-				m.setTipo(tipo.toUpperCase());
-				m.setRaza(raza.toUpperCase());
-				m.setCodCliente(RepositorioCliente.getCodCliente());
-				m.setImagen("default.png");
-				
-				//Importante guardar en base de datos y en la lista.
-				session.save(m);
-				todasLasMascotas.add(m);
-				
-
-				session.getTransaction().commit();
-
-				session.close();
-
-
-			}
-
-			catch (Exception e) {
-
-				System.out.println("Error al crear una mascota (SessionFactory).");
-				session.getTransaction().rollback();
-				session.close();
-			}
+			List<Mascota> todasMascotas = obtenerTodasLasMascotas();
+			int id = todasMascotas.size();
 			
-		
-		
+			Mascota m = new Mascota();
+			m.setCodMascota(id);
+			m.setNombre(nombre.toUpperCase());
+			m.setTipo(tipo.toUpperCase());
+			m.setRaza(raza.toUpperCase());
+			m.setCodCliente(RepositorioCliente.getCodCliente());
+			m.setImagen("default.png");
+			
+			//Importante guardar en base de datos y en la lista.
+			session.save(m);
+			todasLasMascotas.add(m);
+			
+			session.getTransaction().commit();
+
+			session.close();
+
+		}
+
+		catch (Exception e) {
+
+			System.out.println("Error al crear una mascota (SessionFactory).");
+			session.getTransaction().rollback();
+			session.close();
+		}
 	}
 	
 	/**
-	 * Método por el cual recupera una mascota del cliente y la almacena en una lista estática 
+	 * Método por el cual recupera una mascota del cliente y la almacena en una lista 
 	 * List<Mascota> unaMascota;
 	 * @param id Codigo de la mascota para filtrar por una sola
 	 * @return retorna la mascota
@@ -193,7 +193,7 @@ public class RepositorioMascota {
 		
 	}
 	
-	public static void modificarUnaMascota( String nombre, String tipo, String raza, String imagen) {
+	public static void modificarUnaMascota( String nombre, String tipo, String raza) {
 		
 		Session session = HibernateUtils.getSessionFactory().openSession();
 
@@ -202,10 +202,10 @@ public class RepositorioMascota {
 			session.beginTransaction();
 			
 			
-			
 			Mascota m = new Mascota();
 			m.setCodMascota(unaMascota.get(0).getCodMascota());
 			m.setCodCliente(unaMascota.get(0).getCodCliente());
+			m.setImagen(unaMascota.get(0).getImagen());
 			
 			
 			if(nombre.equals(""))
@@ -220,12 +220,6 @@ public class RepositorioMascota {
 				m.setRaza(unaMascota.get(0).getRaza());
 			else 
 				m.setRaza(raza.toUpperCase());
-			if(imagen.equals(""))
-				m.setImagen(unaMascota.get(0).getImagen());
-			else {
-				
-				m.setImagen(imagen);
-			}
 			
 			
 			session.update(m);
@@ -236,6 +230,37 @@ public class RepositorioMascota {
 			
 			todasLasMascotas.clear();
 			unaMascota.clear();
+			RepositorioMascota.obtenerMascotasCliente();
+			
+		}
+
+		catch (Exception e) {
+
+			System.out.println("Error al modificar las mascotas del cliente (sessionFactory)");
+			session.getTransaction().rollback();
+			session.close();
+		}
+	}
+	
+	
+	public static void modificarImagen(Mascota m, String ruta) {
+		
+		Session session = HibernateUtils.getSessionFactory().openSession();
+
+		try {
+
+			session.beginTransaction();
+			
+			m.setImagen(ruta);
+			
+			session.update(m);
+
+			session.getTransaction().commit();
+
+			session.close();
+			
+			unaMascota.set(0, m);
+			todasLasMascotas.clear();
 			RepositorioMascota.obtenerMascotasCliente();
 			
 		}
@@ -274,31 +299,39 @@ public class RepositorioMascota {
 		
 	}
 	
-	public static void crearImagen(String nombre) {
-		
-		String origen = "";
-		String destino = "" + nombre;
-		
-		ImageIcon nueva = new ImageIcon(origen);
-        nueva = adaptarImagen(nueva);
-        
-        try {
-            Files.copy(Paths.get(origen),Paths.get(destino));
-        } catch (IOException ex) {}
-		
-		
-	}
+//	public static void crearImagen(String nombre) {
+//		
+//		String origen = "";
+//		String destino = "" + nombre;
+//		
+//		ImageIcon nueva = new ImageIcon(origen);
+//        nueva = adaptarImagen(nueva);
+//        
+//        try {
+//            Files.copy(Paths.get(origen),Paths.get(destino));
+//        } catch (IOException ex) {}
+//		
+//		
+//	}
+//	
+//	public static ImageIcon adaptarImagen(ImageIcon i){
+//        
+//        Image imagen = i.getImage();
+//        
+//        imagen = imagen.getScaledInstance(155, 158, Image.SCALE_SMOOTH);
+//        
+//        return new ImageIcon(imagen);
+//    }
 	
-	public static ImageIcon adaptarImagen(ImageIcon i){
-        
-        Image imagen = i.getImage();
-        
-        imagen = imagen.getScaledInstance(155, 158, Image.SCALE_SMOOTH);
-        
-        return new ImageIcon(imagen);
-    }
+	/**
+	 * Método encargado de mostrar un popup en la vista de administrarCitas para saber si puede perdir cita o no
+	 * No podrá pedir cita de una mascota si antes no tiene mascotas registradas.
+	 * 
+	 * @return 0 si no hay mascotas 
+	 */
 	
 	public static int hayMascota() {
+		
 		if(todasLasMascotas.isEmpty()) {
 			return 0;
 		}else

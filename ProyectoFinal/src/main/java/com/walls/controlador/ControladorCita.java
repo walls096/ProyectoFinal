@@ -22,6 +22,8 @@ public class ControladorCita {
 
 	@Autowired
 	ServicioCita servicioCita;
+	@Autowired
+	ServicioMascota servicioMascota;
 	
 	@RequestMapping(value="/pedirCitaFormulario", method=RequestMethod.POST)
     public String pedirCita(Model model,
@@ -104,13 +106,13 @@ public class ControladorCita {
 			servicioCita.eliminarCita(c);
 		}
 		
-		List<Mascota> mascota = ServicioMascota.obtenerUnaMascota(citaDeMascota.get(0).getCodMascota());
+		List<Mascota> mascota = servicioMascota.obtenerUnaMascota(citaDeMascota.get(0).getCodMascota());
 		RepositorioMascota.eliminarMascota(mascota.get(0));
 		
 		
 		for(Mascota m : RepositorioMascota.getTodasLasMascotas()) {
 			if(id == m.getCodMascota()) {
-				ServicioMascota.borrarMascotaLista(m);
+				servicioMascota.borrarMascotaLista(m);
 				break;
 			}
 		}

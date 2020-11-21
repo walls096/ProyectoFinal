@@ -11,17 +11,25 @@ import com.walls.entidades.Mascota;
 
 public class RepositorioCita {
 
-	private static List<Cita> citasCliente;
-	private static List<Cita> unaCita;
+	private static List<Cita> citasCliente;		//LISTA QUE CONTIENE TODAS LAS CITAS DE UN CLIENTE
+	private static List<Cita> unaCita;			//LISTA UTILIZADA PARA MODIFICAR UNA CITA
 	private static List<Cita> citasMascota;
 	private static String[] horasDisponibles = {
 			"08:00","08:30","09:00","09:30","10:00","10:30","11:00","11:30","12:00","12:30","13:00","13:30","14:00",
 			"16:00","16:30","17:00","17:30","18:00","18:30","19:00","19:30","20:00","20:30"};
 	
 	
-	
+	/**
+	 * Método encargado de administrar que tipo de filtro se quiere aplicar.
+	 * Una vez elegido se dirige a ejecutar la consulta correspondiente.
+	 * 
+	 * @param filtroMascota
+	 * @param filtroTipo	
+	 * @param dosFiltros	bandera de control para filtrar por ambos campos
+	 */
 	public static void obtenerCitasFiltradas(String filtroMascota, String filtroTipo, boolean dosFiltros) {
 		
+		//En primer lugar se selecciona el codigo de la mascota para efectuar su filtro
 		int codMascota = 0;
 		
 		if(null != filtroMascota) {
@@ -39,18 +47,13 @@ public class RepositorioCita {
 			filtrarAmbosCampos(filtroTipo, codMascota);
 			
 		}else {
-				
-				if(null != filtroTipo) {
-					
-					filtrarTipoCita(filtroTipo);
-				}
-				
-				if(null != filtroMascota) {
-					
-					filtrarNombreMascota(codMascota);
-				}
-				
+			if(null != filtroTipo) {
+				filtrarTipoCita(filtroTipo);
 			}
+			if(null != filtroMascota) {
+				filtrarNombreMascota(codMascota);
+			}
+		}
 			
 		
 	}
@@ -143,6 +146,13 @@ public class RepositorioCita {
 		}
 	}
 	
+	/**
+	 * Se comprueba que hay una cita disponible, es decir, que no hay ninguna cita asignada a dicha fecha y hora.
+	 * 
+	 * @param fecha
+	 * @param hora
+	 * @return
+	 */
 	public static boolean citaDisponible(Date fecha, String hora) {
 		
 		Session session = HibernateUtils.getSessionFactory().openSession();
@@ -238,6 +248,14 @@ public class RepositorioCita {
 		}
 	}
 	
+	
+	/**
+	 * Se modifica la cita que se recibe por param, se setean los valores guardados en unaCita
+	 * sólo se modifican los valores tipo cita y observacion.
+	 * 
+	 * @unaCita		lista encargada de la modificacion de una cita, se almacenan sus valores
+	 * @param c
+	 */
 	public static void modificarUnaCita(Cita c) {
 		
 		Session session = HibernateUtils.getSessionFactory().openSession();
@@ -265,6 +283,7 @@ public class RepositorioCita {
 
 			session.close();
 			
+			//Se elimina las citas del cliente y los datos almacenados en unaCita para su posterior recarga
 			citasCliente.clear();
 			unaCita.clear();
 			RepositorioCita.obtenerCitasCliente();
@@ -318,6 +337,13 @@ public class RepositorioCita {
 		}
 	}
 	
+	
+	/**
+	 *Método por el cual se seleccionan los valores de la cita que hay que modificar 
+	 * 
+	 * @param id   código de la cita
+	 * @return
+	 */
 	public static List<Cita> obtenerUnaCita(int id) {
 		
 		Session session = HibernateUtils.getSessionFactory().openSession();
@@ -407,7 +433,12 @@ public class RepositorioCita {
 		
 	}
 	
-	
+	/**
+	 * Se utiliza para saber si una mascota tiene cita o no, pues no puede haber una cita de una mascota que no existe.
+	 * 
+	 * @param idMascota
+	 * @return
+	 */
 	public static boolean tieneCita(int idMascota) {
 		
 		Session session = HibernateUtils.getSessionFactory().openSession();

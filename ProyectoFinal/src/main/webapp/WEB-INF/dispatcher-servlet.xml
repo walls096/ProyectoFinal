@@ -18,10 +18,15 @@
     	<context:component-scan base-package="com.walls"/>
     	
     	
-    	<!--  Parseamos la vista para que sea Spring quien las trate, indicando su tipo -->
+    	<!--  Parseamos la respuesta para que sea Spring quien las trate, indicando su tipo -->
 	    <beans:bean name="response" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 	        <beans:property name="prefix" value="/WEB-INF/vista/" />
 	        <beans:property name="suffix" value=".jsp" />
 	    </beans:bean>
+	    
+	    <!-- Bean necesario para actualizar archivos en la aplicacion -->
+	    <beans:bean name="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+    		<beans:property name="maxUploadSize" value="10000000"/>
+		</beans:bean>
 	    
 </beans:beans>

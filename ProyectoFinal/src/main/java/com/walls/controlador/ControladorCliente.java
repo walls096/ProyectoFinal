@@ -14,13 +14,15 @@ import com.walls.servicio.ServicioCita;
 import com.walls.servicio.ServicioCliente;
 import com.walls.servicio.ServicioMascota;
 
-
-//anotacion de spring indica que esta clase es un controlador 
 @Controller
 public class ControladorCliente {
 
 	@Autowired
 	ServicioCliente servicioCliente;
+	@Autowired
+	ServicioCita servicioCita;
+	@Autowired
+	ServicioMascota servicioMascota;
     
     @RequestMapping(value="/compruebaLogin", method=RequestMethod.POST)
     public String compruebaUsuario(Model model, @RequestParam("mail") String mail) {
@@ -41,7 +43,7 @@ public class ControladorCliente {
     public String compruebaPassUsuario(Model model,@RequestParam("pass") String pass) {
     	    	
     	if(servicioCliente.compruebaPass(pass)) {
-    		ServicioMascota.obtenerMascotasCliente();
+    		servicioMascota.obtenerMascotasCliente();
     		return "panelPrincipal";
     	}
     	else {
@@ -66,8 +68,8 @@ public class ControladorCliente {
     		
     		mail = mail.toUpperCase();
     		if(servicioCliente.registrarCliente(dni,mail,nombre,fecha_nac,pass)) {
-    			ServicioMascota.obtenerMascotasCliente();
-    			ServicioCita.obtenerCitasCliente();
+    			servicioMascota.obtenerMascotasCliente();
+    			servicioCita.obtenerCitasCliente();
     			return "panelPrincipal";
     		}else {
         		model.addAttribute("mensaje","El correo introducido ya existe");
