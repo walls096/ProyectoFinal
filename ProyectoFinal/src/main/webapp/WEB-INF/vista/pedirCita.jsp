@@ -130,11 +130,15 @@
 											<div class="col-md-6">
 												<select class="custom-select mr-sm-2"
 													id="nombreMascota" name="nombreMascota">
+													
 													<%for (Mascota mascota: RepositorioMascota.getTodasLasMascotas()){ %>
 													
 														<option><%=mascota.getNombre()%></option>
 													
 													<%}%>
+													
+													
+													
 												</select>
 											</div>
 										</div>
@@ -159,7 +163,7 @@
 												class="col-md-4 col-form-label text-md-right">Observaciones</label>
 											<div class="col-md-6">
 											<p class="colorRed">(Acaba cada observacion con una ,)</p>
-											<textarea class="form-control" id="observaciones" name	="observaciones" rows="5" cols="200"></textarea>
+											<textarea class="form-control" onkeypress="if (event.keyCode == 13) { return false }" id="observaciones" name	="observaciones" rows="5" cols="200"></textarea>
 												
 											</div>
 										</div>

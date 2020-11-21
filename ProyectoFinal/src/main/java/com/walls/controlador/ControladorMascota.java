@@ -2,13 +2,14 @@ package com.walls.controlador;
 
 import java.util.List;
 
+import javax.servlet.http.Part;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestPart;
 
 import com.walls.entidades.Mascota;
 import com.walls.repositorio.RepositorioMascota;
@@ -78,10 +79,12 @@ public class ControladorMascota {
     		@RequestParam("nombre") String nombre,
     		@RequestParam("tipo") String tipo,
     		@RequestParam("raza") String raza,
-    		@RequestParam("imagen") String imagen) {
+    		@RequestPart("imagen") Part imagen) {
     	
-		
-		ServicioMascota.modificarUnaMascota(nombre,tipo,raza,imagen);
+		if(null != imagen) {
+			
+		}
+		//ServicioMascota.modificarUnaMascota(nombre,tipo,raza,imagen);
 		
 		
 		return "listadoMascota";

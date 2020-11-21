@@ -122,11 +122,7 @@ public class RepositorioMascota {
 				session.beginTransaction();
 				
 				List<Mascota> todasMascotas = obtenerTodasLasMascotas();
-				
-				int id = 0;
-				
-				if(todasMascotas.size() != 0)
-					id = todasMascotas.size();
+				int id = todasMascotas.size();
 				
 				Mascota m = new Mascota();
 				m.setCodMascota(id);
@@ -301,6 +297,13 @@ public class RepositorioMascota {
         
         return new ImageIcon(imagen);
     }
+	
+	public static int hayMascota() {
+		if(todasLasMascotas.isEmpty()) {
+			return 0;
+		}else
+			return 1;
+	}
 	
 	public static void borrarMascotaLista(Mascota o) {
 		todasLasMascotas.remove(o);

@@ -55,6 +55,17 @@
 		}
 		
 	}
+	
+	function pedirCita(bandera){
+		
+		if(bandera == 1){
+			window.location = "pedirCita";
+		}else{
+			alert("No tiene mascotas dadas de alta. Por favor agregue alguna.");
+			window.location = "crearMascota";
+		}
+	}
+	
 </script>
 
 <style>
@@ -147,7 +158,7 @@
 
 						<article class="col-xs-12 col-sm-12 col-md-2	">
 							<div class="text-center text-md-left">
-								<a class="btn btn-primary" href="pedirCita">Pedir cita</a>
+								<a class="btn btn-primary" onclick="pedirCita(<%=RepositorioMascota.hayMascota()%>)">Pedir cita</a>
 							</div>
 						</article>
 						<%if (RepositorioCita.getCitasCliente().size() != 0) { %>
@@ -234,9 +245,15 @@
 											<%
 												String[] observaciones = c.getObservacion().split("#");
 												for (String todasObservaciones : observaciones) {
+													if(!todasObservaciones.isEmpty()){
 											%>
 													<p><%=todasObservaciones%></p> <%
-										 		}
+										 			}else{
+										 	%>
+										 			<p>SIN OBSERVACIONES</p> 
+										 	<%
+										 			}
+												}
 											%>
 										</td>
 										<td>

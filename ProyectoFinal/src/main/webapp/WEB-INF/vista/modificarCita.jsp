@@ -167,16 +167,14 @@
 												class="col-md-4 col-form-label text-md-right">Observaciones</label>
 											<div class="col-md-6">
 											<p class="colorRed">(Acaba cada observacion con una ,)</p>
-											<%String[] split = RepositorioCita.getUnaCita().get(0).getObservacion().split("#");
+											<%String observ = RepositorioCita.getUnaCita().get(0).getObservacion();
+												
+												observ = observ.replace("#", ",");
 													
-													if(split.length != 0)
-													if(split[0].equals("SIN OBSERVACIONES")){
-														split[0] = "";
-													}
 													%>
 											
 											
-												<textarea class="form-control" name="observaciones" rows="5" cols="200"><%for(String s : split){%><%=s+",\n"%><%}%></textarea>
+												<textarea class="form-control" onkeypress="if (event.keyCode == 13) { return false }" name="observaciones" rows="5" cols="200"><%=observ%></textarea>
 												
 												
 											</div>

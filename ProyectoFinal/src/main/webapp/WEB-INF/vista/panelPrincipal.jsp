@@ -162,7 +162,7 @@
 											<td><%=c.getHora() %></td> 
 											<td><%=RepositorioMascota.obtenerUnaMascota(c.getCodMascota()).get(0).getNombre() %></td> 
 											<td><%=c.getTipoCita() %></td>
-											<td><a href="#" onclick="mostrarDetalles(<%=c.getCodCita() %>)" class="btn btn-sm btn-success"><span class="glyphicon glyphicon-plus-sign"></span>+</a></td>
+											<td><input type="button" value="+" onclick="mostrarDetalles(<%=c.getCodCita() %>)" class="btn btn-sm btn-success"><span class="glyphicon glyphicon-plus-sign"></span></td>
 										</tr>
 									</tbody>
 									</table>
@@ -171,22 +171,27 @@
 										
 						
 							<%
-						
-										String[] observaciones = c.getObservacion().split("#");
+										if(!"".equals(c.getObservacion())){
+											String[] observaciones = c.getObservacion().split("#");
 		
 						
 											for (String todasObservaciones : observaciones) {
 							%>
 												<tr>
 													<th scope="row">-------</th>
-													<%if(!todasObservaciones.equals("")) {%>
-														<td colspan="3"><%=todasObservaciones %></td>
-													<%}else {%>
-													<td colspan="3">Sin observaciones</td> 
-													<%} %>
+													<td colspan="3"><%=todasObservaciones %></td>
+													
 												</tr>
 							<%
 											}
+										}else{
+											%>
+											<tr>
+											<th scope="row">-------</th>
+											<td colspan="3">SIN OBSERVACIONES</td> 
+											</tr>
+											<%
+										}
 										}
 									}
 								}

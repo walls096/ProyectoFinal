@@ -11,7 +11,7 @@ import com.walls.repositorio.RepositorioCita;
 @Service
 public class ServicioCita {
 
-	public static List<Cita> obtenerCitasCliente() {
+	public List<Cita> obtenerCitasCliente() {
 		return RepositorioCita.obtenerCitasCliente();
 	}
 	

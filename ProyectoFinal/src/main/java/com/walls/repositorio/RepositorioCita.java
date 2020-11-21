@@ -13,7 +13,7 @@ public class RepositorioCita {
 
 	private static List<Cita> citasCliente;
 	private static List<Cita> unaCita;
-	private static List<Cita> mascotaConCita;
+	private static List<Cita> citasMascota;
 	private static String[] horasDisponibles = {
 			"08:00","08:30","09:00","09:30","10:00","10:30","11:00","11:30","12:00","12:30","13:00","13:30","14:00",
 			"16:00","16:30","17:00","17:30","18:00","18:30","19:00","19:30","20:00","20:30"};
@@ -256,7 +256,7 @@ public class RepositorioCita {
 				c.setTipoCita(unaCita.get(0).getTipoCita());
 			
 			if(c.getObservacion().equals(""))
-				c.setObservacion(unaCita.get(0).getObservacion());
+				c.setObservacion("");
 			
 			
 			session.update(c);
@@ -358,10 +358,7 @@ public class RepositorioCita {
 
 			session.beginTransaction();
 			
-			int id = 0;
-			
-			if(citasCliente.size() != 0)
-				id = RepositorioCita.obtenerTodasLasCitas().size();
+			int id = RepositorioCita.obtenerTodasLasCitas().size();
 			
 			c.setCodCita(id);
 			
@@ -428,7 +425,7 @@ public class RepositorioCita {
 
 			session.close();
 			
-			mascotaConCita = cita;
+			citasMascota = cita;
 			
 			if(!cita.isEmpty())
 				return true;
@@ -447,7 +444,7 @@ public class RepositorioCita {
 	}
 	
 	public static List<Cita> getCitaDeMascota() {
-		return mascotaConCita;
+		return citasMascota;
 	}
 	
 	public static List<Cita> getCitasCliente() {
@@ -466,7 +463,7 @@ public class RepositorioCita {
 		try {
 			citasCliente.clear();
 			unaCita.clear();
-			mascotaConCita.clear();
+			citasMascota.clear();
 		} catch (Exception e) {
 			// TODO: handle exception
 		}

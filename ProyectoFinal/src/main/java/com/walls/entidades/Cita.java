@@ -111,8 +111,8 @@ public class Cita implements java.io.Serializable {
 
 	public String getObservacion() {
 		
-		if(observacion.equals(""))
-			return "SIN OBSERVACIONES";
+		if(observacion.equals("#"))
+			return "";
 		else
 			return this.observacion;
 	}

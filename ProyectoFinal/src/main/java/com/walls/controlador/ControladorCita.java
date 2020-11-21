@@ -50,30 +50,26 @@ public class ControladorCita {
 								
 						}
 						
-//						String[] observ = observaciones.split(",");	
 						String todasObservaciones="";
-//						for(String o:observ) {
-//							todasObservaciones = todasObservaciones + o +"#";
-//						}
 						
-//						for (int i=0 ; i < observaciones.length(); i++) {
-//							todasObservaciones = todasObservaciones + observaciones.charAt(i);
-//							if(observaciones.charAt(i) == ',' ){
-//								if(observaciones.length() <= i) {
-//									todasObservaciones = todasObservaciones + observaciones.charAt(i+5);
-//									i+=4;
-//								}
-//							}
-//						}
-						
-						
+						if(!"".equals(observaciones)) {
+							String[] observ = observaciones.split(",");	
+							
+							for(String o:observ) {
+								todasObservaciones = todasObservaciones + o +"#";
+							}
+							todasObservaciones = todasObservaciones.toUpperCase();
+						}else {
+							todasObservaciones = "#";
+						}
+	
 						servicioCita.crearCita(new Cita(
 								RepositorioCliente.getCodCliente(),
 								codMascota,
 								fecha,
 								hora,
 								tipo,
-								todasObservaciones.toUpperCase()));
+								todasObservaciones));
 						
 					}else {
 						model.addAttribute("mensaje","Ya hay una cita asignada a dicho dia y hora.");
@@ -103,7 +99,11 @@ public class ControladorCita {
     	
 		servicioCita.tieneCita(id);
 		List<Cita> citaDeMascota = RepositorioCita.getCitaDeMascota();
-		servicioCita.eliminarCita(citaDeMascota.get(0));
+		
+		for(Cita c: citaDeMascota) {
+			servicioCita.eliminarCita(c);
+		}
+		
 		List<Mascota> mascota = ServicioMascota.obtenerUnaMascota(citaDeMascota.get(0).getCodMascota());
 		RepositorioMascota.eliminarMascota(mascota.get(0));
 		
@@ -115,13 +115,9 @@ public class ControladorCita {
 			}
 		}
 		
-		for(Cita c : RepositorioCita.getCitasCliente() ) {
-			if(citaDeMascota.get(0).getCodCita() == c.getCodCita()) {
-				servicioCita.eliminarCitaLista(c);
-				servicioCita.crearCita(c);
-				return "listadoMascota";
-			}
-		}
+		RepositorioCita.eliminarCitasCliente();
+		servicioCita.obtenerCitasCliente();
+				
     	
 		return "listadoMascota";
       	
@@ -133,7 +129,7 @@ public class ControladorCita {
 		
 		List<Cita> cita = servicioCita.obtenerUnaCita(id);
 		servicioCita.eliminarCita(cita.get(0));
-		ServicioCita.obtenerCitasCliente();
+		servicioCita.obtenerCitasCliente();
 		
 		
 		for(Cita c: servicioCita.getCitasCliente()) {
@@ -150,7 +146,7 @@ public class ControladorCita {
 	@RequestMapping(value="/actualizarCitas", method=RequestMethod.GET)
     public String actualizarCitas(Model model) {
     	
-		ServicioCita.obtenerCitasCliente();
+		servicioCita.obtenerCitasCliente();
 		
 		return "administrarCitas";
       	
@@ -170,12 +166,15 @@ public class ControladorCita {
     		@RequestParam("tipoCita") String tipoCita,
     		@RequestParam("observaciones") String observaciones) {
 		
-
-		String[] split = observaciones.split(",");
+		
 		String cadenaFormateada= "";
-		for(String o : split) {
-			o.toUpperCase();
-			cadenaFormateada = cadenaFormateada + o + "#";
+		if(!"".contentEquals(observaciones)) {
+			String[] split = observaciones.split(",");
+			for(String o : split) {
+				o.toUpperCase();
+				cadenaFormateada = cadenaFormateada + o + "#";
+			}
+			cadenaFormateada = cadenaFormateada.toUpperCase();
 		}
 		
 		servicioCita.modificarCita(new Cita(tipoCita,cadenaFormateada)); 	
@@ -235,7 +234,7 @@ public class ControladorCita {
     		else if(!filtroTipo.contentEquals("-TIPO CITA-")) {
     			servicioCita.obtenerCitasFiltradas(null,filtroTipo, false);
     		}else {
-    			ServicioCita.obtenerCitasCliente();
+    			servicioCita.obtenerCitasCliente();
     		}
     		
     	}
