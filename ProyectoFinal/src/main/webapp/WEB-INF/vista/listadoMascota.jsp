@@ -123,7 +123,7 @@
 			</nav>
 
 			<div class="container-fluid weight-auto">
-				<h3 class="text-center separacion">Listado de Mascotas</h3>
+				<h3 class="text-center">Listado de Mascotas</h3>
 
 				<section class="container">
 

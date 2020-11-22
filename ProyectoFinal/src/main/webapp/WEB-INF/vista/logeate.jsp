@@ -31,6 +31,10 @@
 .colorRed{
 	color:red;
 }
+
+.weight-auto{
+	padding-bottom: 14.2%;
+}
 </style>
 
 </head>

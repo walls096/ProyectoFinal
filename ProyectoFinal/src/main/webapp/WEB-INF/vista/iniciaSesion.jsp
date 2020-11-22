@@ -27,6 +27,9 @@
 .separacion {
 	padding-top: 5%;
 }
+.weight-auto{
+	padding-bottom: 14.2%;
+}
 </style>
 
 </head>
